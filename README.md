@@ -4,3 +4,4 @@
 
 - Elliot Jimenez
 - Arnau Morgado
+- Albert Llopart
