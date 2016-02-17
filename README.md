@@ -3,3 +3,4 @@
 * Your Name:
 
 - Elliot Jimenez
+- Arnau Morgado
