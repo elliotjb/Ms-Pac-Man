@@ -6,3 +6,4 @@
 - Arnau Morgado
 - Albert Llopart
 - Alfonso Sanchez
+- Gerard Gil
