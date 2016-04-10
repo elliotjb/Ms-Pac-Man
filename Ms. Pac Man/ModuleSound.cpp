@@ -21,14 +21,12 @@ ModuleSound::~ModuleSound()
 
 }
 
-// Load assets
+// Load
 bool ModuleSound::Start()
 {
-	Mix_Init(MIX_INIT_OGG | MIX_INIT_MOD);
-
+	int flags = MIX_INIT_OGG;
+	int start = Mix_Init(flags);
 	Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 1024);
-	music = Mix_LoadMUS("mspacmanStart.ogg");
-	Mix_PlayMusic(music, -1);
 	LOG("Loading background assets");
 	bool ret = true;
 
@@ -44,10 +42,20 @@ bool ModuleSound::CleanUp()
 	return true;
 }
 
-// Update: draw background
-update_status ModuleSound::Update()
+
+_Mix_Music* const ModuleSound::LoadMUS(const char* path)
 {
-	
+	_Mix_Music* music = NULL;
+
+	_Mix_Music* music_2 = Mix_LoadMUS(path);
+	Mix_PlayMusic(music_2, -1);
+}
+/*update_status ModuleSound::Update()
+{
+
+	Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 1024);
+	music = Mix_LoadMUS("mspacmanStart.ogg");
+	Mix_PlayMusic(music, -1);
 	if (App->input->keyboard[SDL_SCANCODE_SPACE] == 1)
 	{
 		App->fade->FadeToBlack(this, (Module*)App->welcome, 5.0f);
