@@ -9,9 +9,13 @@ class ModuleWindow;
 class ModuleInput;
 class ModuleTextures;
 class ModuleRender;
-class ModuleBackground;
 class ModulePlayer;
 class Module;
+class ModuleWelcome;
+class ModuleLevel1;
+class ModuleLevel2;
+class ModuleCongratulation;
+class ModuleFadeToBlack;
 
 class Application
 {
@@ -22,8 +26,12 @@ public:
 	ModuleRender* render;
 	ModuleInput* input;
 	ModuleTextures* textures;
-	ModuleBackground* background;
 	ModulePlayer* player;
+	ModuleWelcome* welcome;
+	ModuleLevel1* level1;
+	ModuleLevel2* level2;
+	ModuleCongratulation* win;
+	ModuleFadeToBlack* fade;
 
 public:
 

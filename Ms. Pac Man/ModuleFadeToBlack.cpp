@@ -6,8 +6,10 @@
 #include "SDL/include/SDL_render.h"
 #include "SDL/include/SDL_timer.h"
 #include "ModulePlayer.h"
-#include "ModuleSceneKen.h"
-#include "ModuleSceneHonda.h"
+#include "ModuleWelcome.h"
+#include "ModuleLevel_1.h"
+#include "ModuleLevel_2.h"
+#include "ModuleCongratulation.h"
 
 ModuleFadeToBlack::ModuleFadeToBlack()
 {

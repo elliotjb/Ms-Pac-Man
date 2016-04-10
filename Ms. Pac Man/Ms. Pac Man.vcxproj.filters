@@ -12,6 +12,9 @@
     <Filter Include="Containers">
       <UniqueIdentifier>{78a7f487-1d77-4fdc-9f51-f067eccd6239}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Levels - Modules">
+      <UniqueIdentifier>{588cc03b-e44d-4b8d-936d-698f7f37f1f1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Module.h">
@@ -38,9 +41,6 @@
     <ClInclude Include="ModuleTextures.h">
       <Filter>Modules</Filter>
     </ClInclude>
-    <ClInclude Include="ModuleBackground.h">
-      <Filter>Modules</Filter>
-    </ClInclude>
     <ClInclude Include="ModulePlayer.h">
       <Filter>Modules</Filter>
     </ClInclude>
@@ -52,6 +52,18 @@
     </ClInclude>
     <ClInclude Include="ModuleFadeToBlack.h">
       <Filter>Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="ModuleWelcome.h">
+      <Filter>Levels - Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="ModuleLevel_1.h">
+      <Filter>Levels - Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="ModuleLevel_2.h">
+      <Filter>Levels - Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="ModuleCongratulation.h">
+      <Filter>Levels - Modules</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -76,14 +88,23 @@
     <ClCompile Include="Globals.cpp">
       <Filter>Core</Filter>
     </ClCompile>
-    <ClCompile Include="ModuleBackground.cpp">
-      <Filter>Modules</Filter>
-    </ClCompile>
     <ClCompile Include="ModulePlayer.cpp">
       <Filter>Modules</Filter>
     </ClCompile>
     <ClCompile Include="ModuleFadeToBlack.cpp">
       <Filter>Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="ModuleWelcome.cpp">
+      <Filter>Levels - Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="ModuleLevel_1.cpp">
+      <Filter>Levels - Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="ModuleLevel_2.cpp">
+      <Filter>Levels - Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="ModuleCongratulations.cpp">
+      <Filter>Levels - Modules</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
