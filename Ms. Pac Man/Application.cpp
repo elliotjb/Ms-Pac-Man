@@ -36,7 +36,6 @@ bool Application::Init()
 
 	// Player will be enabled on the first update of a new scene
 	player->Disable();
-
 	level1->Disable();
 	level2->Disable();
 	win->Disable();

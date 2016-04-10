@@ -36,7 +36,6 @@ bool ModuleCongratulation::Start()
 	graphics = App->textures->Load("Mspacman_congratu.png");
 
 	// TODO 1: Enable (and properly disable) the player module
-	App->player->Enable();
 
 	return ret;
 }
