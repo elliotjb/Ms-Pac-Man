@@ -44,7 +44,7 @@ bool ModuleLevel2::Start()
 // Load assets
 bool ModuleLevel2::CleanUp()
 {
-	LOG("Unloading honda stage");
+	LOG("Unloading Level2 stage");
 	App->player->CleanUp();
 	return true;
 }
@@ -60,7 +60,7 @@ update_status ModuleLevel2::Update()
 	// TODO 3: make so pressing SPACE the KEN stage is loaded
 	if (App->input->keyboard[SDL_SCANCODE_SPACE] == 1)
 	{
-		App->fade->FadeToBlack(this, (Module*)App->win, 5.0f);
+		App->fade->FadeToBlack(this, (Module*)App->win, 2.0f);
 	}
 
 	return UPDATE_CONTINUE;

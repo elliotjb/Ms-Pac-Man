@@ -6,6 +6,7 @@
 #include "Globals.h"
 
 struct SDL_Texture;
+struct _Mix_Music;
 
 class ModuleWelcome : public Module
 {
@@ -20,8 +21,8 @@ public:
 public:
 
 	SDL_Texture* graphics = nullptr;
+	_Mix_Music* music_sound = nullptr;
 	SDL_Rect welcome;
-	Animation water;
 };
 
 #endif // __MODULEWELCOME_H__

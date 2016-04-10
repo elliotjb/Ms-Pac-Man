@@ -4,6 +4,7 @@
 #include "ModuleInput.h"
 #include "ModuleTextures.h"
 #include "ModulePlayer.h"
+#include "ModuleSound.h"
 #include "ModuleWelcome.h"
 #include "ModuleLevel_1.h"
 #include "ModuleLevel_2.h"
@@ -21,7 +22,8 @@ Application::Application()
 	modules[6] = level2 = new ModuleLevel2();
 	modules[7] = win = new ModuleCongratulation();
 	modules[8] = player = new ModulePlayer();
-	modules[9] = fade = new ModuleFadeToBlack();
+	modules[9] = sound = new ModuleSound();
+	modules[10] = fade = new ModuleFadeToBlack();
 }	
 
 Application::~Application()

@@ -59,7 +59,7 @@ update_status ModuleCongratulation::Update()
 	// TODO 3: make so pressing SPACE the KEN stage is loaded
 	if (App->input->keyboard[SDL_SCANCODE_SPACE] == 1)
 	{
-		App->fade->FadeToBlack(this, (Module*)App->welcome, 5.0f);
+		App->fade->FadeToBlack(this, (Module*)App->welcome, 2.0f);
 	}
 
 	return UPDATE_CONTINUE;
