@@ -29,6 +29,17 @@ ModulePlayer::ModulePlayer()
 	backward.PushBack({ 473, 17, 15, 14 });
 	backward.speed = 0.155f;
 
+	up.PushBack({457,36,13,13});
+	up.PushBack({ 473, 34, 13, 13 });
+	up.PushBack({489,32,13,14});
+	up.PushBack({ 473, 34, 13, 13 });
+	up.speed = 0.1f;
+
+	down.PushBack({457,49,13,10});
+	down.PushBack({ 472, 49, 14, 12 });
+	down.PushBack({ 487, 49, 15, 14 });
+	down.PushBack({ 472, 49, 14, 12 });
+	down.speed = 0.1;
 }
 
 ModulePlayer::~ModulePlayer()
@@ -70,11 +81,11 @@ update_status ModulePlayer::Update()
 		position.x -= speed;
 	}
 	if (App->input->keyboard[SDL_SCANCODE_S] == 1){
-		current_animation = &backward;
+		current_animation = &down;
 		position.y += speed;
 	}
 	if (App->input->keyboard[SDL_SCANCODE_W] == 1){
-		current_animation = &backward;
+		current_animation = &up;
 		position.y -= speed;
 	}
 
