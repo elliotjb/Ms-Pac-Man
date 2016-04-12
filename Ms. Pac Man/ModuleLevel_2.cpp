@@ -14,6 +14,9 @@ ModuleLevel2::ModuleLevel2()
 {
 	//Welcome
 	level2 = { 0, 0, 224, 288 };
+	big_point.PushBack({ 208, 280, 8, 8 });
+	big_point.PushBack({ 235, 280, 8, 8 });
+	big_point.speed = 0.1f;
 	// ground
 	//ground = { 8, 376, 848, 64 };
 
@@ -34,6 +37,8 @@ bool ModuleLevel2::Start()
 	LOG("Loading background assets");
 	bool ret = true;
 	graphics = App->textures->Load("MsPacman_Level2.png");
+	graphics_2 = App->textures->Load("MsPacMan_Sprites.png");
+
 
 	// TODO 1: Enable (and properly disable) the player module
 	App->player->Enable();
@@ -54,6 +59,13 @@ update_status ModuleLevel2::Update()
 {
 	// Draw everything --------------------------------------	
 	App->render->Blit(graphics, 0, 0, &level2);
+	
+
+	SDL_Rect r = actual_animation->GetCurrentFrame();
+	App->render->Blit(graphics_2, 8, 56, &r);
+	App->render->Blit(graphics_2, 208, 56, &r);
+	App->render->Blit(graphics_2, 8, 232, &r);
+	App->render->Blit(graphics_2, 208, 232, &r);
 
 	//App->render->Blit(graphics, 305, 136, &(water.GetCurrentFrame())); // water animation
 
