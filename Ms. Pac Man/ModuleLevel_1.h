@@ -19,7 +19,9 @@ public:
 
 public:
 	Animation big_point;
+	Animation* actual_animation = &big_point;
 	SDL_Texture* graphics = nullptr;
+	SDL_Texture* graphics_2 = nullptr;
 	SDL_Rect level1;
 	Animation water;
 };

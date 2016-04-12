@@ -14,8 +14,10 @@ ModuleLevel1::ModuleLevel1()
 {
 	//Welcome
 	level1 = { 0, 0, 224, 288 };
-	big_point.PushBack({ 208, 16, 7, 7 });
-	big_point.PushBack({ 235, 16, 7, 7 });
+
+	big_point.PushBack({ 208, 16, 8, 8 });
+	big_point.PushBack({ 235, 16, 8, 8 });
+	big_point.speed = 0.1f;
 }
 
 ModuleLevel1::~ModuleLevel1()
@@ -29,6 +31,7 @@ bool ModuleLevel1::Start()
 	LOG("Loading background assets");
 
 	graphics = App->textures->Load("Mspacman.png");
+	graphics_2 = App->textures->Load("MsPacman_Level2.png");
 
 	App->player->Enable();
 
@@ -45,9 +48,15 @@ bool ModuleLevel1::CleanUp()
 // Update
 update_status ModuleLevel1::Update()
 {
-	// Draw everything --------------------------------------	
+	// Draw everything --------------------------------------
+
 	App->render->Blit(graphics, 0, 0, &level1);
 
+	SDL_Rect r = actual_animation->GetCurrentFrame();
+	App->render->Blit(graphics_2, 208, 40, &r);
+	App->render->Blit(graphics_2, 8, 40, &r);
+	App->render->Blit(graphics_2, 8, 240, &r);
+	App->render->Blit(graphics_2, 208, 240, &r);
 	//App->render->Blit(graphics, 305, 136, &(water.GetCurrentFrame())); // water animation
 
 	if (App->input->keyboard[SDL_SCANCODE_SPACE] == 1)
