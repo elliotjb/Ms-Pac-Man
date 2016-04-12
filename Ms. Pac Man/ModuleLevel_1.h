@@ -18,7 +18,7 @@ public:
 	bool CleanUp();
 
 public:
-
+	Animation big_point;
 	SDL_Texture* graphics = nullptr;
 	SDL_Rect level1;
 	Animation water;

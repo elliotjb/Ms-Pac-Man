@@ -14,7 +14,8 @@ ModuleLevel1::ModuleLevel1()
 {
 	//Welcome
 	level1 = { 0, 0, 224, 288 };
-
+	big_point.PushBack({ 208, 16, 7, 7 });
+	big_point.PushBack({ 235, 16, 7, 7 });
 }
 
 ModuleLevel1::~ModuleLevel1()
