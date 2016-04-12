@@ -19,12 +19,14 @@ public:
 
 public:
 
+	Animation* current_animation = &backward;
+
 	SDL_Texture* graphics = nullptr;
 	Animation forward; //Hacia derecha
 	Animation backward; //Hacia izqueirda
 	Animation up;
 	Animation down;
-	iPoint position;
+	fPoint position;
 	int last_key = 0;
 	int cont = 0;
 };

@@ -16,30 +16,30 @@ ModulePlayer::ModulePlayer()
 
 	// walk forward animation (arcade sprite sheet)
 	//forward.frames.PushBack({9, 136, 53, 83});
-	forward.PushBack({489, 1, 15, 14});
-	forward.PushBack({473, 1, 15, 14});
-	forward.PushBack({457, 1, 15, 14});
-	forward.PushBack({473, 1, 15, 14});
-	forward.speed = 0.1f;
+	forward.PushBack({ 489, 1, 15, 15 });
+	forward.PushBack({ 473, 1, 15, 15 });
+	forward.PushBack({ 457, 1, 15, 15 });
+	forward.PushBack({ 473, 1, 15, 15 });
+	forward.speed = 0.3f;
 
 	// TODO 4: Make ryu walk backwards with the correct animations
-	backward.PushBack({ 488, 17, 15, 14 });
-	backward.PushBack({ 473, 17, 15, 14 });
-	backward.PushBack({ 457, 17, 15, 14 });
-	backward.PushBack({ 473, 17, 15, 14 });
-	backward.speed = 0.155f;
+	backward.PushBack({ 488, 17, 15, 15 });
+	backward.PushBack({ 473, 17, 15, 15 });
+	backward.PushBack({ 457, 17, 15, 15 });
+	backward.PushBack({ 473, 17, 15, 15 });
+	backward.speed = 0.3f;
 
-	up.PushBack({457,36,13,13});
-	up.PushBack({ 473, 34, 13, 13 });
-	up.PushBack({489,32,13,14});
-	up.PushBack({ 473, 34, 13, 13 });
-	up.speed = 0.1f;
+	up.PushBack({ 489, 32, 15, 15 });
+	up.PushBack({ 473, 32, 15, 15 });
+	up.PushBack({ 457, 32, 15, 15 });
+	up.PushBack({ 473, 32, 15, 15 });
+	up.speed = 0.3f;
 
-	down.PushBack({457,49,13,10});
-	down.PushBack({ 472, 49, 14, 12 });
-	down.PushBack({ 487, 49, 15, 14 });
-	down.PushBack({ 472, 49, 14, 12 });
-	down.speed = 0.1;
+	down.PushBack({ 489, 49, 15, 15 });
+	down.PushBack({ 473, 49, 15, 15 });
+	down.PushBack({ 457, 49, 15, 15 });
+	down.PushBack({ 473, 49, 15, 15 });
+	down.speed = 0.3f;
 }
 
 ModulePlayer::~ModulePlayer()
@@ -58,7 +58,7 @@ bool ModulePlayer::Start()
 update_status ModulePlayer::Update()
 {
 
-	Animation* current_animation = &backward;
+
 	
 	if (last_key == 1){
 		Animation* current_animation = &backward;
@@ -68,7 +68,7 @@ update_status ModulePlayer::Update()
 	}
 
 
-	int speed = 1;
+	float speed = 0.9;
 
 	if(App->input->keyboard[SDL_SCANCODE_D] == 1)
 	{
