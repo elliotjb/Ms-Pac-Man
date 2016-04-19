@@ -110,10 +110,6 @@ bool ModuleGhost::Start()
 // Update
 update_status ModuleGhost::Update()
 {
-	SDL_Rect r_r = current_animation_r->GetCurrentFrame();
-	SDL_Rect r_p = current_animation_p->GetCurrentFrame();
-	SDL_Rect r_o = current_animation_o->GetCurrentFrame();
-	SDL_Rect r_b = current_animation_b->GetCurrentFrame();
 
 	if (con2_r == con_r)
 	{
@@ -151,7 +147,7 @@ update_status ModuleGhost::Update()
 	 //RED
 	if (time_ghost > 50)
 	{
-		if (repeat_r == 0)
+		if (repeat_r == 0)//right
 		{
 			if (con2_r <= con_r)
 			{
@@ -167,7 +163,7 @@ update_status ModuleGhost::Update()
 				}
 			}
 		}
-		if (repeat_r == 1)
+		if (repeat_r == 1)//left
 		{
 			if (con2_r <= con_r)
 			{
@@ -183,7 +179,7 @@ update_status ModuleGhost::Update()
 				}
 			}
 		}
-		if (repeat_r == 2)
+		if (repeat_r == 2)//up
 		{
 			if (con2_r <= con_r)
 			{
@@ -199,7 +195,7 @@ update_status ModuleGhost::Update()
 				}
 			}
 		}
-		if (repeat_r == 3)
+		if (repeat_r == 3)//down
 		{
 			if (con2_r <= con_r)
 			{
@@ -426,6 +422,10 @@ update_status ModuleGhost::Update()
 
 
 	// Draw everything --------------------------------------
+	SDL_Rect r_r = current_animation_r->GetCurrentFrame();
+	SDL_Rect r_p = current_animation_p->GetCurrentFrame();
+	SDL_Rect r_o = current_animation_o->GetCurrentFrame();
+	SDL_Rect r_b = current_animation_b->GetCurrentFrame();
 
 
 //EDIT FOR NEXT UPDATE!!! (Elliot)

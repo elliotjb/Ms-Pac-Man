@@ -44,7 +44,7 @@ bool ModuleLevel1::Start()
 bool ModuleLevel1::CleanUp()
 {
 	LOG("Unloading Level1 stage");
-
+	App->ghost->CleanUp();
 	App->player->CleanUp();
 	return true;
 }

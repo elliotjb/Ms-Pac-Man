@@ -40,8 +40,7 @@ bool ModuleLevel2::Start()
 	graphics = App->textures->Load("MsPacman_Level2.png");
 	graphics_2 = App->textures->Load("MsPacMan_Sprites.png");
 
-
-	// TODO 1: Enable (and properly disable) the player module
+	App->ghost->Enable();
 	App->player->Enable();
 
 	return ret;

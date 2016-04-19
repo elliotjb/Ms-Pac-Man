@@ -5,24 +5,19 @@
 #include "ModuleRender.h"
 #include "ModulePlayer.h"
 
-// Reference at https://www.youtube.com/watch?v=OEhmUuehGOA
 
 ModulePlayer::ModulePlayer()
 {
 	position.x = 105;
 	position.y = 219;
 
-	// idle animation (arcade sprite sheet)
 
-	// walk forward animation (arcade sprite sheet)
-	//forward.frames.PushBack({9, 136, 53, 83});
 	forward.PushBack({ 489, 1, 15, 15 });
 	forward.PushBack({ 473, 1, 15, 15 });
 	forward.PushBack({ 457, 1, 15, 15 });
 	forward.PushBack({ 473, 1, 15, 15 });
 	forward.speed = 0.3f;
 
-	// TODO 4: Make ryu walk backwards with the correct animations
 	backward.PushBack({ 489, 17, 15, 15 });
 	backward.PushBack({ 473, 17, 15, 15 });
 	backward.PushBack({ 457, 17, 15, 15 });
