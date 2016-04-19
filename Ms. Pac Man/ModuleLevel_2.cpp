@@ -6,6 +6,7 @@
 #include "ModuleRender.h"
 #include "ModulePlayer.h"
 #include "ModuleInput.h"
+#include "ModuleGhost.h"
 #include "ModuleFadeToBlack.h"
 
 // Reference at https://youtu.be/6OlenbCC4WI?t=382

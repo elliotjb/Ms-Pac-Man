@@ -76,6 +76,7 @@
     <ClInclude Include="Module.h" />
     <ClInclude Include="ModuleCongratulation.h" />
     <ClInclude Include="ModuleFadeToBlack.h" />
+    <ClInclude Include="ModuleGhost.h" />
     <ClInclude Include="ModuleInput.h" />
     <ClInclude Include="ModuleLevel_1.h" />
     <ClInclude Include="ModuleLevel_2.h" />
@@ -93,6 +94,7 @@
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="ModuleCongratulations.cpp" />
     <ClCompile Include="ModuleFadeToBlack.cpp" />
+    <ClCompile Include="ModuleGhost.cpp" />
     <ClCompile Include="ModuleInput.cpp" />
     <ClCompile Include="ModuleLevel_1.cpp" />
     <ClCompile Include="ModuleLevel_2.cpp" />

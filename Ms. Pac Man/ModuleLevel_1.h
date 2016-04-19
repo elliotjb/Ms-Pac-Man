@@ -23,6 +23,8 @@ public:
 	SDL_Texture* graphics = nullptr;
 	SDL_Texture* graphics_2 = nullptr;
 	SDL_Rect level1;
+	SDL_Rect level1_2;
+	SDL_Rect level1_center;
 	Animation water;
 };
 

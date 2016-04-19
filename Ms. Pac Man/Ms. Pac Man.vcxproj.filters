@@ -68,6 +68,9 @@
     <ClInclude Include="ModuleSound.h">
       <Filter>Modules</Filter>
     </ClInclude>
+    <ClInclude Include="ModuleGhost.h">
+      <Filter>Modules</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -110,6 +113,9 @@
       <Filter>Levels - Modules</Filter>
     </ClCompile>
     <ClCompile Include="ModuleSound.cpp">
+      <Filter>Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="ModuleGhost.cpp">
       <Filter>Modules</Filter>
     </ClCompile>
   </ItemGroup>
