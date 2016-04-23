@@ -72,18 +72,21 @@ ModuleWelcome::ModuleWelcome()
 
 	//Balls
 	s_balls_first.PushBack({ 0, 0, 134, 62 });
-	s_balls_first.PushBack({ 144, 0, 134, 62 });
-	s_balls_first.PushBack({ 288, 0, 134, 62 });
-	s_balls_first.PushBack({ 0, 72, 134, 62 });
-	s_balls_first.PushBack({ 144, 72, 134, 62 });
+	s_balls_first.PushBack({ 143, 0, 134, 62 });
+	s_balls_first.PushBack({ 287, 0, 134, 62 });
+	s_balls_first.PushBack({ 0, 71, 134, 62 });
+	s_balls_first.PushBack({ 143, 71, 134, 62 });
 	s_balls_first.speed = 0.1f;
-	s_balls.PushBack({ 288, 72, 134, 62 });
-	s_balls.PushBack({ 0, 144, 134, 62 });
-	s_balls.PushBack({ 144, 144, 134, 62 });
-	s_balls.PushBack({ 288, 144, 134, 62 });
-	s_balls.PushBack({ 0, 216, 134, 62 });
-	s_balls.PushBack({ 144, 216, 134, 62 });
-	s_balls.PushBack({ 288, 216, 134, 62 });
+	s_balls.PushBack({ 287, 71, 134, 62 });
+	s_balls.PushBack({ 0, 143, 134, 62 });
+	s_balls.PushBack({ 143, 143, 134, 62 });
+	s_balls.PushBack({ 287, 143, 134, 62 });
+	s_balls.PushBack({ 0, 215, 134, 62 });
+	s_balls.PushBack({ 143, 215, 134, 62 });
+	s_balls.PushBack({ 287, 215, 134, 62 });
+	s_balls.PushBack({ 0, 287, 134, 62 });
+	s_balls.PushBack({ 143, 287, 134, 62 });
+	s_balls.PushBack({ 287, 287, 134, 62 });
 	s_balls.speed = 0.1f;
 
 }
