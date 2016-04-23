@@ -26,9 +26,12 @@ public:
 	Animation backward; //Hacia izqueirda
 	Animation up;
 	Animation down;
-	fPoint position;
+	iPoint position;
 	int last_key = 0;
 	int cont = 0;
+	int c, f, c1, f2;
+	int tile[31][28];
+	int direction;
 };
 
 #endif
