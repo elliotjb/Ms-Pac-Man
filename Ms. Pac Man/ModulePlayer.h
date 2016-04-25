@@ -19,19 +19,35 @@ public:
 
 public:
 
-	Animation* current_animation = &backward;
+	Animation* current_animation = &left;
 
 	SDL_Texture* graphics = nullptr;
-	Animation forward; //Hacia derecha
-	Animation backward; //Hacia izqueirda
+	Animation right; //Hacia derecha
+	Animation left; //Hacia izqueirda
 	Animation up;
 	Animation down;
+
+	SDL_Rect test;
+
 	iPoint position;
-	int last_key = 0;
+	int up_x;
+	int down_x;
+	int left_x;
+	int right_x;
+	int center_x;
+
+	int up_y;
+	int down_y;
+	int left_y;
+	int right_y;
+	int center_y;
+
+
+	int direction = 1; // 0-w 1-a 2-s 3-d
 	int cont = 0;
-	int c, f, c1, f2;
 	int tile[31][28];
-	int direction;
+
+	bool key = true;
 };
 
 #endif
