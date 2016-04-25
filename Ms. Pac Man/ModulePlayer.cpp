@@ -70,7 +70,7 @@ update_status ModulePlayer::Update()
 		/*5 */{ 0, 0, 0, 3, 0, 0, 3, 0, 0, 0, 0, 0, 3, 0, 0, 3, 0, 0, 0, 0, 0, 3, 0, 0, 3, 0, 0, 0 },
 		/*6 */{ 0, 0, 0, 3, 0, 0, 3, 0, 0, 0, 0, 0, 3, 0, 0, 3, 0, 0, 0, 0, 0, 3, 0, 0, 3, 0, 0, 0 },
 		/*7 */{ 0, 0, 0, 3, 0, 0, 3, 0, 0, 0, 0, 0, 3, 0, 0, 3, 0, 0, 0, 0, 0, 3, 0, 0, 3, 0, 0, 0 },
-		/*8 */{ 5, 5, 5, 3, 0, 0, 3, 3, 3, 3, 3, 3, 3, 0, 0, 3, 3, 3, 3, 3, 3, 3, 0, 0, 3, 5, 5, 5 },
+		/*8 */{ 8, 5, 5, 3, 0, 0, 3, 3, 3, 3, 3, 3, 3, 0, 0, 3, 3, 3, 3, 3, 3, 3, 0, 0, 3, 5, 5, 9 },
 		/*9 */{ 0, 0, 0, 3, 0, 0, 0, 0, 0, 5, 0, 0, 0, 0, 0, 0, 0, 0, 5, 0, 0, 0, 0, 0, 3, 0, 0, 0 },
 		/*19*/{ 0, 0, 0, 3, 0, 0, 0, 0, 0, 5, 0, 0, 0, 0, 0, 0, 0, 0, 5, 0, 0, 0, 0, 0, 3, 0, 0, 0 },
 		/*11*/{ 0, 0, 0, 3, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 3, 0, 0, 0 },
@@ -79,7 +79,7 @@ update_status ModulePlayer::Update()
 		/*14*/{ 0, 0, 0, 3, 0, 0, 5, 5, 5, 5, 0, 0, 0, 0, 0, 0, 0, 0, 5, 5, 5, 5, 0, 0, 3, 0, 0, 0 },
 		/*15*/{ 0, 0, 0, 3, 0, 0, 5, 0, 0, 5, 0, 0, 0, 0, 0, 0, 0, 0, 5, 0, 0, 5, 0, 0, 3, 0, 0, 0 },
 		/*16*/{ 0, 0, 0, 3, 0, 0, 5, 0, 0, 5, 0, 0, 0, 0, 0, 0, 0, 0, 5, 0, 0, 5, 0, 0, 3, 0, 0, 0 },
-		/*17*/{ 5, 5, 5, 3, 5, 5, 5, 0, 0, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 0, 0, 5, 5, 5, 3, 5, 5, 5 },
+		/*17*/{ 8, 5, 5, 3, 5, 5, 5, 0, 0, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 0, 0, 5, 5, 5, 3, 5, 5, 9 },
 		/*18*/{ 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 5, 0, 0, 5, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0 },
 		/*19*/{ 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 5, 0, 0, 5, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0 },
 		/*20*/{ 0, 0, 0, 3, 3, 3, 3, 3, 3, 3, 5, 5, 5, 0, 0, 5, 5, 5, 3, 3, 3, 3, 3, 3, 3, 0, 0, 0 },
@@ -93,16 +93,17 @@ update_status ModulePlayer::Update()
 		/*28*/{ 0, 3, 0, 0, 0, 0, 3, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 3, 0, 0, 0, 0, 3, 0 },
 		/*29*/{ 0, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 0 },
 		/*30*/{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+
 	};
 
-	right_x = (position.x + 3)  / PIX_TILE;
-	right_y = (position.y - 7)  / PIX_TILE;
-	left_x = (position.x + 10)  / PIX_TILE;
-	left_y = (position.y - 7)   / PIX_TILE;
-	up_x = (position.x + 7)     / PIX_TILE;
-	up_y = (position.y - 4)     / PIX_TILE;
-	down_x = (position.x + 7)   / PIX_TILE;
-	down_y = (position.y - 11)  / PIX_TILE;
+	right_x = (position.x + 3) / PIX_TILE;
+	right_y = (position.y - 7) / PIX_TILE;
+	left_x = (position.x + 10) / PIX_TILE;
+	left_y = (position.y - 7) / PIX_TILE;
+	up_x = (position.x + 7) / PIX_TILE;
+	up_y = (position.y - 4) / PIX_TILE;
+	down_x = (position.x + 7) / PIX_TILE;
+	down_y = (position.y - 11) / PIX_TILE;
 	center_x = (position.x + 6) / PIX_TILE;
 	center_y = (position.y - 7) / PIX_TILE;
 
@@ -134,7 +135,7 @@ update_status ModulePlayer::Update()
 			}
 		}
 
-		if (tile[left_y][left_x - 1] == 3 || tile[left_y][left_x - 1] == 4 || tile[left_y][left_x - 1] == 5)
+		if (tile[left_y][left_x - 1] == 3 || tile[left_y][left_x - 1] == 4 || tile[left_y][left_x - 1] == 5 || tile[left_y][left_x - 1] == 8 || position.x == 0)
 		{
 			if (App->input->keyboard[SDL_SCANCODE_A] == 1)
 			{
@@ -156,6 +157,13 @@ update_status ModulePlayer::Update()
 			else
 			{
 				left.speed = 0.0f;
+			}
+			if (position.x == 0)//tile[left_y][left_x-1] == 8)
+			{
+				for (int i = 0; i >= 25; i++){
+					position.x--;
+				}
+				position.x += 204;
 			}
 		}
 
@@ -183,7 +191,7 @@ update_status ModulePlayer::Update()
 			}
 		}
 
-		if (tile[right_y][right_x + 1] == 3 || tile[right_y][right_x + 1] == 5 || tile[right_y][right_x + 1] == 4)
+		if (tile[right_y][right_x + 1] == 3 || tile[right_y][right_x + 1] == 5 || tile[right_y][right_x + 1] == 4 || tile[right_y][right_x + 1] == 9)
 		{
 			if (App->input->keyboard[SDL_SCANCODE_D] == 1)
 			{
@@ -201,12 +209,18 @@ update_status ModulePlayer::Update()
 				current_animation = &right;
 				position.x += speed;
 			}
+
 			else
 			{
 				right.speed = 0.0f;
 			}
+			if (tile[right_y][right_x + 1] == 9)
+			{
+
+				position.x -= 204;
+			}
 		}
-	}	
+	}
 
 	//super power
 
@@ -223,7 +237,7 @@ update_status ModulePlayer::Update()
 	// Draw everything --------------------------------------
 	SDL_Rect r = current_animation->GetCurrentFrame();
 
-	App->render->Blit(graphics, position.x, position.y + 24 -r.h, &r);//EDIT FOR NEXT UPDATE!!! (Elliot)
+	App->render->Blit(graphics, position.x, position.y + 24 - r.h, &r);//EDIT FOR NEXT UPDATE!!! (Elliot)
 
 	return UPDATE_CONTINUE;
 }
