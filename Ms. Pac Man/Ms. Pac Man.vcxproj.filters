@@ -71,6 +71,18 @@
     <ClInclude Include="ModuleGhost.h">
       <Filter>Modules</Filter>
     </ClInclude>
+    <ClInclude Include="ModuleGhostRed.h">
+      <Filter>Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="ModuleGhostBlue.h">
+      <Filter>Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="ModuleGhostOrange.h">
+      <Filter>Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="ModuleGhostPink.h">
+      <Filter>Modules</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">

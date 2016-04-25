@@ -18,14 +18,17 @@ public:
 	bool CleanUp();
 
 public:
-	Animation big_point;
-	Animation* actual_animation = &big_point;
+	Animation big_pill;
+	Animation* actual_animation = &big_pill;
 	SDL_Texture* graphics = nullptr;
 	SDL_Texture* graphics_2 = nullptr;
 	SDL_Rect level1;
 	SDL_Rect level1_2;
 	SDL_Rect level1_center;
+	SDL_Rect pills;
 	Animation water;
+
+	int map[31][28];
 };
 
 #endif // __MODULELEVEL1_H__
