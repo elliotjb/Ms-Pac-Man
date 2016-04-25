@@ -34,6 +34,8 @@ ModuleLevel1::~ModuleLevel1()
 bool ModuleLevel1::Start()
 {
 	bool ret = true;
+	eatenpills = 0;
+	victory = false;
 
 	int tile[31][28] = {
 		/*      0  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 21 22  23 24 25 26 27*/
@@ -139,17 +141,32 @@ update_status ModuleLevel1::Update()
 	{
 	case 3:
 		map[App->player->center_y][App->player->center_x] = 5;
+		eatenpills++;
 		break;
 	case 4:
 		map[App->player->center_y][App->player->center_x] = 5;
+		App->player->superpower = true;
+		eatenpills++;
 		break;
+	}
+
+	//win condition
+
+	if (eatenpills == 224)
+	{
+		victory = true;
 	}
 
 	//App->render->Blit(graphics, 305, 136, &(water.GetCurrentFrame())); // water animation
 
-	if (App->input->keyboard[SDL_SCANCODE_SPACE] == 1)
+	if (victory)
 	{
 		App->fade->FadeToBlack(this, (Module*)App->level2, 2.0f);
+		App->player->Disable();
+		App->ghost_b->Disable();
+		App->ghost_r->Disable();
+		App->ghost_o->Disable();
+		App->ghost_p->Disable();
 	}
 
 	return UPDATE_CONTINUE;

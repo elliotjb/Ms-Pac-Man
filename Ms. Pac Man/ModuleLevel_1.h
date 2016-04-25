@@ -29,6 +29,8 @@ public:
 	Animation water;
 
 	int map[31][28];
+	int eatenpills;
+	bool victory;
 };
 
 #endif // __MODULELEVEL1_H__

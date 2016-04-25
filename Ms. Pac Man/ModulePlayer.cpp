@@ -49,6 +49,8 @@ bool ModulePlayer::Start()
 {
 	LOG("Loading player textures");
 	bool ret = true;
+	superpower = false;
+	timer = 0;
 	graphics = App->textures->Load("MsPacMan_Sprites.png"); // Sprites
 
 	return ret;
@@ -205,6 +207,18 @@ update_status ModulePlayer::Update()
 			}
 		}
 	}	
+
+	//super power
+
+	if (superpower)
+	{
+		timer++;
+	}
+	if (timer > 399)
+	{
+		superpower = false;
+		timer = 0;
+	}
 
 	// Draw everything --------------------------------------
 	SDL_Rect r = current_animation->GetCurrentFrame();

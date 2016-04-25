@@ -48,6 +48,8 @@ public:
 	int tile[31][28];
 
 	bool key = true;
+	bool superpower;
+	int timer;
 };
 
 #endif
