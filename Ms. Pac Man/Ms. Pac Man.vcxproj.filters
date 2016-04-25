@@ -68,9 +68,6 @@
     <ClInclude Include="ModuleSound.h">
       <Filter>Modules</Filter>
     </ClInclude>
-    <ClInclude Include="ModuleGhost.h">
-      <Filter>Modules</Filter>
-    </ClInclude>
     <ClInclude Include="ModuleGhostRed.h">
       <Filter>Modules</Filter>
     </ClInclude>
@@ -127,7 +124,16 @@
     <ClCompile Include="ModuleSound.cpp">
       <Filter>Modules</Filter>
     </ClCompile>
-    <ClCompile Include="ModuleGhost.cpp">
+    <ClCompile Include="ModuleGhostBlue.cpp">
+      <Filter>Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="ModuleGhostRed.cpp">
+      <Filter>Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="ModuleGhostOrange.cpp">
+      <Filter>Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="ModuleGhostPink.cpp">
       <Filter>Modules</Filter>
     </ClCompile>
   </ItemGroup>

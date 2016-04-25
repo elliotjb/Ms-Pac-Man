@@ -1,4 +1,4 @@
-/*#ifndef __ModuleGhostPink_H__
+#ifndef __ModuleGhostPink_H__
 #define __ModuleGhostPink_H__
 
 #include "Module.h"
@@ -46,4 +46,4 @@ public:
 
 };
 
-#endif*/
+#endif

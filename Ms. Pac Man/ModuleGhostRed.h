@@ -1,5 +1,5 @@
-/*#ifndef __ModuleGhostRED_H__
-
+#ifndef __ModuleGhostRED_H__
+#define __ModuleGhostRED_H__
 #include "Module.h"
 #include "Animation.h"
 #include "Globals.h"
@@ -40,4 +40,4 @@ public:
 
 };
 
-#endif*/
+#endif

@@ -4,7 +4,10 @@
 #include "Module.h"
 #include "Animation.h"
 #include "Globals.h"
-#include "ModuleGhost.h"
+#include "ModuleGhostRed.h"
+#include "ModuleGhostOrange.h"
+#include "ModuleGhostPink.h"
+#include "ModuleGhostBlue.h"
 
 struct SDL_Texture;
 struct _Mix_Music;

@@ -10,7 +10,10 @@
 #include "ModuleLevel_2.h"
 #include "ModuleCongratulation.h"
 #include "ModuleFadeToBlack.h"
-#include "ModuleGhost.h"
+#include "ModuleGhostRed.h"
+#include "ModuleGhostPink.h"
+#include "ModuleGhostBlue.h"
+#include "ModuleGhostOrange.h"
 
 Application::Application()
 {
@@ -22,10 +25,13 @@ Application::Application()
 	modules[5] = level1 = new ModuleLevel1();
 	modules[6] = level2 = new ModuleLevel2();
 	modules[7] = win = new ModuleCongratulation();
-	modules[8] = ghost = new ModuleGhost();
-	modules[9] = player = new ModulePlayer();
-	modules[10] = sound = new ModuleSound();
-	modules[11] = fade = new ModuleFadeToBlack();
+	modules[8] = ghost_r = new ModuleGhostRed();
+	modules[9] = ghost_b = new ModuleGhostBlue();
+	modules[10] = ghost_o = new ModuleGhostOrange();
+	modules[11] = ghost_p = new ModuleGhostPink();
+	modules[12] = player = new ModulePlayer();
+	modules[13] = sound = new ModuleSound();
+	modules[14] = fade = new ModuleFadeToBlack();
 }	
 
 Application::~Application()
@@ -39,7 +45,10 @@ bool Application::Init()
 	bool ret = true;
 
 	// Player will be enabled on the first update of a new scene
-	ghost->Disable();
+	ghost_r->Disable();
+	ghost_b->Disable();
+	ghost_o->Disable();
+	ghost_p->Disable();
 	player->Disable();
 	level1->Disable();
 	level2->Disable();

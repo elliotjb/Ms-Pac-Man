@@ -1,4 +1,4 @@
-/*#ifndef __ModuleGhostOrange_H__
+#ifndef __ModuleGhostOrange_H__
 #define __ModuleGhostOrange_H__
 
 #include "Module.h"
@@ -40,4 +40,4 @@ public:
 
 };
 
-#endif*/
+#endif

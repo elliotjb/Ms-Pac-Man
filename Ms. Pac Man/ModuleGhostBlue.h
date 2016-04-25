@@ -1,4 +1,4 @@
-/*#ifndef __ModuleGhostBlue_H__
+#ifndef __ModuleGhostBlue_H__
 #define __ModuleGhostBlue_H__
 
 #include "Module.h"
@@ -26,7 +26,7 @@ public:
 	
 	SDL_Texture* graphics = nullptr;
 
-
+	int  direc_b;
 	int con_b, con2_b;
 	int repeat_b;
 	int time_ghost;
@@ -41,4 +41,4 @@ public:
 
 };
 
-#endif*/
+#endif

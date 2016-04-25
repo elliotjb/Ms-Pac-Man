@@ -6,8 +6,11 @@
 #include "ModuleRender.h"
 #include "ModulePlayer.h"
 #include "ModuleInput.h"
-#include "ModuleGhost.h"
+#include "ModuleGhostRed.h"
 #include "ModuleFadeToBlack.h"
+#include "ModuleGhostBlue.h"
+#include "ModuleGhostOrange.h"
+#include "ModuleGhostPink.h"
 
 // Reference at https://youtu.be/6OlenbCC4WI?t=382
 
@@ -40,7 +43,10 @@ bool ModuleLevel2::Start()
 	graphics = App->textures->Load("MsPacman_Level2.png");
 	graphics_2 = App->textures->Load("MsPacMan_Sprites.png");
 
-	App->ghost->Enable();
+	App->ghost_r->Enable();
+	App->ghost_b->Enable();
+	App->ghost_p->Enable();
+	App->ghost_o->Enable();
 	App->player->Enable();
 
 	return ret;

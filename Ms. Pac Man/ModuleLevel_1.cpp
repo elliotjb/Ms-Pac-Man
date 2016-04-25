@@ -7,7 +7,10 @@
 #include "ModulePlayer.h"
 #include "ModuleInput.h"
 #include "ModuleFadeToBlack.h"
-#include "ModuleGhost.h"
+#include "ModuleGhostRed.h"
+#include "ModuleGhostOrange.h"
+#include "ModuleGhostBlue.h"
+#include "ModuleGhostPink.h"
 
 // Reference at https://youtu.be/6OlenbCC4WI?t=382
 
@@ -83,7 +86,10 @@ bool ModuleLevel1::Start()
 	graphics = App->textures->Load("Mspacman.png");//trampetes!! No hi han les vides ni el marcador nomes es una imatge s'ha de arreglar!!!!
 	graphics_2 = App->textures->Load("MsPacMan_Sprites.png");
 
-	App->ghost->Enable();
+	App->ghost_r->Enable();
+	App->ghost_b->Enable();
+	App->ghost_p->Enable();
+	App->ghost_o->Enable();
 	App->player->Enable();
 
 	return ret;
@@ -92,7 +98,10 @@ bool ModuleLevel1::Start()
 bool ModuleLevel1::CleanUp()
 {
 	LOG("Unloading Level1 stage");
-	App->ghost->CleanUp();
+	App->ghost_o->CleanUp();
+	App->ghost_p->CleanUp();
+	App->ghost_b->CleanUp();
+	App->ghost_r->CleanUp();
 	App->player->CleanUp();
 	return true;
 }
