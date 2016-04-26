@@ -19,6 +19,9 @@ ModuleWelcome::ModuleWelcome()
 	pink = { 537, 81, 14, 14 };
 	blue = { 521, 97, 14, 14 };
 	orange = { 521, 113, 14, 14 };
+
+	//name
+	r_name = { 464, 294, 69, 32 };
 	
 	//MS Pac Man
 	backward.PushBack({ 489, 17, 15, 15 });
@@ -236,6 +239,8 @@ update_status ModuleWelcome::Update()
 	SDL_Rect balls_first = current_animation_balls_first->GetCurrentFrame();
 	SDL_Rect balls = current_animation_balls->GetCurrentFrame();
 
+	
+
 	SDL_Rect r_r = current_animation_r->GetCurrentFrame();
 	SDL_Rect r_p = current_animation_p->GetCurrentFrame();
 	SDL_Rect r_o = current_animation_o->GetCurrentFrame();
@@ -293,11 +298,11 @@ update_status ModuleWelcome::Update()
 		App->render->Blit(graphics_2, position_o.x, position_o.y - r_o.h, &r_o);
 	}
 
-	if (time_welcome <= 23)
+	if (time_welcome <= 40)
 	{
 		App->render->Blit(graphics_Balls, 60, 88, &balls_first);
 	}
-	else if (time_welcome >23)
+	else if (time_welcome > 40)
 	{
 		App->render->Blit(graphics_Balls, 60, 88, &balls);
 	}
@@ -312,6 +317,26 @@ update_status ModuleWelcome::Update()
 	{
 		App->fade->FadeToBlack(this, (Module*)App->level1, 2.0f);
 	}
+	//NOM Ghosts
+	if (time_welcome >= 90)
+	{
+		App->render->Blit(graphics_2, 80, 103, &r_name);
+	else if (time_welcome >= 340)
+		{
+			App->render->Blit(graphics_2, 80, 103, &r_name);
+		}
+	}
+	else if (time_welcome >= 90)
+	{
+		App->render->Blit(graphics_2, 80, 103, &r_name);
+	}
+	}
+		else if (time_welcome >= 90)
+		{
+			App->render->Blit(graphics_2, 80, 103, &r_name);
+		}
+	}
+
 
 	return UPDATE_CONTINUE;
 }
