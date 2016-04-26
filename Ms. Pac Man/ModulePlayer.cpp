@@ -5,6 +5,8 @@
 #include "ModuleRender.h"
 #include "ModulePlayer.h"
 #include "ModuleLevel_1.h"
+#include "ModuleCollision.h"
+#include "ModuleGhostBlue.h"
 
 
 
@@ -42,7 +44,8 @@ ModulePlayer::ModulePlayer()
 }
 
 ModulePlayer::~ModulePlayer()
-{}
+{
+}
 
 // Load assets
 bool ModulePlayer::Start()
@@ -52,7 +55,8 @@ bool ModulePlayer::Start()
 	superpower = false;
 	timer = 0;
 	graphics = App->textures->Load("MsPacMan_Sprites.png"); // Sprites
-
+	destroyed = false;
+	collision_player = App->collision->AddCollider({ position.x + 50, position.y + 50, 15, 14 }, COLLIDER_PLAYER, this);
 	return ret;
 }
 
@@ -70,7 +74,7 @@ update_status ModulePlayer::Update()
 		/*5 */{ 0, 0, 0, 3, 0, 0, 3, 0, 0, 0, 0, 0, 3, 0, 0, 3, 0, 0, 0, 0, 0, 3, 0, 0, 3, 0, 0, 0 },
 		/*6 */{ 0, 0, 0, 3, 0, 0, 3, 0, 0, 0, 0, 0, 3, 0, 0, 3, 0, 0, 0, 0, 0, 3, 0, 0, 3, 0, 0, 0 },
 		/*7 */{ 0, 0, 0, 3, 0, 0, 3, 0, 0, 0, 0, 0, 3, 0, 0, 3, 0, 0, 0, 0, 0, 3, 0, 0, 3, 0, 0, 0 },
-		/*8 */{ 8, 5, 5, 3, 0, 0, 3, 3, 3, 3, 3, 3, 3, 0, 0, 3, 3, 3, 3, 3, 3, 3, 0, 0, 3, 5, 5, 9 },
+		/*8 */{ 8, 5, 5, 3, 0, 0, 3, 3, 3, 3, 3, 3, 3, 0, 0, 3, 3, 3, 3, 3, 3, 3, 0, 0, 3, 5, 5, 8 },
 		/*9 */{ 0, 0, 0, 3, 0, 0, 0, 0, 0, 5, 0, 0, 0, 0, 0, 0, 0, 0, 5, 0, 0, 0, 0, 0, 3, 0, 0, 0 },
 		/*19*/{ 0, 0, 0, 3, 0, 0, 0, 0, 0, 5, 0, 0, 0, 0, 0, 0, 0, 0, 5, 0, 0, 0, 0, 0, 3, 0, 0, 0 },
 		/*11*/{ 0, 0, 0, 3, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 3, 0, 0, 0 },
@@ -79,7 +83,7 @@ update_status ModulePlayer::Update()
 		/*14*/{ 0, 0, 0, 3, 0, 0, 5, 5, 5, 5, 0, 0, 0, 0, 0, 0, 0, 0, 5, 5, 5, 5, 0, 0, 3, 0, 0, 0 },
 		/*15*/{ 0, 0, 0, 3, 0, 0, 5, 0, 0, 5, 0, 0, 0, 0, 0, 0, 0, 0, 5, 0, 0, 5, 0, 0, 3, 0, 0, 0 },
 		/*16*/{ 0, 0, 0, 3, 0, 0, 5, 0, 0, 5, 0, 0, 0, 0, 0, 0, 0, 0, 5, 0, 0, 5, 0, 0, 3, 0, 0, 0 },
-		/*17*/{ 8, 5, 5, 3, 5, 5, 5, 0, 0, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 0, 0, 5, 5, 5, 3, 5, 5, 9 },
+		/*17*/{ 8, 5, 5, 3, 5, 5, 5, 0, 0, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 0, 0, 5, 5, 5, 3, 5, 5, 8 },
 		/*18*/{ 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 5, 0, 0, 5, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0 },
 		/*19*/{ 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 5, 0, 0, 5, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0 },
 		/*20*/{ 0, 0, 0, 3, 3, 3, 3, 3, 3, 3, 5, 5, 5, 0, 0, 5, 5, 5, 3, 3, 3, 3, 3, 3, 3, 0, 0, 0 },
@@ -96,16 +100,17 @@ update_status ModulePlayer::Update()
 
 	};
 
-	right_x = (position.x + 3) / PIX_TILE;
-	right_y = (position.y - 7) / PIX_TILE;
-	left_x = (position.x + 10) / PIX_TILE;
-	left_y = (position.y - 7) / PIX_TILE;
-	up_x = (position.x + 7) / PIX_TILE;
-	up_y = (position.y - 4) / PIX_TILE;
-	down_x = (position.x + 7) / PIX_TILE;
-	down_y = (position.y - 11) / PIX_TILE;
+	right_x = (position.x + 3)  / PIX_TILE;
+	right_y = (position.y - 7)  / PIX_TILE;
+	left_x = (position.x + 10)  / PIX_TILE;
+	left_y = (position.y - 7)   / PIX_TILE;
+	up_x = (position.x + 7)     / PIX_TILE;
+	up_y = (position.y - 4)     / PIX_TILE;
+	down_x = (position.x + 7)   / PIX_TILE;
+	down_y = (position.y - 11)  / PIX_TILE;
 	center_x = (position.x + 6) / PIX_TILE;
 	center_y = (position.y - 7) / PIX_TILE;
+
 
 	int speed = 1;
 
@@ -129,13 +134,13 @@ update_status ModulePlayer::Update()
 				current_animation = &up;
 				position.y -= speed;
 			}
-			else
-			{
-				up.speed = 0.0f;
-			}
+		}
+		else
+		{
+			up.speed = 0.0f;
 		}
 
-		if (tile[left_y][left_x - 1] == 3 || tile[left_y][left_x - 1] == 4 || tile[left_y][left_x - 1] == 5 || tile[left_y][left_x - 1] == 8 || position.x == 0)
+		if (tile[left_y][left_x - 1] == 3 || tile[left_y][left_x - 1] == 4 || tile[left_y][left_x - 1] == 5 || tile[left_y][left_x - 1] == 8 || position.x <= 0 || position.x >=220 && position.x <=239)
 		{
 			if (App->input->keyboard[SDL_SCANCODE_A] == 1)
 			{
@@ -154,17 +159,14 @@ update_status ModulePlayer::Update()
 				current_animation = &left;
 				position.x -= speed;
 			}
-			else
+			if (position.x == -15 && direction == 1)//tile[left_y][left_x-1] == 8)
 			{
-				left.speed = 0.0f;
+				position.x = 239;
 			}
-			if (position.x == 0)//tile[left_y][left_x-1] == 8)
-			{
-				for (int i = 0; i >= 25; i++){
-					position.x--;
-				}
-				position.x += 204;
-			}
+		}
+		else
+		{
+			left.speed = 0.0f;
 		}
 
 		if (tile[down_y + 1][down_x] == 3 || tile[down_y + 1][down_x] == 4 || tile[down_y + 1][down_x] == 5)
@@ -185,13 +187,13 @@ update_status ModulePlayer::Update()
 				current_animation = &down;
 				position.y += speed;
 			}
-			else
-			{
-				down.speed = 0.0f;
-			}
+		}
+		else
+		{
+			down.speed = 0.0f;
 		}
 
-		if (tile[right_y][right_x + 1] == 3 || tile[right_y][right_x + 1] == 5 || tile[right_y][right_x + 1] == 4 || tile[right_y][right_x + 1] == 9)
+		if (tile[right_y][right_x + 1] == 3 || tile[right_y][right_x + 1] == 5 || tile[right_y][right_x + 1] == 4 || tile[right_y][right_x + 1] == 8 || position.x > 210)
 		{
 			if (App->input->keyboard[SDL_SCANCODE_D] == 1)
 			{
@@ -210,15 +212,14 @@ update_status ModulePlayer::Update()
 				position.x += speed;
 			}
 
-			else
+			if (position.x >= 239 && direction == 3)
 			{
-				right.speed = 0.0f;
+				position.x = -15;
 			}
-			if (tile[right_y][right_x + 1] == 9)
-			{
-
-				position.x -= 204;
-			}
+		}
+		else
+		{
+			right.speed = 0.0f;
 		}
 	}
 
@@ -228,11 +229,15 @@ update_status ModulePlayer::Update()
 	{
 		timer++;
 	}
-	if (timer > 399)
+	if (timer > 420)
 	{
 		superpower = false;
 		timer = 0;
 	}
+
+
+	collision_player->SetPos(position.x, position.y + 10);
+
 
 	// Draw everything --------------------------------------
 	SDL_Rect r = current_animation->GetCurrentFrame();
@@ -241,3 +246,37 @@ update_status ModulePlayer::Update()
 
 	return UPDATE_CONTINUE;
 }
+
+void ModulePlayer::OnCollision(Collider* c1, Collider* c2)
+{
+	if (c1 == collision_player && c2->type == COLLIDER_ENEMY && superpower == false)
+	{
+		destroyed = true;
+		if (destroyed == true)
+		{
+			position.x = 105;
+			position.y = 195;
+			current_animation = &left;
+			direction = 1;
+		}
+		destroyed = true;
+	}
+
+	if (c1 == collision_player && c2->type == COLLIDER_ENEMY && superpower == true)
+	{
+		App->ghost_b->dead_blue = true;
+		if (App->ghost_b->dead_blue)
+		{
+			App->ghost_b->Disable();
+			App->ghost_b->Enable();
+			App->ghost_b->position_b.x = 105;
+			App->ghost_b->position_b.y = 121;
+			App->ghost_b->Isinmid = true;
+			App->ghost_b->new_direction_b = 0;
+			App->ghost_b->current_animation_b = &App->ghost_b->up_b;
+			App->ghost_b->GhostBlue_ispow = false;
+			App->ghost_b->dead_blue = false;
+		}
+	}
+}
+

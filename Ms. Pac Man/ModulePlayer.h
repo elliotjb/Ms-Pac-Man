@@ -20,16 +20,18 @@ public:
 public:
 
 	Animation* current_animation = &left;
-
+	Collider* collision_player;
 	SDL_Texture* graphics = nullptr;
 	Animation right; //Hacia derecha
 	Animation left; //Hacia izqueirda
 	Animation up;
 	Animation down;
+	iPoint position;
 
 	SDL_Rect test;
 
-	iPoint position;
+	bool destroyed = false;
+
 	int up_x;
 	int down_x;
 	int left_x;
@@ -50,6 +52,8 @@ public:
 	bool key = true;
 	bool superpower;
 	int timer;
+
+	void OnCollision(Collider* c1, Collider* c2);
 };
 
 #endif
