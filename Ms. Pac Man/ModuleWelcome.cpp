@@ -321,21 +321,7 @@ update_status ModuleWelcome::Update()
 	if (time_welcome >= 90)
 	{
 		App->render->Blit(graphics_2, 80, 103, &r_name);
-	else if (time_welcome >= 340)
-		{
-			App->render->Blit(graphics_2, 80, 103, &r_name);
-		}
-	}
-	else if (time_welcome >= 90)
-	{
-		App->render->Blit(graphics_2, 80, 103, &r_name);
-	}
-	}
-		else if (time_welcome >= 90)
-		{
-			App->render->Blit(graphics_2, 80, 103, &r_name);
-		}
-	}
+}
 
 
 	return UPDATE_CONTINUE;
