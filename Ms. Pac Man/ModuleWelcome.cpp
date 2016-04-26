@@ -22,6 +22,10 @@ ModuleWelcome::ModuleWelcome()
 
 	//name
 	r_name = { 464, 294, 69, 32 };
+	p_name = { 464, 282, 38, 8 };
+	b_name = { 464, 258, 38, 8 };
+	o_name = { 464, 269, 38, 9 };
+	ms_name = { 464, 330, 77, 31 };
 	
 	//MS Pac Man
 	backward.PushBack({ 489, 17, 15, 15 });
@@ -318,10 +322,29 @@ update_status ModuleWelcome::Update()
 		App->fade->FadeToBlack(this, (Module*)App->level1, 2.0f);
 	}
 	//NOM Ghosts
-	if (time_welcome >= 90)
+	if (time_welcome >= 125 && time_welcome <= 420)
 	{
-		App->render->Blit(graphics_2, 80, 103, &r_name);
-}
+		App->render->Blit(graphics_2, 86, 103, &r_name);
+	}
+	else if (time_welcome >= 420 && time_welcome <= 640)
+		{
+			App->render->Blit(graphics_2, 109, 127, &p_name);
+		}
+	else if (time_welcome >= 640 && time_welcome <= 860)
+	{
+		App->render->Blit(graphics_2, 109, 127, &b_name);
+	}
+	
+	else if (time_welcome >= 860 && time_welcome <= 1060)
+	{
+		App->render->Blit(graphics_2, 109, 127, &o_name);
+	}
+	else if (time_welcome >= 1060)
+	{
+		App->render->Blit(graphics_2, 86, 103, &ms_name);
+	}
+
+
 
 
 	return UPDATE_CONTINUE;
