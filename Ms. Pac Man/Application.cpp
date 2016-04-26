@@ -32,6 +32,7 @@ Application::Application()
 	modules[12] = player = new ModulePlayer();
 	modules[13] = sound = new ModuleSound();
 	modules[14] = fade = new ModuleFadeToBlack();
+	modules[15] = menu = new ModuleLevel1();
 }	
 
 Application::~Application()
@@ -53,7 +54,7 @@ bool Application::Init()
 	level1->Disable();
 	level2->Disable();
 	win->Disable();
-
+	
 	for (int i = 0; i < NUM_MODULES && ret == true; ++i)
 		ret = modules[i]->Init();
 

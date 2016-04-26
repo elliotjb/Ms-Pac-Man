@@ -80,6 +80,9 @@
     <ClInclude Include="ModuleGhostPink.h">
       <Filter>Modules</Filter>
     </ClInclude>
+    <ClInclude Include="ModuleScore.h">
+      <Filter>Levels - Modules</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -135,6 +138,9 @@
     </ClCompile>
     <ClCompile Include="ModuleGhostPink.cpp">
       <Filter>Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="ModuleScore.cpp">
+      <Filter>Levels - Modules</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
