@@ -69,7 +69,7 @@ ModuleWelcome::ModuleWelcome()
 	up_o.speed = 0.1f;
 	position_o.x = 290;
 	position_o.y = 171;
-
+	/*
 	s_balls_first.speed = 0.24f;
 	s_balls_first.PushBack({ 0, 0, 134, 62 });
 	s_balls_first.PushBack({ 144, 0, 134, 63 });
@@ -87,9 +87,26 @@ ModuleWelcome::ModuleWelcome()
 	s_balls.PushBack({ 144, 288, 134, 62 });
 	s_balls.PushBack({ 288, 288, 134, 62 });
 	s_balls.speed = 0.24f;
-	
+	*/
 
+	s_balls_first.speed = 0.2f;
+	s_balls_first.PushBack({ 0, 0, 134, 62 }); //1
+	s_balls_first.PushBack({ 144, 0, 134, 62 });//2
+	s_balls_first.PushBack({ 288, 0, 134, 62 });//3
+	s_balls_first.PushBack({ 0, 72, 134, 62 });//4
+	s_balls_first.PushBack({ 144, 72, 134, 62 });//5
+	s_balls_first.PushBack({ 288, 72, 134, 62 });//6
+	s_balls_first.PushBack({ 0, 144, 134, 62 });//7
+	s_balls_first.PushBack({ 144, 144, 134, 62 });//8
+	s_balls.PushBack({ 288, 144, 134, 62 });//9
+	s_balls.PushBack({ 288, 435, 134, 62 });//21
+	s_balls.PushBack({ 288, 216, 134, 62 });
+	s_balls.PushBack({ 288, 652, 134, 62 });//29
+	s_balls.PushBack({ 144, 509, 134, 62 });
+	s_balls.PushBack({ 0, 144, 134, 62 });
+	s_balls.speed = 0.2f;
 }
+
 
 ModuleWelcome::~ModuleWelcome()
 {}
@@ -276,11 +293,11 @@ update_status ModuleWelcome::Update()
 		App->render->Blit(graphics_2, position_o.x, position_o.y - r_o.h, &r_o);
 	}
 
-	if (time_welcome <= 13)
+	if (time_welcome <= 23)
 	{
 		App->render->Blit(graphics_Balls, 60, 88, &balls_first);
 	}
-	else if (time_welcome >13)
+	else if (time_welcome >23)
 	{
 		App->render->Blit(graphics_Balls, 60, 88, &balls);
 	}
