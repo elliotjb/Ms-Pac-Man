@@ -36,6 +36,7 @@ bool ModuleSound::CleanUp()
 
 	Mix_CloseAudio();
 	Mix_FreeMusic(start_mspacman);
+	Mix_FreeChunk(eat_ms);
 	Mix_Quit();
 
 	return true;

@@ -28,27 +28,19 @@ public:
 	Animation down;
 	iPoint position;
 	int playerlives;
-
+	iPoint direction_right;
+	iPoint direction_left;
+	iPoint direction_up;
+	iPoint direction_down;
+	iPoint center;
 	SDL_Rect test;
 
 	bool destroyed = false;
 
-	int up_x;
-	int down_x;
-	int left_x;
-	int right_x;
-	int center_x;
-
-	int up_y;
-	int down_y;
-	int left_y;
-	int right_y;
-	int center_y;
-
 
 	int direction = 1; // 0-w 1-a 2-s 3-d
 	int cont = 0;
-	int tile[31][28];
+	//int tile[31][28];
 
 	int time_to_start = 0;
 	bool superpower;

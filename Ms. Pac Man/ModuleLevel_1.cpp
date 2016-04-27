@@ -11,7 +11,7 @@
 #include "ModuleGhostOrange.h"
 #include "ModuleGhostBlue.h"
 #include "ModuleGhostPink.h"
-
+#include "ModuleSound.h"
 // Reference at https://youtu.be/6OlenbCC4WI?t=382
 
 ModuleLevel1::ModuleLevel1()
@@ -137,15 +137,17 @@ update_status ModuleLevel1::Update()
 		}
 	}
 
-	switch (map[App->player->center_y][App->player->center_x])
+	switch (map[App->player->center.y][App->player->center.x])
 	{
 	case 3:
-		map[App->player->center_y][App->player->center_x] = 5;
+		map[App->player->center.y][App->player->center.x] = 5;
+		Mix_PlayChannel(-1, App->sound->eat_ms, 0);
 		eatenpills++;
 		break;
 	case 4:
-		map[App->player->center_y][App->player->center_x] = 5;
+		map[App->player->center.y][App->player->center.x] = 5;
 		App->player->superpower = true;
+		Mix_PlayChannel(-1, App->sound->eat_ms, 0);
 		eatenpills++;
 		break;
 	}

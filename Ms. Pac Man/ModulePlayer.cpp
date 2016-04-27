@@ -70,68 +70,32 @@ bool ModulePlayer::Start()
 // Update: draw background
 update_status ModulePlayer::Update()
 {
-
-	int tile[31][28] = { //Mover en otra entrega a level1
-		/*      0  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 21 22  23 24 25 26 27*/
-		/*0 */{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-		/*1 */{ 0, 3, 3, 3, 3, 3, 3, 0, 0, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 0, 0, 3, 3, 3, 3, 3, 3, 0 },
-		/*2 */{ 0, 4, 0, 0, 0, 0, 3, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 3, 0, 0, 0, 0, 4, 0 },
-		/*3 */{ 0, 3, 0, 0, 0, 0, 3, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 3, 0, 0, 0, 0, 3, 0 },
-		/*4 */{ 0, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 0 },
-		/*5 */{ 0, 0, 0, 3, 0, 0, 3, 0, 0, 0, 0, 0, 3, 0, 0, 3, 0, 0, 0, 0, 0, 3, 0, 0, 3, 0, 0, 0 },
-		/*6 */{ 0, 0, 0, 3, 0, 0, 3, 0, 0, 0, 0, 0, 3, 0, 0, 3, 0, 0, 0, 0, 0, 3, 0, 0, 3, 0, 0, 0 },
-		/*7 */{ 0, 0, 0, 3, 0, 0, 3, 0, 0, 0, 0, 0, 3, 0, 0, 3, 0, 0, 0, 0, 0, 3, 0, 0, 3, 0, 0, 0 },
-		/*8 */{ 8, 5, 5, 3, 0, 0, 3, 3, 3, 3, 3, 3, 3, 0, 0, 3, 3, 3, 3, 3, 3, 3, 0, 0, 3, 5, 5, 8 },
-		/*9 */{ 0, 0, 0, 3, 0, 0, 0, 0, 0, 5, 0, 0, 0, 0, 0, 0, 0, 0, 5, 0, 0, 0, 0, 0, 3, 0, 0, 0 },
-		/*19*/{ 0, 0, 0, 3, 0, 0, 0, 0, 0, 5, 0, 0, 0, 0, 0, 0, 0, 0, 5, 0, 0, 0, 0, 0, 3, 0, 0, 0 },
-		/*11*/{ 0, 0, 0, 3, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 3, 0, 0, 0 },
-		/*12*/{ 0, 0, 0, 3, 0, 0, 0, 0, 0, 5, 0, 0, 0, 0, 0, 0, 0, 0, 5, 0, 0, 0, 0, 0, 3, 0, 0, 0 },
-		/*13*/{ 0, 0, 0, 3, 0, 0, 0, 0, 0, 5, 0, 0, 0, 0, 0, 0, 0, 0, 5, 0, 0, 0, 0, 0, 3, 0, 0, 0 },
-		/*14*/{ 0, 0, 0, 3, 0, 0, 5, 5, 5, 5, 0, 0, 0, 0, 0, 0, 0, 0, 5, 5, 5, 5, 0, 0, 3, 0, 0, 0 },
-		/*15*/{ 0, 0, 0, 3, 0, 0, 5, 0, 0, 5, 0, 0, 0, 0, 0, 0, 0, 0, 5, 0, 0, 5, 0, 0, 3, 0, 0, 0 },
-		/*16*/{ 0, 0, 0, 3, 0, 0, 5, 0, 0, 5, 0, 0, 0, 0, 0, 0, 0, 0, 5, 0, 0, 5, 0, 0, 3, 0, 0, 0 },
-		/*17*/{ 8, 5, 5, 3, 5, 5, 5, 0, 0, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 0, 0, 5, 5, 5, 3, 5, 5, 8 },
-		/*18*/{ 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 5, 0, 0, 5, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0 },
-		/*19*/{ 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 5, 0, 0, 5, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0 },
-		/*20*/{ 0, 0, 0, 3, 3, 3, 3, 3, 3, 3, 5, 5, 5, 0, 0, 5, 5, 5, 3, 3, 3, 3, 3, 3, 3, 0, 0, 0 },
-		/*21*/{ 0, 0, 0, 3, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 3, 0, 0, 0 },
-		/*22*/{ 0, 0, 0, 3, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 3, 0, 0, 0 },
-		/*23*/{ 0, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 5, 5, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 0 },
-		/*24*/{ 0, 3, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 3, 0, 0, 3, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 3, 0 },
-		/*25*/{ 0, 3, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 3, 0, 0, 3, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 3, 0 },
-		/*26*/{ 0, 3, 0, 0, 0, 0, 3, 0, 0, 3, 3, 3, 3, 0, 0, 3, 3, 3, 3, 0, 0, 3, 0, 0, 0, 0, 3, 0 },
-		/*27*/{ 0, 4, 0, 0, 0, 0, 3, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 3, 0, 0, 0, 0, 4, 0 },
-		/*28*/{ 0, 3, 0, 0, 0, 0, 3, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 3, 0, 0, 0, 0, 3, 0 },
-		/*29*/{ 0, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 0 },
-		/*30*/{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-
-	};
-
-	right_x = (position.x + 3) / PIX_TILE;
-	right_y = (position.y - 10) / PIX_TILE;
-	left_x = (position.x + 10) / PIX_TILE;
-	left_y = (position.y - 7) / PIX_TILE;
-	up_x = (position.x + 7) / PIX_TILE;
-	up_y = (position.y - 4) / PIX_TILE;
-	down_x = (position.x + 7) / PIX_TILE;
-	down_y = (position.y - 11) / PIX_TILE;
-	center_x = (position.x + 6) / PIX_TILE;
-	center_y = (position.y - 7) / PIX_TILE;
+	direction_right.x = (position.x + 3) / PIX_TILE;
+	direction_right.y = (position.y - 10) / PIX_TILE;
+	direction_left.x = (position.x + 10) / PIX_TILE;
+	direction_left.y = (position.y - 7) / PIX_TILE;
+	direction_up.x = (position.x + 7) / PIX_TILE;
+	direction_up.y = (position.y - 4) / PIX_TILE;
+	direction_down.x = (position.x + 7) / PIX_TILE;
+	direction_down.y = (position.y - 11) / PIX_TILE;
+	center.x = (position.x + 6) / PIX_TILE;
+	center.y = (position.y - 7) / PIX_TILE;
 
 
 	int speed = 1;
 
 	if (time_to_start > 240)
 	{
-		if (tile[up_y - 1][up_x] == 3 || tile[up_y - 1][up_x] == 4 || tile[up_y - 1][up_x] == 5)
+		if (App->level1->map[direction_up.y - 1][direction_up.x] != 0)
 		{
 			if (App->input->keyboard[SDL_SCANCODE_W] == 1)
 			{
-				if ((position.x + 7) == (center_x * PIX_TILE) + 4 || (position.x + 7) == (center_x * PIX_TILE) + 3 || (position.x + 7) == (center_x * PIX_TILE) + 5 ||
-					(position.x + 7) == (center_x * PIX_TILE) + 2 || (position.x + 7) == (center_x * PIX_TILE) + 6 && (position.y - 7) == (center_y * PIX_TILE) + 4 ||
+				if ((position.x + 7) == (center.x * PIX_TILE) + 4 || (position.x + 7) == (center.x * PIX_TILE) + 3 ||
+					(position.x + 7) == (center.x * PIX_TILE) + 5 || (position.x + 7) == (center.x * PIX_TILE) + 2 ||
+					(position.x + 7) == (center.x * PIX_TILE) + 6 && (position.y - 7) == (center.y * PIX_TILE) + 4 ||
 					direction == 2)
 				{
-					position.x = (center_x * PIX_TILE) + 4 - 7;
+					position.x = (center.x * PIX_TILE) + 4 - 7;
 					direction = 0;
 				}
 			}
@@ -147,16 +111,16 @@ update_status ModulePlayer::Update()
 			up.speed = 0.0f;
 		}
 
-		if (tile[left_y][left_x - 1] == 3 || tile[left_y][left_x - 1] == 4 || tile[left_y][left_x - 1] == 5 || tile[left_y][left_x - 1] == 8 || position.x <= 0 || position.x >= 220 && position.x <= 239)
+		if (App->level1->map[direction_left.y][direction_left.x - 1] != 0 || position.x <= 0 || position.x >= 220 && position.x <= 239)
 		{
 			if (App->input->keyboard[SDL_SCANCODE_A] == 1)
 			{
-
-				if ((position.x + 7) == (center_x * PIX_TILE) + 4 && (position.y - 7) == (center_y * PIX_TILE) + 4 || (position.y - 7) == (center_y * PIX_TILE) + 3 ||
-					(position.y - 7) == (center_y * PIX_TILE) + 5 || (position.y - 7) == (center_y * PIX_TILE) + 2 || (position.y - 7) == (center_y * PIX_TILE) + 6 ||
+				if ((position.x + 7) == (center.x * PIX_TILE) + 4 && (position.y - 7) == (center.y * PIX_TILE) + 4 ||
+					(position.y - 7) == (center.y * PIX_TILE) + 3 || (position.y - 7) == (center.y * PIX_TILE) + 5 || 
+					(position.y - 7) == (center.y * PIX_TILE) + 2 || (position.y - 7) == (center.y * PIX_TILE) + 6 ||
 					direction == 3)
 				{
-					position.y = (center_y * PIX_TILE) + 4 + 7;
+					position.y = (center.y * PIX_TILE) + 4 + 7;
 					direction = 1;
 				}
 			}
@@ -166,7 +130,7 @@ update_status ModulePlayer::Update()
 				current_animation = &left;
 				position.x -= speed;
 			}
-			if (position.x == -15 && direction == 1)//tile[left_y][left_x-1] == 8)
+			if (position.x == -15 && direction == 1)
 			{
 				position.x = 239;
 			}
@@ -176,15 +140,16 @@ update_status ModulePlayer::Update()
 			left.speed = 0.0f;
 		}
 
-		if (tile[down_y + 1][down_x] == 3 || tile[down_y + 1][down_x] == 4 || tile[down_y + 1][down_x] == 5)
+		if (App->level1->map[direction_down.y + 1][direction_down.x] != 0)
 		{
 			if (App->input->keyboard[SDL_SCANCODE_S] == 1)
 			{
-				if ((position.x + 7) == (center_x * PIX_TILE) + 4 || (position.x + 7) == (center_x * PIX_TILE) + 3 || (position.x + 7) == (center_x * PIX_TILE) + 5 ||
-					(position.x + 7) == (center_x * PIX_TILE) + 2 || (position.x + 7) == (center_x * PIX_TILE) + 6 && (position.y - 7) == (center_y * PIX_TILE) + 4 ||
+				if ((position.x + 7) == (center.x * PIX_TILE) + 4 || (position.x + 7) == (center.x * PIX_TILE) + 3 ||
+					(position.x + 7) == (center.x * PIX_TILE) + 5 || (position.x + 7) == (center.x * PIX_TILE) + 2 ||
+					(position.x + 7) == (center.x * PIX_TILE) + 6 && (position.y - 7) == (center.y * PIX_TILE) + 4 ||
 					direction == 0)
 				{
-					position.x = (center_x * PIX_TILE) + 4 - 7;
+					position.x = (center.x * PIX_TILE) + 4 - 7;
 					direction = 2;
 				}
 			}
@@ -200,15 +165,16 @@ update_status ModulePlayer::Update()
 			down.speed = 0.0f;
 		}
 
-		if (tile[right_y][right_x + 1] == 3 || tile[right_y][right_x + 1] == 5 || tile[right_y][right_x + 1] == 4 || tile[right_y][right_x + 1] == 8 || position.x > 210)
+		if (App->level1->map[direction_right.y][direction_right.x + 1] != 0 || position.x > 210)
 		{
 			if (App->input->keyboard[SDL_SCANCODE_D] == 1)
 			{
-				if ((position.x + 7) == (center_x * PIX_TILE) + 4 && (position.y - 7) == (center_y * PIX_TILE) + 4 || (position.y - 7) == (center_y * PIX_TILE) + 3 ||
-					(position.y - 7) == (center_y * PIX_TILE) + 5 || (position.y - 7) == (center_y * PIX_TILE) + 2 || (position.y - 7) == (center_y * PIX_TILE) + 6 ||
+				if ((position.x + 7) == (center.x * PIX_TILE) + 4 && (position.y - 7) == (center.y * PIX_TILE) + 4 || 
+					(position.y - 7) == (center.y * PIX_TILE) + 3 || (position.y - 7) == (center.y * PIX_TILE) + 5 || 
+					(position.y - 7) == (center.y * PIX_TILE) + 2 || (position.y - 7) == (center.y * PIX_TILE) + 6 ||
 					direction == 1)
 				{
-					position.y = (center_y * PIX_TILE) + 4 + 7;
+					position.y = (center.y * PIX_TILE) + 4 + 7;
 					direction = 3;
 				}
 			}
@@ -246,7 +212,7 @@ update_status ModulePlayer::Update()
 		timer = 0;
 	}
 
-
+	//Collision follow the Ms Pac Man
 	collision_player->SetPos(position.x, position.y + 10);
 
 
@@ -281,11 +247,7 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2)
 			current_animation = &left;
 			direction = 1;
 			--playerlives;
-
 		}
-
 	}
-
-
 }
 
