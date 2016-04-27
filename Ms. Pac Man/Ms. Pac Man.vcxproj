@@ -108,7 +108,6 @@
     <ClCompile Include="ModuleLevel_2.cpp" />
     <ClCompile Include="ModulePlayer.cpp" />
     <ClCompile Include="ModuleRender.cpp" />
-    <ClCompile Include="ModuleScore.cpp" />
     <ClCompile Include="ModuleSound.cpp" />
     <ClCompile Include="ModuleTextures.cpp" />
     <ClCompile Include="ModuleWelcome.cpp" />
