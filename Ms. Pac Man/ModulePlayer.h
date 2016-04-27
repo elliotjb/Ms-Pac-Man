@@ -50,7 +50,7 @@ public:
 	int cont = 0;
 	int tile[31][28];
 
-	bool key = true;
+	int time_to_start = 0;
 	bool superpower;
 	int timer;
 

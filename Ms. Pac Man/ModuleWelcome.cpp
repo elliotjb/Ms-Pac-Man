@@ -126,13 +126,6 @@ bool ModuleWelcome::Start()
 	graphics = App->textures->Load("MsPacman_Welcome.png");
 	graphics_2 = App->textures->Load("MsPacMan_Sprites.png"); //Sprites
 	graphics_Balls = App->textures->Load("MsPacman_Welcome_S.png");
-	music_sound = App->sound->LoadMUS("music.ogg");//This not correctly music!
-
-
-	if (Mix_PlayMusic(music_sound, -1) == -1) {
-		LOG("Mix_PlayMusic: %s\n", Mix_GetError());
-
-	}
 	time_welcome = 0;
 	return ret;
 }

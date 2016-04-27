@@ -5,7 +5,8 @@
 #include "Animation.h"
 #include "Globals.h"
 
-#include "SDL_mixer\include\SDL_mixer.h"
+#include "SDL/include/SDL.h"
+#include "SDL_mixer/include/SDL_mixer.h"
 #pragma comment( lib, "SDL_mixer/libx86/SDL2_mixer.lib" )
 
 #define MAX_AUDIO 15
@@ -26,17 +27,16 @@ public:
 	//update_status Update();
 	bool CleanUp();
 
-
-
 	_Mix_Music* music[MAX_AUDIO];
 	uint last_music = 0;
-	//_Mix_Chunk* music_fx;
-
 	_Mix_Music* const LoadMUS(const char* path);
-	//_Mix_Chunk* const LoadWAV(const char* path);
+
+public:
+	Mix_Music* start_mspacman;
+	Mix_Chunk* eat_ms;
+	Mix_Chunk* mov_ms;
 
 
-	//bool Play_Channel(int x, _Mix_Chunk* music_fx, int y);
 };
 
 #endif // __MODULESOUND_H__

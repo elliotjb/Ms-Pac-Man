@@ -11,6 +11,7 @@
 #include "ModuleGhostOrange.h"
 #include "ModuleGhostPink.h"
 #include "ModuleGhostRed.h"
+#include "ModuleSound.h"
 
 
 ModulePlayer::ModulePlayer()
@@ -60,7 +61,9 @@ bool ModulePlayer::Start()
 	graphics = App->textures->Load("MsPacMan_Sprites.png"); // Sprites
 	destroyed = false;
 	playerlives = 3;
-	collision_player = App->collision->AddCollider({ position.x + 50, position.y + 50, 15, 14 }, COLLIDER_PLAYER, this);
+	Mix_PlayMusic(App->sound->start_mspacman, 1);
+
+	collision_player = App->collision->AddCollider({ position.x, position.y, 15, 14 }, COLLIDER_PLAYER, this);
 	return ret;
 }
 
@@ -118,7 +121,7 @@ update_status ModulePlayer::Update()
 
 	int speed = 1;
 
-	if (key)
+	if (time_to_start > 240)
 	{
 		if (tile[up_y - 1][up_x] == 3 || tile[up_y - 1][up_x] == 4 || tile[up_y - 1][up_x] == 5)
 		{
@@ -227,8 +230,12 @@ update_status ModulePlayer::Update()
 		}
 	}
 
-	//super power
 
+	if (time_to_start < 250)
+	{
+		time_to_start++;
+	}
+	//super power
 	if (superpower)
 	{
 		timer++;
