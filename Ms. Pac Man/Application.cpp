@@ -14,6 +14,7 @@
 #include "ModuleGhostPink.h"
 #include "ModuleGhostBlue.h"
 #include "ModuleGhostOrange.h"
+#include "ModuleCollision.h"
 
 Application::Application()
 {
@@ -22,22 +23,23 @@ Application::Application()
 	modules[2] = input = new ModuleInput();
 	modules[3] = textures = new ModuleTextures();
 	modules[4] = welcome = new ModuleWelcome();
-	modules[5] = level1 = new ModuleLevel1();
-	modules[6] = level2 = new ModuleLevel2();
-	modules[7] = win = new ModuleCongratulation();
-	modules[8] = ghost_r = new ModuleGhostRed();
-	modules[9] = ghost_b = new ModuleGhostBlue();
-	modules[10] = ghost_o = new ModuleGhostOrange();
-	modules[11] = ghost_p = new ModuleGhostPink();
-	modules[12] = player = new ModulePlayer();
-	modules[13] = sound = new ModuleSound();
-	modules[14] = fade = new ModuleFadeToBlack();
-	modules[15] = menu = new ModuleLevel1();
-}	
+	modules[5] = collision = new ModuleCollision();
+	modules[6] = level1 = new ModuleLevel1();
+	modules[7] = level2 = new ModuleLevel2();
+	modules[8] = win = new ModuleCongratulation();
+	modules[9] = ghost_r = new ModuleGhostRed();
+	modules[10] = ghost_b = new ModuleGhostBlue();
+	modules[11] = ghost_o = new ModuleGhostOrange();
+	modules[12] = ghost_p = new ModuleGhostPink();
+	modules[13] = player = new ModulePlayer();
+	modules[14] = sound = new ModuleSound();
+	modules[15] = fade = new ModuleFadeToBlack();
+
+}
 
 Application::~Application()
 {
-	for(int i = NUM_MODULES - 1; i >= 0; --i)
+	for (int i = NUM_MODULES - 1; i >= 0; --i)
 		delete modules[i];
 }
 
@@ -54,7 +56,7 @@ bool Application::Init()
 	level1->Disable();
 	level2->Disable();
 	win->Disable();
-	
+
 	for (int i = 0; i < NUM_MODULES && ret == true; ++i)
 		ret = modules[i]->Init();
 

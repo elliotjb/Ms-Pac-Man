@@ -27,6 +27,7 @@ public:
 	Animation up;
 	Animation down;
 	iPoint position;
+	int playerlives;
 
 	SDL_Rect test;
 

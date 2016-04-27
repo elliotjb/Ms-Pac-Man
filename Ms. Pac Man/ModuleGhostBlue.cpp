@@ -9,7 +9,7 @@
 
 ModuleGhostBlue::ModuleGhostBlue()
 {
-	
+
 	right_b.PushBack({ 457, 97, 14, 14 });
 	right_b.PushBack({ 473, 97, 14, 14 });
 	right_b.speed = 0.1f;
@@ -40,7 +40,6 @@ ModuleGhostBlue::ModuleGhostBlue()
 
 ModuleGhostBlue::~ModuleGhostBlue()
 {
-	collision_blue = nullptr;
 }
 
 // Load assets
@@ -49,9 +48,10 @@ bool ModuleGhostBlue::Start()
 	LOG("Loading Ghost textures");
 	bool ret = true;
 	graphics = App->textures->Load("MsPacMan_Sprites.png"); // Sprites
-	
+
 	new_direction_b = 0;
 	collision_blue = App->collision->AddCollider({ 50, 50, 10, 10 }, COLLIDER_ENEMY, this);
+	srand(time(NULL));
 	return ret;
 }
 
@@ -95,10 +95,10 @@ update_status ModuleGhostBlue::Update()
 
 	};
 	//new_direction = rand() % 4;
-	srand(time(NULL));
+
 	int speed = 1;
 	//BLUE
-	if (time_blue < 111)
+	if (time_blue < 101)
 	{
 		time_blue++;
 	}
@@ -225,7 +225,7 @@ update_status ModuleGhostBlue::Update()
 			else{ ghost_down_b = false; }
 		}
 	}
-	
+
 
 	right_x_b = (position_b.x + 3) / PIX_TILE;
 	right_y_b = (position_b.y - 7) / PIX_TILE;
@@ -240,7 +240,7 @@ update_status ModuleGhostBlue::Update()
 
 
 	//decided direction
-	if (tile[up_y_b - 1][up_x_b] == 3 || tile[up_y_b - 1][up_x_b] == 4 || tile[up_y_b - 1][up_x_b] == 5)
+	if (tile[up_y_b - 1][up_x_b] != 0)//tile[up_y_b - 1][up_x_b] == 3 || tile[up_y_b - 1][up_x_b] == 4 || tile[up_y_b - 1][up_x_b] == 5)
 	{
 		if (ghost_up_b)
 		{
@@ -258,6 +258,7 @@ update_status ModuleGhostBlue::Update()
 			current_animation_b = &up_b;
 			position_b.y -= speed;
 		}
+
 		else
 		{
 			up_b.speed = 0.0f;
@@ -265,7 +266,7 @@ update_status ModuleGhostBlue::Update()
 
 	}
 
-	if (tile[left_y_b][left_x_b - 1] == 3 || tile[left_y_b][left_x_b - 1] == 4 || tile[left_y_b][left_x_b - 1] == 5 || tile[left_y_b][left_x_b - 1] == 8 || position_b.x == 0)
+	if (tile[left_y_b][left_x_b - 1] == 3 || tile[left_y_b][left_x_b - 1] == 4 || tile[left_y_b][left_x_b - 1] == 5 || tile[left_y_b][left_x_b - 1] == 8)
 	{
 		if (ghost_left_b)
 		{
@@ -288,6 +289,7 @@ update_status ModuleGhostBlue::Update()
 		{
 			left_b.speed = 0.0f;
 		}
+
 
 		if (position_b.x == 0)//tile[left_y][left_x-1] == 8)
 		{
@@ -353,7 +355,7 @@ update_status ModuleGhostBlue::Update()
 			position_b.x -= 204;
 		}
 	}
-	
+
 	collision_blue->SetPos(position_b.x + 2, position_b.y + 12);
 	if (App->player->superpower == true && App->player->timer < 5)
 	{
@@ -364,7 +366,7 @@ update_status ModuleGhostBlue::Update()
 		GhostBlue_ispow = false;
 	}
 	// Draw everything --------------------------------------
-	
+
 	SDL_Rect r_b = current_animation_b->GetCurrentFrame();
 	SDL_Rect r_pow = current_superpow_combination->GetCurrentFrame();
 
@@ -394,5 +396,30 @@ update_status ModuleGhostBlue::Update()
 
 void ModuleGhostBlue::OnCollision(Collider* c1, Collider* c2)
 {
+	if (c1 == collision_blue && c2->type == COLLIDER_PLAYER && App->player->superpower == true)
+	{
 
+		position_b.x = 105;
+		position_b.y = 121;
+		Isinmid = true;
+		new_direction_b = 0;
+		current_animation_b = &up_b;
+		GhostBlue_ispow = false;
+		dead_blue = false;
+
+
+		ghost_up_b = false;
+		ghost_down_b = false;
+		ghost_left_b = false;
+		ghost_right_b = false;
+
+		can_right_b = false;
+		can_down_b = false;
+		can_left_b = false;
+		can_up_b = false;
+
+		change_com_b = false;
+
+	}
 }
+

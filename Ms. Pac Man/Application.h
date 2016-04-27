@@ -21,6 +21,7 @@ class ModuleGhostRed;
 class ModuleGhostPink;
 class ModuleGhostOrange;
 class ModuleGhostBlue;
+class ModuleCollision;
 
 class Application
 {
@@ -42,7 +43,8 @@ public:
 	ModuleGhostBlue* ghost_b;
 	ModuleGhostOrange* ghost_o;
 	ModuleGhostPink* ghost_p;
-	ModuleLevel1* menu;
+
+	ModuleCollision* collision;
 public:
 
 	Application();

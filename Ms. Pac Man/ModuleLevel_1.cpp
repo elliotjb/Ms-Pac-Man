@@ -161,7 +161,7 @@ update_status ModuleLevel1::Update()
 
 	if (victory)
 	{
-		App->fade->FadeToBlack(this, (Module*)App->level2, 2.0f);
+		App->fade->FadeToBlack(this, (Module*)App->win, 2.0f);
 		App->player->Disable();
 		App->ghost_b->Disable();
 		App->ghost_r->Disable();

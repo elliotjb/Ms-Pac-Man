@@ -7,7 +7,10 @@
 #include "ModuleLevel_1.h"
 #include "ModuleCollision.h"
 #include "ModuleGhostBlue.h"
-
+#include "ModuleFadeToBlack.h"
+#include "ModuleGhostOrange.h"
+#include "ModuleGhostPink.h"
+#include "ModuleGhostRed.h"
 
 
 ModulePlayer::ModulePlayer()
@@ -56,6 +59,7 @@ bool ModulePlayer::Start()
 	timer = 0;
 	graphics = App->textures->Load("MsPacMan_Sprites.png"); // Sprites
 	destroyed = false;
+	playerlives = 3;
 	collision_player = App->collision->AddCollider({ position.x + 50, position.y + 50, 15, 14 }, COLLIDER_PLAYER, this);
 	return ret;
 }
@@ -100,14 +104,14 @@ update_status ModulePlayer::Update()
 
 	};
 
-	right_x = (position.x + 3)  / PIX_TILE;
-	right_y = (position.y - 7)  / PIX_TILE;
-	left_x = (position.x + 10)  / PIX_TILE;
-	left_y = (position.y - 7)   / PIX_TILE;
-	up_x = (position.x + 7)     / PIX_TILE;
-	up_y = (position.y - 4)     / PIX_TILE;
-	down_x = (position.x + 7)   / PIX_TILE;
-	down_y = (position.y - 11)  / PIX_TILE;
+	right_x = (position.x + 3) / PIX_TILE;
+	right_y = (position.y - 10) / PIX_TILE;
+	left_x = (position.x + 10) / PIX_TILE;
+	left_y = (position.y - 7) / PIX_TILE;
+	up_x = (position.x + 7) / PIX_TILE;
+	up_y = (position.y - 4) / PIX_TILE;
+	down_x = (position.x + 7) / PIX_TILE;
+	down_y = (position.y - 11) / PIX_TILE;
 	center_x = (position.x + 6) / PIX_TILE;
 	center_y = (position.y - 7) / PIX_TILE;
 
@@ -140,7 +144,7 @@ update_status ModulePlayer::Update()
 			up.speed = 0.0f;
 		}
 
-		if (tile[left_y][left_x - 1] == 3 || tile[left_y][left_x - 1] == 4 || tile[left_y][left_x - 1] == 5 || tile[left_y][left_x - 1] == 8 || position.x <= 0 || position.x >=220 && position.x <=239)
+		if (tile[left_y][left_x - 1] == 3 || tile[left_y][left_x - 1] == 4 || tile[left_y][left_x - 1] == 5 || tile[left_y][left_x - 1] == 8 || position.x <= 0 || position.x >= 220 && position.x <= 239)
 		{
 			if (App->input->keyboard[SDL_SCANCODE_A] == 1)
 			{
@@ -244,11 +248,22 @@ update_status ModulePlayer::Update()
 
 	App->render->Blit(graphics, position.x, position.y + 24 - r.h, &r);//EDIT FOR NEXT UPDATE!!! (Elliot)
 
+	//gameover
+	if (playerlives == 0){
+		App->fade->FadeToBlack(this, (Module*)App->win, 2.0f);
+		App->player->Disable();
+		App->ghost_b->Disable();
+		App->ghost_r->Disable();
+		App->ghost_o->Disable();
+		App->ghost_p->Disable();
+	}
+
 	return UPDATE_CONTINUE;
 }
 
 void ModulePlayer::OnCollision(Collider* c1, Collider* c2)
 {
+
 	if (c1 == collision_player && c2->type == COLLIDER_ENEMY && superpower == false)
 	{
 		destroyed = true;
@@ -258,25 +273,12 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2)
 			position.y = 195;
 			current_animation = &left;
 			direction = 1;
+			--playerlives;
+
 		}
-		destroyed = true;
+
 	}
 
-	if (c1 == collision_player && c2->type == COLLIDER_ENEMY && superpower == true)
-	{
-		App->ghost_b->dead_blue = true;
-		if (App->ghost_b->dead_blue)
-		{
-			App->ghost_b->Disable();
-			App->ghost_b->Enable();
-			App->ghost_b->position_b.x = 105;
-			App->ghost_b->position_b.y = 121;
-			App->ghost_b->Isinmid = true;
-			App->ghost_b->new_direction_b = 0;
-			App->ghost_b->current_animation_b = &App->ghost_b->up_b;
-			App->ghost_b->GhostBlue_ispow = false;
-			App->ghost_b->dead_blue = false;
-		}
-	}
+
 }
 
