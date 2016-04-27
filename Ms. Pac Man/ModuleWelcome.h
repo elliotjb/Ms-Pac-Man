@@ -61,7 +61,13 @@ public:
 	SDL_Texture* graphics = nullptr;
 	SDL_Texture* graphics_2 = nullptr;
 	_Mix_Music* music_sound = nullptr;
+
 	SDL_Rect welcome;
+	SDL_Rect r_name;
+	SDL_Rect p_name;
+	SDL_Rect b_name;
+	SDL_Rect o_name;
+	SDL_Rect ms_name;
 	SDL_Rect red;
 	SDL_Rect pink;
 	SDL_Rect blue;
