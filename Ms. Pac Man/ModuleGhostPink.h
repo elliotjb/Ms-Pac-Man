@@ -22,44 +22,51 @@ public:
 public:
 
 	
-	Animation* current_animation = &up_p;
+
+	Animation* animation_blue = &up_b;
+	Animation* current_superpow_combination = &superpow_combination;
 	SDL_Texture* graphics = nullptr;
 	SDL_Rect test;
 
+	Collider* collision_blue;
 	//ghost blue
-	Animation right_p;
-	Animation left_p;
-	Animation up_p;
-	Animation down_p;
-	iPoint position_p;
+	Animation right_b;
+	Animation left_b;
+	Animation up_b;
+	Animation down_b;
 
-	int up_x_p;
-	int down_x_p;
-	int left_x_p;
-	int right_x_p;
-	int center_x_p;
+	SDL_Rect superpow_blue;
+	Animation superpow_combination;
 
-	int up_y_p;
-	int down_y_p;
-	int left_y_p;
-	int right_y_p;
-	int center_y_p;
+	iPoint position_blue;
+	iPoint right_blue;
+	iPoint left_blue;
+	iPoint up_blue;
+	iPoint down_blue;
+	iPoint center_blue;
 
-	int change_p = 1;
-	int new_direction_p = 1; // 0-w 1-a 2-s 3-d
+	int change_b = 1;
+	int new_direction_b = 1; // 0-w 1-a 2-s 3-d
 
-	bool ghost_up_p = false;
-	bool ghost_down_p = false;
-	bool ghost_left_p = false;
-	bool ghost_right_p = false;
+	bool ghost_up_blue = false;
+	bool ghost_down_blue = false;
+	bool ghost_left_blue = false;
+	bool ghost_right_blue = false;
 
-	bool can_right_p = false;
-	bool can_down_p = false;
-	bool can_left_p = false;
-	bool can_up_p = false;
+	bool can_right_b = false;
+	bool can_down_b = false;
+	bool can_left_b = false;
+	bool can_up_b = false;
 
-	bool change_comp_p = false;
-	bool change_direction_p;
+	bool change_com_b = false;
+	bool change_direction_blue;
+
+	void OnCollision(Collider* c1, Collider* c2);
+	bool dead_blue = false;
+	bool GhostBlue_ispow = false;
+
+	bool Isinmid = true;
+	int time_blue = 0;
 
 	
 

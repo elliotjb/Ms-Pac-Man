@@ -6,6 +6,7 @@
 #include "ModulePlayer.h"
 #include "ModuleGhostBlue.h"
 #include "ModuleCollision.h"
+#include "ModuleLevel_1.h"
 
 ModuleGhostBlue::ModuleGhostBlue()
 {
@@ -31,8 +32,8 @@ ModuleGhostBlue::ModuleGhostBlue()
 
 
 
-	position_b.x = 105;
-	position_b.y = 121;
+	position_blue.x = 105;
+	position_blue.y = 121;
 
 	test = { 11, 11, 1, 1 };
 
@@ -58,47 +59,11 @@ bool ModuleGhostBlue::Start()
 // Update
 update_status ModuleGhostBlue::Update()
 {
-
-	int tile[31][28] = { //Mover en otra entrega a level1
-		/*      0  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 21 22  23 24 25 26 27*/
-		/*0 */{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-		/*1 */{ 0, 3, 3, 3, 3, 3, 3, 0, 0, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 0, 0, 3, 3, 3, 3, 3, 3, 0 },
-		/*2 */{ 0, 4, 0, 0, 0, 0, 3, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 3, 0, 0, 0, 0, 4, 0 },
-		/*3 */{ 0, 3, 0, 0, 0, 0, 3, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 3, 0, 0, 0, 0, 3, 0 },
-		/*4 */{ 0, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 0 },
-		/*5 */{ 0, 0, 0, 3, 0, 0, 3, 0, 0, 0, 0, 0, 3, 0, 0, 3, 0, 0, 0, 0, 0, 3, 0, 0, 3, 0, 0, 0 },
-		/*6 */{ 0, 0, 0, 3, 0, 0, 3, 0, 0, 0, 0, 0, 3, 0, 0, 3, 0, 0, 0, 0, 0, 3, 0, 0, 3, 0, 0, 0 },
-		/*7 */{ 0, 0, 0, 3, 0, 0, 3, 0, 0, 0, 0, 0, 3, 0, 0, 3, 0, 0, 0, 0, 0, 3, 0, 0, 3, 0, 0, 0 },
-		/*8 */{ 8, 5, 5, 3, 0, 0, 3, 3, 3, 3, 3, 3, 3, 0, 0, 3, 3, 3, 3, 3, 3, 3, 0, 0, 3, 5, 5, 9 },
-		/*9 */{ 0, 0, 0, 3, 0, 0, 0, 0, 0, 5, 0, 0, 0, 0, 0, 0, 0, 0, 5, 0, 0, 0, 0, 0, 3, 0, 0, 0 },
-		/*19*/{ 0, 0, 0, 3, 0, 0, 0, 0, 0, 5, 0, 0, 0, 0, 0, 0, 0, 0, 5, 0, 0, 0, 0, 0, 3, 0, 0, 0 },
-		/*11*/{ 0, 0, 0, 3, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 3, 0, 0, 0 },
-		/*12*/{ 0, 0, 0, 3, 0, 0, 0, 0, 0, 5, 0, 0, 0, 0, 0, 0, 0, 0, 5, 0, 0, 0, 0, 0, 3, 0, 0, 0 },
-		/*13*/{ 0, 0, 0, 3, 0, 0, 0, 0, 0, 5, 0, 0, 0, 0, 0, 0, 0, 0, 5, 0, 0, 0, 0, 0, 3, 0, 0, 0 },
-		/*14*/{ 0, 0, 0, 3, 0, 0, 5, 5, 5, 5, 0, 0, 0, 0, 0, 0, 0, 0, 5, 5, 5, 5, 0, 0, 3, 0, 0, 0 },
-		/*15*/{ 0, 0, 0, 3, 0, 0, 5, 0, 0, 5, 0, 0, 0, 0, 0, 0, 0, 0, 5, 0, 0, 5, 0, 0, 3, 0, 0, 0 },
-		/*16*/{ 0, 0, 0, 3, 0, 0, 5, 0, 0, 5, 0, 0, 0, 0, 0, 0, 0, 0, 5, 0, 0, 5, 0, 0, 3, 0, 0, 0 },
-		/*17*/{ 8, 5, 5, 3, 5, 5, 5, 0, 0, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 0, 0, 5, 5, 5, 3, 5, 5, 9 },
-		/*18*/{ 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 5, 0, 0, 5, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0 },
-		/*19*/{ 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 5, 0, 0, 5, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0 },
-		/*20*/{ 0, 0, 0, 3, 3, 3, 3, 3, 3, 3, 5, 5, 5, 0, 0, 5, 5, 5, 3, 3, 3, 3, 3, 3, 3, 0, 0, 0 },
-		/*21*/{ 0, 0, 0, 3, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 3, 0, 0, 0 },
-		/*22*/{ 0, 0, 0, 3, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 3, 0, 0, 0 },
-		/*23*/{ 0, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 5, 5, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 0 },
-		/*24*/{ 0, 3, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 3, 0, 0, 3, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 3, 0 },
-		/*25*/{ 0, 3, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 3, 0, 0, 3, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 3, 0 },
-		/*26*/{ 0, 3, 0, 0, 0, 0, 3, 0, 0, 3, 3, 3, 3, 0, 0, 3, 3, 3, 3, 0, 0, 3, 0, 0, 0, 0, 3, 0 },
-		/*27*/{ 0, 4, 0, 0, 0, 0, 3, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 3, 0, 0, 0, 0, 4, 0 },
-		/*28*/{ 0, 3, 0, 0, 0, 0, 3, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 3, 0, 0, 0, 0, 3, 0 },
-		/*29*/{ 0, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 0 },
-		/*30*/{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-
-	};
 	//new_direction = rand() % 4;
 
 	int speed = 1;
 	//BLUE
-	if (time_blue < 101)
+	if (time_blue < 101 && Isinmid == true)
 	{
 		time_blue++;
 	}
@@ -109,8 +74,8 @@ update_status ModuleGhostBlue::Update()
 
 	if (Isinmid == true && time_blue > 100)
 	{
-		position_b.y -= 1;
-		if (position_b.y == 99)
+		position_blue.y -= 1;
+		if (position_blue.y == 99)
 		{
 			new_direction_b = 1;
 			Isinmid = false;
@@ -118,72 +83,88 @@ update_status ModuleGhostBlue::Update()
 	}
 
 	//check possibilities
-	if (tile[right_y_b][right_x_b + 1] != 0)
+	/*if (App->level1->map[right_blue.y][right_blue.x + 1] != 0)
 	{
-		if ((position_b.x + 7) == (center_x_b * 8) + 4 && (position_b.y - 7) == (center_y_b * 8) + 4)
+		if ((position_blue.x + 7) == (center_blue.x * 8) + 4 &&
+			(position_blue.y - 7) == (center_blue.y * 8) + 4)
 		{
 			can_right_b = true;
 		}
 	}
-	else{ can_right_b = false; }
+	else
+	{ 
+		can_right_b = false; 
+	}*/
 
 	//lefy
-	if (tile[left_y_b][left_x_b - 1] != 0)
+	if (App->level1->map[left_blue.y][left_blue.x - 1] != 0)
 	{
-		if ((position_b.x + 7) == (center_x_b * 8) + 4 && (position_b.y - 7) == (center_y_b * 8) + 4)
+		if ((position_blue.x + 7) == (center_blue.x * 8) + 4 && 
+			(position_blue.y - 7) == (center_blue.y * 8) + 4)
 		{
 			can_left_b = true;
 		}
 	}
-	else{ can_left_b = false; }
+	else
+	{ 
+		can_left_b = false; 
+	}
 
 	//up
-	if (tile[up_y_b - 1][up_x_b] != 0)
+	if (App->level1->map[up_blue.y - 1][up_blue.x] != 0)
 	{
-		if ((position_b.x + 7) == (center_x_b * 8) + 4 && (position_b.y - 7) == (center_y_b * 8) + 4)
+		if ((position_blue.x + 7) == (center_blue.x * 8) + 4 && 
+			(position_blue.y - 7) == (center_blue.y * 8) + 4)
 		{
 			can_up_b = true;
 		}
 	}
-	else{ can_up_b = false; }
+	else
+	{ 
+		can_up_b = false; 
+	}
 
 	// down
-	if (tile[down_y_b + 1][down_x_b] != 0)
+	if (App->level1->map[down_blue.y + 1][down_blue.x] != 0)
 	{
-		if ((position_b.x + 7) == (center_x_b * 8) + 4 && (position_b.y - 7) == (center_y_b * 8) + 4)
+		if ((position_blue.x + 7) == (center_blue.x * 8) + 4 && 
+			(position_blue.y - 7) == (center_blue.y * 8) + 4)
 		{
 			can_down_b = true;
 		}
 	}
-	else{ can_down_b = false; }
+	else
+	{ 
+		can_down_b = false; 
+	}
 
 	//left
 	if (can_left_b == true || can_right_b == true)
 	{
 		if (can_up_b == false && can_down_b == false)
 		{
-			change_direction_b = false;
+			change_direction_blue = false;
 		}
 		else
 		{
-			change_direction_b = true;
+			change_direction_blue = true;
 		}
 	}
 	if (can_up_b == true || can_down_b == true)
 	{
 		if (can_left_b == false && can_right_b == false)
 		{
-			change_direction_b = false;
+			change_direction_blue = false;
 		}
 		else
 		{
-			change_direction_b = true;
+			change_direction_blue = true;
 		}
 	}
-	else{ change_direction_b = false; }
+	else{ change_direction_blue = false; }
 
 	//
-	if (change_direction_b)
+	if (change_direction_blue)
 	{
 		change_com_b = false;
 		while (change_com_b == false)
@@ -191,172 +172,177 @@ update_status ModuleGhostBlue::Update()
 			change_b = rand() % 4;
 			if (can_right_b && change_b == 2)
 			{
-				position_b.y = (center_y_b * 8) + 4 + 7;
-				ghost_right_b = true;
+				position_blue.y = (center_blue.y * 8) + 4 + 7;
+				ghost_right_blue = true;
 				change_com_b = true;
 			}
-			else{ ghost_right_b = false; }
+			else{ ghost_right_blue = false; }
 
 
 			if (can_left_b && change_b == 3)
 			{
-				position_b.y = (center_y_b * 8) + 4 + 7;
-				ghost_left_b = true;
+				position_blue.y = (center_blue.y * 8) + 4 + 7;
+				ghost_left_blue = true;
 				change_com_b = true;
 			}
-			else{ ghost_left_b = false; }
+			else{ ghost_left_blue = false; }
 
 
 			if (can_up_b && change_b == 0)
 			{
-				position_b.x = (center_x_b * 8) + 4 - 7;
-				ghost_up_b = true;
+				position_blue.x = (center_blue.x * 8) + 4 - 7;
+				ghost_up_blue = true;
 				change_com_b = true;
 			}
-			else{ ghost_up_b = false; }
+			else{ ghost_up_blue = false; }
 
 
 			if (can_down_b && change_b == 1)
 			{
-				position_b.x = (center_x_b * 8) + 4 - 7;
-				ghost_down_b = true;
+				position_blue.x = (center_blue.x * 8) + 4 - 7;
+				ghost_down_blue = true;
 				change_com_b = true;
 			}
-			else{ ghost_down_b = false; }
+			else{ ghost_down_blue = false; }
 		}
 	}
 
 
-	right_x_b = (position_b.x + 3) / PIX_TILE;
-	right_y_b = (position_b.y - 7) / PIX_TILE;
-	left_x_b = (position_b.x + 10) / PIX_TILE;
-	left_y_b = (position_b.y - 7) / PIX_TILE;
-	up_x_b = (position_b.x + 7) / PIX_TILE;
-	up_y_b = (position_b.y - 4) / PIX_TILE;
-	down_x_b = (position_b.x + 7) / PIX_TILE;
-	down_y_b = (position_b.y - 11) / PIX_TILE;
-	center_x_b = (position_b.x + 6) / PIX_TILE;
-	center_y_b = (position_b.y - 7) / PIX_TILE;
+	right_blue.x = (position_blue.x + 3) / PIX_TILE;
+	right_blue.y = (position_blue.y - 7) / PIX_TILE;
+	left_blue.x = (position_blue.x + 10) / PIX_TILE;
+	left_blue.y = (position_blue.y - 7) / PIX_TILE;
+	up_blue.x = (position_blue.x + 7) / PIX_TILE;
+	up_blue.y = (position_blue.y - 4) / PIX_TILE;
+	down_blue.x = (position_blue.x + 7) / PIX_TILE;
+	down_blue.y = (position_blue.y - 11) / PIX_TILE;
+	center_blue.x = (position_blue.x + 6) / PIX_TILE;
+	center_blue.y = (position_blue.y - 7) / PIX_TILE;
 
 
 	//decided direction
-	if (tile[up_y_b - 1][up_x_b] != 0)//tile[up_y_b - 1][up_x_b] == 3 || tile[up_y_b - 1][up_x_b] == 4 || tile[up_y_b - 1][up_x_b] == 5)
+	if (App->level1->map[up_blue.y - 1][up_blue.x] != 0)
 	{
-		if (ghost_up_b)
+		if (ghost_up_blue)
 		{
-			if ((position_b.x + 7) == (center_x_b * PIX_TILE) + 4 || (position_b.x + 7) == (center_x_b * PIX_TILE) + 3 || (position_b.x + 7) == (center_x_b * PIX_TILE) + 5 ||
-				(position_b.x + 7) == (center_x_b * PIX_TILE) + 2 || (position_b.x + 7) == (center_x_b * PIX_TILE) + 6 && (position_b.y - 7) == (center_y_b * PIX_TILE) + 4 ||
+			if ((position_blue.x + 7) == (center_blue.x * PIX_TILE) + 4 || (position_blue.x + 7) == (center_blue.x * PIX_TILE) + 3 ||
+				(position_blue.x + 7) == (center_blue.x * PIX_TILE) + 5 || (position_blue.x + 7) == (center_blue.x * PIX_TILE) + 2 ||
+				(position_blue.x + 7) == (center_blue.x * PIX_TILE) + 6 && (position_blue.y - 7) == (center_blue.y * PIX_TILE) + 4 ||
 				new_direction_b == 2)
 			{
-				position_b.x = (center_x_b * PIX_TILE) + 4 - 7;
+				position_blue.x = (center_blue.x * PIX_TILE) + 4 - 7;
 				new_direction_b = 0;
 			}
 		}
 		if (new_direction_b == 0)
 		{
 			up_b.speed = 0.3f;
-			current_animation_b = &up_b;
-			position_b.y -= speed;
+			animation_blue = &up_b;
+			position_blue.y -= speed;
 		}
-
-		else
-		{
-			up_b.speed = 0.0f;
-		}
-
+	}
+	else
+	{
+		up_b.speed = 0.0f;
 	}
 
-	if (tile[left_y_b][left_x_b - 1] == 3 || tile[left_y_b][left_x_b - 1] == 4 || tile[left_y_b][left_x_b - 1] == 5 || tile[left_y_b][left_x_b - 1] == 8)
-	{
-		if (ghost_left_b)
-		{
 
-			if ((position_b.x + 7) == (center_x_b * PIX_TILE) + 4 && (position_b.y - 7) == (center_y_b * PIX_TILE) + 4 || (position_b.y - 7) == (center_y_b * PIX_TILE) + 3 ||
-				(position_b.y - 7) == (center_y_b * PIX_TILE) + 5 || (position_b.y - 7) == (center_y_b * PIX_TILE) + 2 || (position_b.y - 7) == (center_y_b * PIX_TILE) + 6 ||
+
+	if (App->level1->map[left_blue.y][left_blue.x - 1] != 0 || position_blue.x <= 0 || position_blue.x >= 220 && position_blue.x <= 239)
+	{
+		if (ghost_left_blue)
+		{
+			if ((position_blue.x + 7) == (center_blue.x * PIX_TILE) + 4 && (position_blue.y - 7) == (center_blue.y * PIX_TILE) + 4 ||
+				(position_blue.y - 7) == (center_blue.y * PIX_TILE) + 3 || (position_blue.y - 7) == (center_blue.y * PIX_TILE) + 5 ||
+				(position_blue.y - 7) == (center_blue.y * PIX_TILE) + 2 || (position_blue.y - 7) == (center_blue.y * PIX_TILE) + 6 ||
 				new_direction_b == 3)
 			{
-				position_b.y = (center_y_b * PIX_TILE) + 4 + 7;
+				position_blue.y = (center_blue.y * PIX_TILE) + 4 + 7;
 				new_direction_b = 1;
 			}
 		}
 		if (new_direction_b == 1)
 		{
 			left_b.speed = 0.3f;
-			current_animation_b = &left_b;
-			position_b.x -= speed;
+			animation_blue = &left_b;
+			position_blue.x -= speed;
 		}
-		else
+		if (position_blue.x == -10 && new_direction_b == 1)
 		{
-			left_b.speed = 0.0f;
-		}
-
-
-		if (position_b.x == 0)//tile[left_y][left_x-1] == 8)
-		{
-			for (int i = 0; i >= 25; i++){
-				position_b.x--;
-			}
-			position_b.x += 204;
+			position_blue.x = 220;
 		}
 	}
-
-	if (tile[down_y_b + 1][down_x_b] == 3 || tile[down_y_b + 1][down_x_b] == 4 || tile[down_y_b + 1][down_x_b] == 5)
+	else
 	{
-		if (ghost_down_b)
+		left_b.speed = 0.0f;
+	}
+
+	if (App->level1->map[down_blue.y + 1][down_blue.x] != 0)
+	{
+		if (ghost_down_blue)
 		{
-			if ((position_b.x + 7) == (center_x_b * PIX_TILE) + 4 || (position_b.x + 7) == (center_x_b * PIX_TILE) + 3 || (position_b.x + 7) == (center_x_b * PIX_TILE) + 5 ||
-				(position_b.x + 7) == (center_x_b * PIX_TILE) + 2 || (position_b.x + 7) == (center_x_b * PIX_TILE) + 6 && (position_b.y - 7) == (center_y_b * PIX_TILE) + 4 ||
+			if ((position_blue.x + 7) == (center_blue.x * PIX_TILE) + 4 || (position_blue.x + 7) == (center_blue.x * PIX_TILE) + 3 ||
+				(position_blue.x + 7) == (center_blue.x * PIX_TILE) + 5 || (position_blue.x + 7) == (center_blue.x * PIX_TILE) + 2 ||
+				(position_blue.x + 7) == (center_blue.x * PIX_TILE) + 6 && (position_blue.y - 7) == (center_blue.y * PIX_TILE) + 4 ||
 				new_direction_b == 0)
 			{
-				position_b.x = (center_x_b * PIX_TILE) + 4 - 7;
+				position_blue.x = (center_blue.x * PIX_TILE) + 4 - 7;
 				new_direction_b = 2;
 			}
 		}
 		if (new_direction_b == 2)
 		{
 			down_b.speed = 0.3f;
-			current_animation_b = &down_b;
-			position_b.y += speed;
-
+			animation_blue = &down_b;
+			position_blue.y += speed;
 		}
-		else
-		{
-			down_b.speed = 0.0f;
-		}
-
+	}
+	else
+	{
+		down_b.speed = 0.0f;
 	}
 
-	if (tile[right_y_b][right_x_b + 1] == 3 || tile[right_y_b][right_x_b + 1] == 5 || tile[right_y_b][right_x_b + 1] == 4 || tile[right_y_b][right_x_b + 1] == 9)
+	if (App->level1->map[right_blue.y][right_blue.x + 1] != 0 || position_blue.x > 210)
 	{
-		if (ghost_right_b)
+		if ((position_blue.x + 7) == (center_blue.x * 8) + 4 &&
+			(position_blue.y - 7) == (center_blue.y * 8) + 4)
 		{
-			if ((position_b.x + 7) == (center_x_b * PIX_TILE) + 4 && (position_b.y - 7) == (center_y_b * PIX_TILE) + 4 || (position_b.y - 7) == (center_y_b * PIX_TILE) + 3 ||
-				(position_b.y - 7) == (center_y_b * PIX_TILE) + 5 || (position_b.y - 7) == (center_y_b * PIX_TILE) + 2 || (position_b.y - 7) == (center_y_b * PIX_TILE) + 6 ||
+			can_right_b = true;
+		}
+		if (ghost_right_blue)
+		{
+			if ((position_blue.x + 7) == (center_blue.x * PIX_TILE) + 4 && (position_blue.y - 7) == (center_blue.y * PIX_TILE) + 4 ||
+				(position_blue.y - 7) == (center_blue.y * PIX_TILE) + 3 || (position_blue.y - 7) == (center_blue.y * PIX_TILE) + 5 ||
+				(position_blue.y - 7) == (center_blue.y * PIX_TILE) + 2 || (position_blue.y - 7) == (center_blue.y * PIX_TILE) + 6 ||
 				new_direction_b == 1)
 			{
-				position_b.y = (center_y_b * PIX_TILE) + 4 + 7;
+				position_blue.y = (center_blue.y * PIX_TILE) + 4 + 7;
 				new_direction_b = 3;
 			}
 		}
 		if (new_direction_b == 3)
 		{
 			right_b.speed = 0.3f;
-			current_animation_b = &right_b;
-			position_b.x += speed;
-		}
-		else
-		{
-			right_b.speed = 0.0f;
+			animation_blue = &right_b;
+			position_blue.x += speed;
 		}
 
-		if (tile[right_y_b][right_x_b + 1] == 9)
+		if (position_blue.x >= 220 && new_direction_b == 3)
 		{
-
-			position_b.x -= 204;
+			position_blue.x = -10;
 		}
 	}
+	else
+	{
+		right_b.speed = 0.0f;
+	}
+	if(App->level1->map[right_blue.y][right_blue.x + 1] == 0)
+	{
+		can_right_b = false;
+	}
 
-	collision_blue->SetPos(position_b.x + 2, position_b.y + 12);
+	collision_blue->SetPos(position_blue.x + 2, position_blue.y + 12);
+
 	if (App->player->superpower == true && App->player->timer < 5)
 	{
 		GhostBlue_ispow = true;
@@ -367,7 +353,7 @@ update_status ModuleGhostBlue::Update()
 	}
 	// Draw everything --------------------------------------
 
-	SDL_Rect r_b = current_animation_b->GetCurrentFrame();
+	SDL_Rect r_b = animation_blue->GetCurrentFrame();
 	SDL_Rect r_pow = current_superpow_combination->GetCurrentFrame();
 
 	//EDIT FOR NEXT UPDATE!!! (Elliot)
@@ -376,17 +362,17 @@ update_status ModuleGhostBlue::Update()
 		if (App->player->timer > 280)
 		{
 			superpow_combination.speed = 0.06f;
-			App->render->Blit(graphics, position_b.x, position_b.y + 24 - r_b.h, &r_pow);
+			App->render->Blit(graphics, position_blue.x, position_blue.y + 24 - r_b.h, &r_pow);
 		}
 		else
 		{
-			App->render->Blit(graphics, position_b.x, position_b.y + 24 - r_b.h, &superpow_blue);
+			App->render->Blit(graphics, position_blue.x, position_blue.y + 24 - r_b.h, &superpow_blue);
 		}
 
 	}
 	else
 	{
-		App->render->Blit(graphics, position_b.x, position_b.y + 24 - r_b.h, &r_b);
+		App->render->Blit(graphics, position_blue.x, position_blue.y + 24 - r_b.h, &r_b);
 	}
 
 
@@ -399,19 +385,19 @@ void ModuleGhostBlue::OnCollision(Collider* c1, Collider* c2)
 	if (c1 == collision_blue && c2->type == COLLIDER_PLAYER && App->player->superpower == true)
 	{
 
-		position_b.x = 105;
-		position_b.y = 121;
+		position_blue.x = 105;
+		position_blue.y = 121;
 		Isinmid = true;
 		new_direction_b = 0;
-		current_animation_b = &up_b;
+		animation_blue = &up_b;
 		GhostBlue_ispow = false;
 		dead_blue = false;
 
 
-		ghost_up_b = false;
-		ghost_down_b = false;
-		ghost_left_b = false;
-		ghost_right_b = false;
+		ghost_up_blue = false;
+		ghost_down_blue = false;
+		ghost_left_blue = false;
+		ghost_right_blue = false;
 
 		can_right_b = false;
 		can_down_b = false;

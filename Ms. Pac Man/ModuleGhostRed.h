@@ -21,8 +21,13 @@ public:
 public:
 
 	Animation* current_animation = &up_r;
+	Animation* current_superpow_combination = &superpow_combination;
 	SDL_Texture* graphics = nullptr;
 	SDL_Rect test;
+
+	Collider* collision;
+	SDL_Rect superpow_blue;
+	Animation superpow_combination;
 
 	//ghost blue
 	Animation right_r;
@@ -58,7 +63,9 @@ public:
 
 	bool change_comp_r = false;
 	bool change_direction_r;
+	bool GhostBlue_ispow = false;
 
+	void OnCollision(Collider* c1, Collider* c2);
 };
 
 #endif

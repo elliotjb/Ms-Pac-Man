@@ -5,6 +5,7 @@
 #include "ModuleRender.h"
 #include "ModulePlayer.h"
 #include "ModuleGhostRed.h"
+#include "ModuleCollision.h"
 
 // Reference at https://www.youtube.com/watch?v=OEhmUuehGOA
 
@@ -26,7 +27,11 @@ ModuleGhostRed::ModuleGhostRed()
 	position.x = 81;
 	position.y = 99;
 
-	
+	superpow_combination.PushBack({ 585, 65, 14, 14 });
+	superpow_combination.PushBack({ 617, 65, 14, 14 });
+	superpow_combination.speed = 0.05f;
+
+	superpow_blue = { 585, 65, 14, 14 };
 
 }
 
@@ -41,6 +46,7 @@ bool ModuleGhostRed::Start()
 	graphics = App->textures->Load("MsPacMan_Sprites.png"); // Sprites
 	srand(time(NULL));
 	//red
+	collision = App->collision->AddCollider({ 0, 0, 10, 10 }, COLLIDER_ENEMY, this);
 	new_direction_r = 3;
 	return ret;
 }
@@ -308,15 +314,70 @@ update_status ModuleGhostRed::Update()
 	}
 
 
-
+	collision->SetPos(position.x + 2, position.y + 12);
 	// Draw everything --------------------------------------
 
 	SDL_Rect r_r = current_animation->GetCurrentFrame();
 
 
 	//EDIT FOR NEXT UPDATE!!! (Elliot)
+	if (App->player->superpower == true && App->player->timer < 5)
+	{
+		GhostBlue_ispow = true;
+	}
+	if (App->player->superpower == false)
+	{
+		GhostBlue_ispow = false;
+	}
+	// Draw everything --------------------------------------
 
-	App->render->Blit(graphics, position.x, position.y + 24 - r_r.h, &r_r);
+	SDL_Rect r_b = current_animation->GetCurrentFrame();
+	SDL_Rect r_pow = current_superpow_combination->GetCurrentFrame();
+
+	//EDIT FOR NEXT UPDATE!!! (Elliot)
+	if (GhostBlue_ispow == true)
+	{
+		if (App->player->timer > 280)
+		{
+			superpow_combination.speed = 0.06f;
+			App->render->Blit(graphics, position.x, position.y + 24 - r_b.h, &r_pow);
+		}
+		else
+		{
+			App->render->Blit(graphics, position.x, position.y + 24 - r_b.h, &superpow_blue);
+		}
+
+	}
+	else
+	{
+		App->render->Blit(graphics, position.x, position.y + 24 - r_r.h, &r_r);
+	}
 
 	return UPDATE_CONTINUE;
+}
+
+void ModuleGhostRed::OnCollision(Collider* c1, Collider* c2)
+{
+	if (c1 == collision && c2->type == COLLIDER_PLAYER && App->player->superpower == true)
+	{
+
+		position.x = 81;
+		position.y = 99;
+		new_direction_r = 1;
+		current_animation = &left_r;
+		GhostBlue_ispow = false;
+
+		ghost_up_r = false;
+		ghost_down_r = false;
+		ghost_left_r = false;
+		ghost_right_r = false;
+
+		can_right_r = false;
+		can_down_r = false;
+		can_left_r = false;
+		can_up_r = false;
+
+		change_comp_r = false;
+
+	}
 }

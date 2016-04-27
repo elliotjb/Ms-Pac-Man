@@ -22,7 +22,7 @@ public:
 public:
 
 
-	Animation* current_animation_b = &up_b;
+	Animation* animation_blue = &up_b;
 	Animation* current_superpow_combination = &superpow_combination;
 	SDL_Texture* graphics = nullptr;
 	SDL_Rect test;
@@ -33,29 +33,24 @@ public:
 	Animation left_b;
 	Animation up_b;
 	Animation down_b;
+
 	SDL_Rect superpow_blue;
 	Animation superpow_combination;
-	iPoint position_b;
 
-	int up_x_b;
-	int down_x_b;
-	int left_x_b;
-	int right_x_b;
-	int center_x_b;
-
-	int up_y_b;
-	int down_y_b;
-	int left_y_b;
-	int right_y_b;
-	int center_y_b;
+	iPoint position_blue;
+	iPoint right_blue;
+	iPoint left_blue;
+	iPoint up_blue;
+	iPoint down_blue;
+	iPoint center_blue;
 
 	int change_b = 1;
 	int new_direction_b = 1; // 0-w 1-a 2-s 3-d
 
-	bool ghost_up_b = false;
-	bool ghost_down_b = false;
-	bool ghost_left_b = false;
-	bool ghost_right_b = false;
+	bool ghost_up_blue = false;
+	bool ghost_down_blue = false;
+	bool ghost_left_blue = false;
+	bool ghost_right_blue = false;
 
 	bool can_right_b = false;
 	bool can_down_b = false;
@@ -63,7 +58,7 @@ public:
 	bool can_up_b = false;
 
 	bool change_com_b = false;
-	bool change_direction_b;
+	bool change_direction_blue;
 
 	void OnCollision(Collider* c1, Collider* c2);
 	bool dead_blue = false;

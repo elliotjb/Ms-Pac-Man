@@ -5,35 +5,42 @@
 #include "ModuleRender.h"
 #include "ModulePlayer.h"
 #include "ModuleGhostOrange.h"
-
-// Reference at https://www.youtube.com/watch?v=OEhmUuehGOA
+#include "ModuleCollision.h"
+#include "ModuleLevel_1.h"
 
 ModuleGhostOrange::ModuleGhostOrange()
 {
-	
+	right_b.PushBack({ 457, 113, 14, 14 });
+	right_b.PushBack({ 473, 113, 14, 14 });
+	right_b.speed = 0.1f;
+	left_b.PushBack({ 489, 113, 14, 14 });
+	left_b.PushBack({ 505, 113, 14, 14 });
+	left_b.speed = 0.1f;
+	up_b.PushBack({ 521, 113, 14, 14 });
+	up_b.PushBack({ 537, 113, 14, 14 });
+	up_b.speed = 0.1f;
+	down_b.PushBack({ 553, 113, 14, 14 });
+	down_b.PushBack({ 569, 113, 14, 14 });
+	down_b.speed = 0.1f;
 
-	//orange
-	right_o.PushBack({ 457, 113, 14, 14 });
-	right_o.PushBack({ 473, 113, 14, 14 });
-	right_o.speed = 0.1f;
-	left_o.PushBack({ 489, 113, 14, 14 });
-	left_o.PushBack({ 505, 113, 14, 14 });
-	left_o.speed = 0.1f;
-	up_o.PushBack({ 521, 113, 14, 14 });
-	up_o.PushBack({ 537, 113, 14, 14 });
-	up_o.speed = 0.1f;
-	down_o.PushBack({ 553, 113, 14, 14 });
-	down_o.PushBack({ 569, 113, 14, 14 });
-	down_o.speed = 0.1f;
+	superpow_combination.PushBack({ 585, 65, 14, 14 });
+	superpow_combination.PushBack({ 617, 65, 14, 14 });
+	superpow_combination.speed = 0.05f;
 
-	position_o.x = 129;
-	position_o.y = 99;
+	superpow_blue = { 585, 65, 14, 14 };
 
+
+
+	position_blue.x = 105;
+	position_blue.y = 121;
+
+	test = { 11, 11, 1, 1 };
 
 }
 
 ModuleGhostOrange::~ModuleGhostOrange()
-{}
+{
+}
 
 // Load assets
 bool ModuleGhostOrange::Start()
@@ -41,304 +48,363 @@ bool ModuleGhostOrange::Start()
 	LOG("Loading Ghost textures");
 	bool ret = true;
 	graphics = App->textures->Load("MsPacMan_Sprites.png"); // Sprites
+
+	new_direction_b = 0;
+	collision_blue = App->collision->AddCollider({ 50, 50, 10, 10 }, COLLIDER_ENEMY, this);
 	srand(time(NULL));
-	new_direction_o = 1;
 	return ret;
 }
 
 // Update
 update_status ModuleGhostOrange::Update()
 {
-	int tile[31][28] = { //Mover en otra entrega a level1
-		/*      0  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 21 22  23 24 25 26 27*/
-		/*0 */{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-		/*1 */{ 0, 3, 3, 3, 3, 3, 3, 0, 0, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 0, 0, 3, 3, 3, 3, 3, 3, 0 },
-		/*2 */{ 0, 4, 0, 0, 0, 0, 3, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 3, 0, 0, 0, 0, 4, 0 },
-		/*3 */{ 0, 3, 0, 0, 0, 0, 3, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 3, 0, 0, 0, 0, 3, 0 },
-		/*4 */{ 0, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 0 },
-		/*5 */{ 0, 0, 0, 3, 0, 0, 3, 0, 0, 0, 0, 0, 3, 0, 0, 3, 0, 0, 0, 0, 0, 3, 0, 0, 3, 0, 0, 0 },
-		/*6 */{ 0, 0, 0, 3, 0, 0, 3, 0, 0, 0, 0, 0, 3, 0, 0, 3, 0, 0, 0, 0, 0, 3, 0, 0, 3, 0, 0, 0 },
-		/*7 */{ 0, 0, 0, 3, 0, 0, 3, 0, 0, 0, 0, 0, 3, 0, 0, 3, 0, 0, 0, 0, 0, 3, 0, 0, 3, 0, 0, 0 },
-		/*8 */{ 8, 5, 5, 3, 0, 0, 3, 3, 3, 3, 3, 3, 3, 0, 0, 3, 3, 3, 3, 3, 3, 3, 0, 0, 3, 5, 5, 9 },
-		/*9 */{ 0, 0, 0, 3, 0, 0, 0, 0, 0, 5, 0, 0, 0, 0, 0, 0, 0, 0, 5, 0, 0, 0, 0, 0, 3, 0, 0, 0 },
-		/*19*/{ 0, 0, 0, 3, 0, 0, 0, 0, 0, 5, 0, 0, 0, 0, 0, 0, 0, 0, 5, 0, 0, 0, 0, 0, 3, 0, 0, 0 },
-		/*11*/{ 0, 0, 0, 3, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 3, 0, 0, 0 },
-		/*12*/{ 0, 0, 0, 3, 0, 0, 0, 0, 0, 5, 0, 0, 0, 0, 0, 0, 0, 0, 5, 0, 0, 0, 0, 0, 3, 0, 0, 0 },
-		/*13*/{ 0, 0, 0, 3, 0, 0, 0, 0, 0, 5, 0, 0, 0, 0, 0, 0, 0, 0, 5, 0, 0, 0, 0, 0, 3, 0, 0, 0 },
-		/*14*/{ 0, 0, 0, 3, 0, 0, 5, 5, 5, 5, 0, 0, 0, 0, 0, 0, 0, 0, 5, 5, 5, 5, 0, 0, 3, 0, 0, 0 },
-		/*15*/{ 0, 0, 0, 3, 0, 0, 5, 0, 0, 5, 0, 0, 0, 0, 0, 0, 0, 0, 5, 0, 0, 5, 0, 0, 3, 0, 0, 0 },
-		/*16*/{ 0, 0, 0, 3, 0, 0, 5, 0, 0, 5, 0, 0, 0, 0, 0, 0, 0, 0, 5, 0, 0, 5, 0, 0, 3, 0, 0, 0 },
-		/*17*/{ 8, 5, 5, 3, 5, 5, 5, 0, 0, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 0, 0, 5, 5, 5, 3, 5, 5, 9 },
-		/*18*/{ 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 5, 0, 0, 5, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0 },
-		/*19*/{ 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 5, 0, 0, 5, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0 },
-		/*20*/{ 0, 0, 0, 3, 3, 3, 3, 3, 3, 3, 5, 5, 5, 0, 0, 5, 5, 5, 3, 3, 3, 3, 3, 3, 3, 0, 0, 0 },
-		/*21*/{ 0, 0, 0, 3, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 3, 0, 0, 0 },
-		/*22*/{ 0, 0, 0, 3, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 3, 0, 0, 0 },
-		/*23*/{ 0, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 5, 5, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 0 },
-		/*24*/{ 0, 3, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 3, 0, 0, 3, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 3, 0 },
-		/*25*/{ 0, 3, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 3, 0, 0, 3, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 3, 0 },
-		/*26*/{ 0, 3, 0, 0, 0, 0, 3, 0, 0, 3, 3, 3, 3, 0, 0, 3, 3, 3, 3, 0, 0, 3, 0, 0, 0, 0, 3, 0 },
-		/*27*/{ 0, 4, 0, 0, 0, 0, 3, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 3, 0, 0, 0, 0, 4, 0 },
-		/*28*/{ 0, 3, 0, 0, 0, 0, 3, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 3, 0, 0, 0, 0, 3, 0 },
-		/*29*/{ 0, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 0 },
-		/*30*/{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-
-	};
 	//new_direction = rand() % 4;
-	srand(time(NULL));
+
 	int speed = 1;
+	//BLUE
+	if (time_blue < 101 && Isinmid == true)
+	{
+		time_blue++;
+	}
+	if (Isinmid == false)
+	{
+		time_blue = 0;
+	}
 
-
-
-	//ORANGE
+	if (Isinmid == true && time_blue > 100)
+	{
+		position_blue.y -= 1;
+		if (position_blue.y == 99)
+		{
+			new_direction_b = 1;
+			Isinmid = false;
+		}
+	}
 
 	//check possibilities
-	if (tile[right_y_o][right_x_o + 1] != 0)
+	/*if (App->level1->map[right_blue.y][right_blue.x + 1] != 0)
 	{
-		if ((position_o.x + 7) == (center_x_o * 8) + 4 && (position_o.y - 7) == (center_y_o * 8) + 4)
-		{
-			can_right_o = true;
-		}
+	if ((position_blue.x + 7) == (center_blue.x * 8) + 4 &&
+	(position_blue.y - 7) == (center_blue.y * 8) + 4)
+	{
+	can_right_b = true;
 	}
-	else{ can_right_o = false; }
+	}
+	else
+	{
+	can_right_b = false;
+	}*/
 
 	//lefy
-	if (tile[left_y_o][left_x_o - 1] != 0)
+	if (App->level1->map[left_blue.y][left_blue.x - 1] != 0)
 	{
-		if ((position_o.x + 7) == (center_x_o * 8) + 4 && (position_o.y - 7) == (center_y_o * 8) + 4)
+		if ((position_blue.x + 7) == (center_blue.x * 8) + 4 &&
+			(position_blue.y - 7) == (center_blue.y * 8) + 4)
 		{
-			can_left_o = true;
+			can_left_b = true;
 		}
 	}
-	else{ can_left_o = false; }
+	else
+	{
+		can_left_b = false;
+	}
 
 	//up
-	if (tile[up_y_o - 1][up_x_o] != 0)
+	if (App->level1->map[up_blue.y - 1][up_blue.x] != 0)
 	{
-		if ((position_o.x + 7) == (center_x_o * 8) + 4 && (position_o.y - 7) == (center_y_o * 8) + 4)
+		if ((position_blue.x + 7) == (center_blue.x * 8) + 4 &&
+			(position_blue.y - 7) == (center_blue.y * 8) + 4)
 		{
-			can_up_o = true;
+			can_up_b = true;
 		}
 	}
-	else{ can_up_o = false; }
+	else
+	{
+		can_up_b = false;
+	}
 
 	// down
-	if (tile[down_y_o + 1][down_x_o] != 0)
+	if (App->level1->map[down_blue.y + 1][down_blue.x] != 0)
 	{
-		if ((position_o.x + 7) == (center_x_o * 8) + 4 && (position_o.y - 7) == (center_y_o * 8) + 4)
+		if ((position_blue.x + 7) == (center_blue.x * 8) + 4 &&
+			(position_blue.y - 7) == (center_blue.y * 8) + 4)
 		{
-			can_down_o = true;
+			can_down_b = true;
 		}
 	}
-	else{ can_down_o = false; }
+	else
+	{
+		can_down_b = false;
+	}
 
 	//left
-	if (can_left_o == true || can_right_o == true)
+	if (can_left_b == true || can_right_b == true)
 	{
-		if (can_up_o == false && can_down_o == false)
+		if (can_up_b == false && can_down_b == false)
 		{
-			change_direction_o = false;
+			change_direction_blue = false;
 		}
 		else
 		{
-			change_direction_o = true;
+			change_direction_blue = true;
 		}
 	}
-	if (can_up_o == true || can_down_o == true)
+	if (can_up_b == true || can_down_b == true)
 	{
-		if (can_left_o == false && can_right_o == false)
+		if (can_left_b == false && can_right_b == false)
 		{
-			change_direction_o = false;
+			change_direction_blue = false;
 		}
 		else
 		{
-			change_direction_o = true;
+			change_direction_blue = true;
 		}
 	}
-	else{ change_direction_o = false; }
+	else{ change_direction_blue = false; }
 
 	//
-	if (change_direction_o)
+	if (change_direction_blue)
 	{
-		change_comp_o = false;
-		while (change_comp_o == false)
+		change_com_b = false;
+		while (change_com_b == false)
 		{
-			change_o = rand() % 4;
-			if (can_right_o && change_o == 1)
+			change_b = rand() % 4;
+			if (can_right_b && change_b == 2)
 			{
-				position_o.y = (center_y_o * 8) + 4 + 7;
-				ghost_right_o = true;
-				change_comp_o = true;
+				position_blue.y = (center_blue.y * 8) + 4 + 7;
+				ghost_right_blue = true;
+				change_com_b = true;
 			}
-			else{ ghost_right_o = false; }
+			else{ ghost_right_blue = false; }
 
 
-			if (can_left_o && change_o == 2)
+			if (can_left_b && change_b == 3)
 			{
-				position_o.y = (center_y_o * 8) + 4 + 7;
-				ghost_left_o = true;
-				change_comp_o = true;
+				position_blue.y = (center_blue.y * 8) + 4 + 7;
+				ghost_left_blue = true;
+				change_com_b = true;
 			}
-			else{ ghost_left_o = false; }
+			else{ ghost_left_blue = false; }
 
 
-			if (can_up_o && change_o == 3)
+			if (can_up_b && change_b == 0)
 			{
-				position_o.x = (center_x_o * 8) + 4 - 7;
-				ghost_up_o = true;
-				change_comp_o = true;
+				position_blue.x = (center_blue.x * 8) + 4 - 7;
+				ghost_up_blue = true;
+				change_com_b = true;
 			}
-			else{ ghost_up_o = false; }
+			else{ ghost_up_blue = false; }
 
 
-			if (can_down_o && change_o == 0)
+			if (can_down_b && change_b == 1)
 			{
-				position_o.x = (center_x_o * 8) + 4 - 7;
-				ghost_down_o = true;
-				change_comp_o = true;
+				position_blue.x = (center_blue.x * 8) + 4 - 7;
+				ghost_down_blue = true;
+				change_com_b = true;
 			}
-			else{ ghost_down_o = false; }
+			else{ ghost_down_blue = false; }
 		}
 	}
 
 
-	right_x_o = (position_o.x + 3) / PIX_TILE;
-	right_y_o = (position_o.y - 7) / PIX_TILE;
-	left_x_o = (position_o.x + 10) / PIX_TILE;
-	left_y_o = (position_o.y - 7) / PIX_TILE;
-	up_x_o = (position_o.x + 7) / PIX_TILE;
-	up_y_o = (position_o.y - 4) / PIX_TILE;
-	down_x_o = (position_o.x + 7) / PIX_TILE;
-	down_y_o = (position_o.y - 11) / PIX_TILE;
-	center_x_o = (position_o.x + 6) / PIX_TILE;
-	center_y_o= (position_o.y - 7) / PIX_TILE;
+	right_blue.x = (position_blue.x + 3) / PIX_TILE;
+	right_blue.y = (position_blue.y - 7) / PIX_TILE;
+	left_blue.x = (position_blue.x + 10) / PIX_TILE;
+	left_blue.y = (position_blue.y - 7) / PIX_TILE;
+	up_blue.x = (position_blue.x + 7) / PIX_TILE;
+	up_blue.y = (position_blue.y - 4) / PIX_TILE;
+	down_blue.x = (position_blue.x + 7) / PIX_TILE;
+	down_blue.y = (position_blue.y - 11) / PIX_TILE;
+	center_blue.x = (position_blue.x + 6) / PIX_TILE;
+	center_blue.y = (position_blue.y - 7) / PIX_TILE;
 
 
 	//decided direction
-	if (tile[up_y_o - 1][up_x_o] == 3 || tile[up_y_o - 1][up_x_o] == 4 || tile[up_y_o - 1][up_x_o] == 5)
+	if (App->level1->map[up_blue.y - 1][up_blue.x] != 0)
 	{
-		if (ghost_up_o)
+		if (ghost_up_blue)
 		{
-			if ((position_o.x + 7) == (center_x_o * PIX_TILE) + 4 || (position_o.x + 7) == (center_x_o * PIX_TILE) + 3 || (position_o.x + 7) == (center_x_o * PIX_TILE) + 5 ||
-				(position_o.x + 7) == (center_x_o * PIX_TILE) + 2 || (position_o.x + 7) == (center_x_o * PIX_TILE) + 6 && (position_o.y - 7) == (center_y_o * PIX_TILE) + 4 ||
-				new_direction_o == 2)
+			if ((position_blue.x + 7) == (center_blue.x * PIX_TILE) + 4 || (position_blue.x + 7) == (center_blue.x * PIX_TILE) + 3 ||
+				(position_blue.x + 7) == (center_blue.x * PIX_TILE) + 5 || (position_blue.x + 7) == (center_blue.x * PIX_TILE) + 2 ||
+				(position_blue.x + 7) == (center_blue.x * PIX_TILE) + 6 && (position_blue.y - 7) == (center_blue.y * PIX_TILE) + 4 ||
+				new_direction_b == 2)
 			{
-				position_o.x = (center_x_o * PIX_TILE) + 4 - 7;
-				new_direction_o = 0;
+				position_blue.x = (center_blue.x * PIX_TILE) + 4 - 7;
+				new_direction_b = 0;
 			}
 		}
-		if (new_direction_o == 0)
+		if (new_direction_b == 0)
 		{
-			up_o.speed = 0.3f;
-			current_animation = &up_o;
-			position_o.y -= speed;
-		}
-		else
-		{
-			up_o.speed = 0.0f;
-		}
-
-	}
-
-	if (tile[left_y_o][left_x_o - 1] == 3 || tile[left_y_o][left_x_o - 1] == 4 || tile[left_y_o][left_x_o - 1] == 5 || tile[left_y_o][left_x_o - 1] == 8 || position_o.x == 0)
-	{
-		if (ghost_left_o)
-		{
-
-			if ((position_o.x + 7) == (center_x_o * PIX_TILE) + 4 && (position_o.y - 7) == (center_y_o * PIX_TILE) + 4 || (position_o.y - 7) == (center_y_o * PIX_TILE) + 3 ||
-				(position_o.y - 7) == (center_y_o * PIX_TILE) + 5 || (position_o.y - 7) == (center_y_o * PIX_TILE) + 2 || (position_o.y - 7) == (center_y_o * PIX_TILE) + 6 ||
-				new_direction_o == 3)
-			{
-				position_o.y = (center_y_o * PIX_TILE) + 4 + 7;
-				new_direction_o = 1;
-			}
-		}
-		if (new_direction_o == 1)
-		{
-			left_o.speed = 0.3f;
-			current_animation = &left_o;
-			position_o.x -= speed;
-		}
-		else
-		{
-			left_o.speed = 0.0f;
-		}
-
-		if (position_o.x == 0)//tile[left_y][left_x-1] == 8)
-		{
-			for (int i = 0; i >= 25; i++){
-				position_o.x--;
-			}
-			position_o.x += 204;
+			up_b.speed = 0.3f;
+			animation_blue = &up_b;
+			position_blue.y -= speed;
 		}
 	}
-
-	if (tile[down_y_o + 1][down_x_o] == 3 || tile[down_y_o + 1][down_x_o] == 4 || tile[down_y_o + 1][down_x_o] == 5)
+	else
 	{
-		if (ghost_down_o)
-		{
-			if ((position_o.x + 7) == (center_x_o * PIX_TILE) + 4 || (position_o.x + 7) == (center_x_o * PIX_TILE) + 3 || (position_o.x + 7) == (center_x_o * PIX_TILE) + 5 ||
-				(position_o.x + 7) == (center_x_o * PIX_TILE) + 2 || (position_o.x + 7) == (center_x_o * PIX_TILE) + 6 && (position_o.y - 7) == (center_y_o * PIX_TILE) + 4 ||
-				new_direction_o == 0)
-			{
-				position_o.x = (center_x_o * PIX_TILE) + 4 - 7;
-				new_direction_o = 2;
-			}
-		}
-		if (new_direction_o == 2)
-		{
-			down_o.speed = 0.3f;
-			current_animation = &down_o;
-			position_o.y += speed;
-
-		}
-		else
-		{
-			down_o.speed = 0.0f;
-		}
-
-	}
-
-	if (tile[right_y_o][right_x_o + 1] == 3 || tile[right_y_o][right_x_o + 1] == 5 || tile[right_y_o][right_x_o + 1] == 4 || tile[right_y_o][right_x_o + 1] == 9)
-	{
-		if (ghost_right_o)
-		{
-			if ((position_o.x + 7) == (center_x_o * PIX_TILE) + 4 && (position_o.y - 7) == (center_y_o * PIX_TILE) + 4 || (position_o.y - 7) == (center_y_o * PIX_TILE) + 3 ||
-				(position_o.y - 7) == (center_y_o * PIX_TILE) + 5 || (position_o.y - 7) == (center_y_o * PIX_TILE) + 2 || (position_o.y - 7) == (center_y_o * PIX_TILE) + 6 ||
-				new_direction_o == 1)
-			{
-				position_o.y = (center_y_o * PIX_TILE) + 4 + 7;
-				new_direction_o = 3;
-			}
-		}
-		if (new_direction_o == 3)
-		{
-			right_o.speed = 0.3f;
-			current_animation = &right_o;
-			position_o.x += speed;
-		}
-		else
-		{
-			right_o.speed = 0.0f;
-		}
-
-		if (tile[right_y_o][right_x_o + 1] == 9)
-		{
-
-			position_o.x -= 204;
-		}
+		up_b.speed = 0.0f;
 	}
 
 
 
+	if (App->level1->map[left_blue.y][left_blue.x - 1] != 0 || position_blue.x <= 0 || position_blue.x >= 220 && position_blue.x <= 239)
+	{
+		if (ghost_left_blue)
+		{
+			if ((position_blue.x + 7) == (center_blue.x * PIX_TILE) + 4 && (position_blue.y - 7) == (center_blue.y * PIX_TILE) + 4 ||
+				(position_blue.y - 7) == (center_blue.y * PIX_TILE) + 3 || (position_blue.y - 7) == (center_blue.y * PIX_TILE) + 5 ||
+				(position_blue.y - 7) == (center_blue.y * PIX_TILE) + 2 || (position_blue.y - 7) == (center_blue.y * PIX_TILE) + 6 ||
+				new_direction_b == 3)
+			{
+				position_blue.y = (center_blue.y * PIX_TILE) + 4 + 7;
+				new_direction_b = 1;
+			}
+		}
+		if (new_direction_b == 1)
+		{
+			left_b.speed = 0.3f;
+			animation_blue = &left_b;
+			position_blue.x -= speed;
+		}
+		if (position_blue.x == -10 && new_direction_b == 1)
+		{
+			position_blue.x = 220;
+		}
+	}
+	else
+	{
+		left_b.speed = 0.0f;
+	}
+
+	if (App->level1->map[down_blue.y + 1][down_blue.x] != 0)
+	{
+		if (ghost_down_blue)
+		{
+			if ((position_blue.x + 7) == (center_blue.x * PIX_TILE) + 4 || (position_blue.x + 7) == (center_blue.x * PIX_TILE) + 3 ||
+				(position_blue.x + 7) == (center_blue.x * PIX_TILE) + 5 || (position_blue.x + 7) == (center_blue.x * PIX_TILE) + 2 ||
+				(position_blue.x + 7) == (center_blue.x * PIX_TILE) + 6 && (position_blue.y - 7) == (center_blue.y * PIX_TILE) + 4 ||
+				new_direction_b == 0)
+			{
+				position_blue.x = (center_blue.x * PIX_TILE) + 4 - 7;
+				new_direction_b = 2;
+			}
+		}
+		if (new_direction_b == 2)
+		{
+			down_b.speed = 0.3f;
+			animation_blue = &down_b;
+			position_blue.y += speed;
+		}
+	}
+	else
+	{
+		down_b.speed = 0.0f;
+	}
+
+	if (App->level1->map[right_blue.y][right_blue.x + 1] != 0 || position_blue.x > 210)
+	{
+		if ((position_blue.x + 7) == (center_blue.x * 8) + 4 &&
+			(position_blue.y - 7) == (center_blue.y * 8) + 4)
+		{
+			can_right_b = true;
+		}
+		if (ghost_right_blue)
+		{
+			if ((position_blue.x + 7) == (center_blue.x * PIX_TILE) + 4 && (position_blue.y - 7) == (center_blue.y * PIX_TILE) + 4 ||
+				(position_blue.y - 7) == (center_blue.y * PIX_TILE) + 3 || (position_blue.y - 7) == (center_blue.y * PIX_TILE) + 5 ||
+				(position_blue.y - 7) == (center_blue.y * PIX_TILE) + 2 || (position_blue.y - 7) == (center_blue.y * PIX_TILE) + 6 ||
+				new_direction_b == 1)
+			{
+				position_blue.y = (center_blue.y * PIX_TILE) + 4 + 7;
+				new_direction_b = 3;
+			}
+		}
+		if (new_direction_b == 3)
+		{
+			right_b.speed = 0.3f;
+			animation_blue = &right_b;
+			position_blue.x += speed;
+		}
+
+		if (position_blue.x >= 220 && new_direction_b == 3)
+		{
+			position_blue.x = -10;
+		}
+	}
+	else
+	{
+		right_b.speed = 0.0f;
+	}
+	if (App->level1->map[right_blue.y][right_blue.x + 1] == 0)
+	{
+		can_right_b = false;
+	}
+
+	collision_blue->SetPos(position_blue.x + 2, position_blue.y + 12);
+
+	if (App->player->superpower == true && App->player->timer < 5)
+	{
+		GhostBlue_ispow = true;
+	}
+	if (App->player->superpower == false)
+	{
+		GhostBlue_ispow = false;
+	}
 	// Draw everything --------------------------------------
 
-	SDL_Rect r_o = current_animation->GetCurrentFrame();
-
+	SDL_Rect r_b = animation_blue->GetCurrentFrame();
+	SDL_Rect r_pow = current_superpow_combination->GetCurrentFrame();
 
 	//EDIT FOR NEXT UPDATE!!! (Elliot)
+	if (GhostBlue_ispow == true)
+	{
+		if (App->player->timer > 280)
+		{
+			superpow_combination.speed = 0.06f;
+			App->render->Blit(graphics, position_blue.x, position_blue.y + 24 - r_b.h, &r_pow);
+		}
+		else
+		{
+			App->render->Blit(graphics, position_blue.x, position_blue.y + 24 - r_b.h, &superpow_blue);
+		}
 
-	App->render->Blit(graphics, position_o.x, position_o.y + 24 - r_o.h, &r_o);
+	}
+	else
+	{
+		App->render->Blit(graphics, position_blue.x, position_blue.y + 24 - r_b.h, &r_b);
+	}
+
 
 	return UPDATE_CONTINUE;
 }
+
+
+void ModuleGhostOrange::OnCollision(Collider* c1, Collider* c2)
+{
+	if (c1 == collision_blue && c2->type == COLLIDER_PLAYER && App->player->superpower == true)
+	{
+
+		position_blue.x = 105;
+		position_blue.y = 121;
+		Isinmid = true;
+		new_direction_b = 0;
+		animation_blue = &up_b;
+		GhostBlue_ispow = false;
+		dead_blue = false;
+
+
+		ghost_up_blue = false;
+		ghost_down_blue = false;
+		ghost_left_blue = false;
+		ghost_right_blue = false;
+
+		can_right_b = false;
+		can_down_b = false;
+		can_left_b = false;
+		can_up_b = false;
+
+		change_com_b = false;
+
+	}
+}
+
