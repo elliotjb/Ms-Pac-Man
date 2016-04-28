@@ -18,6 +18,7 @@ ModulePlayer::ModulePlayer()
 {
 	position.x = 105;
 	position.y = 195;
+	lose = { 464, 351, 81, 11};
 
 	right.PushBack({ 489, 1, 15, 14 });
 	right.PushBack({ 473, 1, 15, 14 });
@@ -223,12 +224,13 @@ update_status ModulePlayer::Update()
 
 	//gameover
 	if (playerlives == 0){
-		App->fade->FadeToBlack(this, (Module*)App->win, 2.0f);
-		App->player->Disable();
+		App->render->Blit(graphics, 76, 160, &lose);
+		App->player->Enable();
 		App->ghost_b->Disable();
 		App->ghost_r->Disable();
 		App->ghost_o->Disable();
 		App->ghost_p->Disable();
+		App->fade->FadeToBlack(this, (Module*)App->win, 2.0f);
 	}
 
 	return UPDATE_CONTINUE;
