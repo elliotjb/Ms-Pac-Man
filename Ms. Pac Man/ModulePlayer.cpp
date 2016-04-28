@@ -224,7 +224,7 @@ update_status ModulePlayer::Update()
 
 	//gameover
 	if (playerlives == 0){
-		App->render->Blit(graphics, 76, 160, &lose);
+		App->render->Blit(graphics, 72, 160, &lose);
 		App->player->Enable();
 		App->ghost_b->Disable();
 		App->ghost_r->Disable();
