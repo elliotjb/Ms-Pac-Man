@@ -34,6 +34,7 @@ public:
 	iPoint direction_down;
 	iPoint center;
 	SDL_Rect test;
+	SDL_Rect lose;
 
 	bool destroyed = false;
 
