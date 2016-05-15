@@ -82,6 +82,22 @@ update_status ModulePlayer::Update()
 	center.x = (position.x + 6) / PIX_TILE;
 	center.y = (position.y - 7) / PIX_TILE;
 
+	if (App->input->keyboard[SDL_SCANCODE_W] == KEY_STATE::KEY_REPEAT)
+	{
+		key_W = true; key_A = false; key_S = false; key_D = false;
+	}
+	if (App->input->keyboard[SDL_SCANCODE_A] == KEY_STATE::KEY_REPEAT)
+	{
+		key_A = true; key_S = false; key_D = false; key_W = false;
+	}
+	if (App->input->keyboard[SDL_SCANCODE_S] == KEY_STATE::KEY_REPEAT)
+	{
+		key_S = true; key_D = false; key_W = false; key_A = false;
+	}
+	if (App->input->keyboard[SDL_SCANCODE_D] == KEY_STATE::KEY_REPEAT)
+	{
+		key_D = true; key_W = false; key_A = false; key_S = false;
+	}
 
 	int speed = 1;
 
@@ -89,7 +105,7 @@ update_status ModulePlayer::Update()
 	{
 		if (App->level1->map[direction_up.y - 1][direction_up.x] != 0)
 		{
-			if (App->input->keyboard[SDL_SCANCODE_W] == 1)
+			if (key_W == true)
 			{
 				if ((position.x + 7) == (center.x * PIX_TILE) + 4 || (position.x + 7) == (center.x * PIX_TILE) + 3 ||
 					(position.x + 7) == (center.x * PIX_TILE) + 5 || (position.x + 7) == (center.x * PIX_TILE) + 2 ||
@@ -114,7 +130,7 @@ update_status ModulePlayer::Update()
 
 		if (App->level1->map[direction_left.y][direction_left.x - 1] != 0 || position.x <= 0 || position.x >= 220 && position.x <= 239)
 		{
-			if (App->input->keyboard[SDL_SCANCODE_A] == 1)
+			if (key_A == true)
 			{
 				if ((position.x + 7) == (center.x * PIX_TILE) + 4 && (position.y - 7) == (center.y * PIX_TILE) + 4 ||
 					(position.y - 7) == (center.y * PIX_TILE) + 3 || (position.y - 7) == (center.y * PIX_TILE) + 5 || 
@@ -143,7 +159,7 @@ update_status ModulePlayer::Update()
 
 		if (App->level1->map[direction_down.y + 1][direction_down.x] != 0)
 		{
-			if (App->input->keyboard[SDL_SCANCODE_S] == 1)
+			if (key_S == true)
 			{
 				if ((position.x + 7) == (center.x * PIX_TILE) + 4 || (position.x + 7) == (center.x * PIX_TILE) + 3 ||
 					(position.x + 7) == (center.x * PIX_TILE) + 5 || (position.x + 7) == (center.x * PIX_TILE) + 2 ||
@@ -168,7 +184,7 @@ update_status ModulePlayer::Update()
 
 		if (App->level1->map[direction_right.y][direction_right.x + 1] != 0 || position.x > 210)
 		{
-			if (App->input->keyboard[SDL_SCANCODE_D] == 1)
+			if (key_D == true)
 			{
 				if ((position.x + 7) == (center.x * PIX_TILE) + 4 && (position.y - 7) == (center.y * PIX_TILE) + 4 || 
 					(position.y - 7) == (center.y * PIX_TILE) + 3 || (position.y - 7) == (center.y * PIX_TILE) + 5 || 

@@ -36,8 +36,14 @@ public:
 	SDL_Rect test;
 	SDL_Rect lose;
 
+	//Bool to comprovated so PacMan is Dead
 	bool destroyed = false;
 
+	//Bool to comprovated if u change direction
+	bool key_W = false;
+	bool key_A = true;
+	bool key_S = false;
+	bool key_D = false;
 
 	int direction = 1; // 0-w 1-a 2-s 3-d
 	int cont = 0;
