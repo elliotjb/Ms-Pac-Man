@@ -83,6 +83,9 @@
     <ClInclude Include="ModuleCollision.h">
       <Filter>Modules</Filter>
     </ClInclude>
+    <ClInclude Include="ModuleLevel_3.h">
+      <Filter>Levels - Modules</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -141,6 +144,9 @@
     </ClCompile>
     <ClCompile Include="ModuleCollision.cpp">
       <Filter>Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="ModuleLevel_3.cpp">
+      <Filter>Levels - Modules</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
