@@ -39,6 +39,9 @@ public:
 	//Bool to comprovated so PacMan is Dead
 	bool destroyed = false;
 
+	//GOD Mode
+	bool GOD = false;
+
 	//Bool to comprovated if u change direction
 	bool key_W = false;
 	bool key_A = true;

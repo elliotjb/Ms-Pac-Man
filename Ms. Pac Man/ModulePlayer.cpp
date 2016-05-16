@@ -64,7 +64,14 @@ bool ModulePlayer::Start()
 	playerlives = 3;
 	Mix_PlayMusic(App->sound->start_mspacman, 1);
 
-	collision_player = App->collision->AddCollider({ position.x, position.y, 15, 14 }, COLLIDER_PLAYER, this);
+	if (GOD)
+	{
+		collision_player = App->collision->AddCollider({ position.x, position.y, 15, 14 }, COLLIDER_GOD, this);
+	}
+	else
+	{
+		collision_player = App->collision->AddCollider({ position.x, position.y, 15, 14 }, COLLIDER_PLAYER, this);
+	}
 	return ret;
 }
 
@@ -97,6 +104,13 @@ update_status ModulePlayer::Update()
 	if (App->input->keyboard[SDL_SCANCODE_D] == KEY_STATE::KEY_REPEAT)
 	{
 		key_D = true; key_W = false; key_A = false; key_S = false;
+	}
+
+	//GOD Mode
+	if (App->input->keyboard[SDL_SCANCODE_G] == KEY_STATE::KEY_IDLE)
+	{
+		if (GOD) GOD = false;
+		else GOD = true;
 	}
 
 	int speed = 1;

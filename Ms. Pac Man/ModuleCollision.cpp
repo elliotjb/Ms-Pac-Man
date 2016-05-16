@@ -103,6 +103,9 @@ void ModuleCollision::DebugDraw()
 			case COLLIDER_PLAYER: // green
 			App->render->DrawQuad(colliders[i]->rect, 0, 255, 0, alpha);
 			break;
+			case COLLIDER_GOD: //??
+			App->render->DrawQuad(colliders[i]->rect, 0, 255, 0, alpha);
+			break;
 			case COLLIDER_ENEMY: // red
 			App->render->DrawQuad(colliders[i]->rect, 255, 0, 0, alpha);
 			break;
