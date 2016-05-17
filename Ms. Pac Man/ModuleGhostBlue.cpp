@@ -32,10 +32,11 @@ ModuleGhostBlue::ModuleGhostBlue()
 
 
 
-	position_blue.x = 105;
+	position_blue.x = 89;
 	position_blue.y = 121;
 
 	test = { 11, 11, 1, 1 };
+	i = 0;
 
 }
 
@@ -63,24 +64,46 @@ update_status ModuleGhostBlue::Update()
 
 	int speed = 1;
 	//BLUE
-	if (time_blue < 101 && Isinmid == true)
+	if (time_blue < 500 && Isinmid == true)
 	{
 		time_blue++;
+
+		if (i == 5) {
+			
+			position_blue.y = 123;
+			
+		}
+		else if (i == 10) {
+			position_blue.y = 121;
+			
+		}
+		else if (i == 15) {
+			
+		position_blue.y = 119;
+			i = 0;
+		}
+		i++;
 	}
 	if (Isinmid == false)
 	{
 		time_blue = 0;
 	}
 
-	if (Isinmid == true && time_blue > 100)
+	if (Isinmid == true && time_blue > 499)
 	{
-		position_blue.y -= 1;
-		if (position_blue.y == 99)
-		{
-			new_direction_b = 1;
-			Isinmid = false;
+		if (position_blue.x <= 105 && Isinmid == true){
+			position_blue.x++;
+		}
+		if (position_blue.x >= 104){
+			position_blue.y -= 1;
+			if (position_blue.y == 99)
+			{
+				new_direction_b = 1;
+				Isinmid = false;
+			}
 		}
 	}
+
 
 	//check possibilities
 	/*if (App->level1->map[right_blue.y][right_blue.x + 1] != 0)

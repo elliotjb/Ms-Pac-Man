@@ -334,10 +334,12 @@ update_status ModuleWelcome::Update()
 		App->render->Blit(graphics_2, 86, 103, &ms_name);
 	}
 
+
 	if (App->input->keyboard[SDL_SCANCODE_SPACE] == 1)
 	{
-		App->fade->FadeToBlack(this, (Module*)App->level1, 2.0f);
+		App->fade->FadeToBlack(this, (Module*)App->win, 2.0f);
 	}
+
 
 
 	return UPDATE_CONTINUE;

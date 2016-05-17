@@ -29,9 +29,9 @@ ModuleGhostOrange::ModuleGhostOrange()
 
 	superpow_blue = { 585, 65, 14, 14 };
 
+	i = 0;
 
-
-	position_blue.x = 105;
+	position_blue.x = 121;
 	position_blue.y = 121;
 
 	test = { 11, 11, 1, 1 };
@@ -62,24 +62,46 @@ update_status ModuleGhostOrange::Update()
 
 	int speed = 1;
 	//BLUE
-	if (time_blue < 101 && Isinmid == true)
+	if (time_blue < 1000 && Isinmid == true)
 	{
 		time_blue++;
+
+		if (i == 5) {
+
+			position_blue.y = 123;
+
+		}
+		else if (i == 10) {
+			position_blue.y = 121;
+
+		}
+		else if (i == 15) {
+
+			position_blue.y = 119;
+			i = 0;
+		}
+		i++;
 	}
 	if (Isinmid == false)
 	{
 		time_blue = 0;
 	}
 
-	if (Isinmid == true && time_blue > 100)
+	if (Isinmid == true && time_blue > 999)
 	{
-		position_blue.y -= 1;
-		if (position_blue.y == 99)
-		{
-			new_direction_b = 1;
-			Isinmid = false;
+		if (position_blue.x >= 105 && Isinmid == true){
+			position_blue.x--;
+		}
+		if (position_blue.x <= 104){
+			position_blue.y -= 1;
+			if (position_blue.y == 99)
+			{
+				new_direction_b = 1;
+				Isinmid = false;
+			}
 		}
 	}
+
 
 	//check possibilities
 	/*if (App->level1->map[right_blue.y][right_blue.x + 1] != 0)
