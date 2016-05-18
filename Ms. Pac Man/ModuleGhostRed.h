@@ -65,6 +65,19 @@ public:
 	bool change_direction_r;
 	bool GhostBlue_ispow = false;
 
+	bool dst = false;
+	int isleft;
+	int isright;
+	int isup;
+	int isdown;
+
+	bool tryleft;
+	bool tryright;
+	bool tryup;
+	bool trydown;
+
+	bool look_wherePacman;
+
 	void OnCollision(Collider* c1, Collider* c2);
 };
 

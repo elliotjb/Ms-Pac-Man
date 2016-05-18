@@ -90,7 +90,6 @@ update_status ModuleGhostRed::Update()
 		/*30*/{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
 
 	};
-	//new_direction = rand() % 4;
 	srand(time(NULL));
 	int speed = 1;
 	//RED
@@ -185,6 +184,177 @@ update_status ModuleGhostRed::Update()
 			else{ ghost_down_r = false; }
 		}
 	}
+	
+
+	/*if (tile[right_y_r][right_x_r + 1] != 0)
+	{
+		if ((position.x + 7) == (center_x_r * 8) + 4 && (position.y - 7) == (center_y_r * 8) + 4) can_right_r = true;
+	}
+	else can_right_r = false;
+
+	//left
+	if (tile[left_y_r][left_x_r - 1] != 0)
+	{
+		if ((position.x + 7) == (center_x_r * 8) + 4 && (position.y - 7) == (center_y_r * 8) + 4) can_left_r = true;
+	}
+	else can_left_r = false;
+
+	//up
+	if (tile[up_y_r - 1][up_x_r] != 0)
+	{
+		if ((position.x + 7) == (center_x_r * 8) + 4 && (position.y - 7) == (center_y_r * 8) + 4) can_up_r = true;
+	}
+	else can_up_r = false;
+
+	// down
+	if (tile[down_y_r + 1][down_x_r] != 0)
+	{
+		if ((position.x + 7) == (center_x_r * 8) + 4 && (position.y - 7) == (center_y_r * 8) + 4) can_down_r = true;
+	}
+	else can_down_r = false;
+
+
+
+	//DIREC
+	if (can_left_r == true || can_right_r == true)
+	{
+		if (can_up_r == false && can_down_r == false) change_direction_r = false;
+		else change_direction_r = true;
+	}
+	if (can_up_r == true || can_down_r == true)
+	{
+		if (can_left_r == false && can_right_r == false) change_direction_r = false;
+		else change_direction_r = true;
+	}
+	else change_direction_r = false;
+
+
+	if (change_direction_r)
+	{
+		tryleft = false;
+		tryright = false;
+		tryup = false;
+		trydown = false;
+		look_wherePacman = true;
+		if (look_wherePacman)
+		{
+			if (App->player->center.x < center_x_r && can_left_r)
+			{
+				//Pacman is left to ghost
+				isleft = center_x_r - App->player->center.x;
+				tryleft = true;
+			}
+			if (App->player->center.x > center_x_r && can_right_r)
+			{
+				//Pacman is right to ghost
+				isright = App->player->center.x - center_x_r;
+				tryright = true;
+			}
+			if (App->player->center.x == center_x_r)
+			{
+				//Pacman misma columna
+
+
+			}
+			if (App->player->center.y < center_y_r && can_up_r)
+			{
+				//Pacman is up to ghost
+				isup = center_y_r - App->player->center.y;
+				tryup = true;
+			}
+			if (App->player->center.y > center_y_r && can_down_r)
+			{
+				//Pacman is down to ghost
+				isdown = App->player->center.y - center_y_r;
+				trydown = true;
+			}
+			if (App->player->center.y == center_y_r)
+			{
+				//Pacman misma fila
+
+			}
+			look_wherePacman = false;
+		}
+
+		if (tryleft && tryup)
+		{
+			if (isleft >= isup)
+			{
+				position.y = (center_y_r * 8) + 4 + 7;
+				ghost_left_r = true; ghost_down_r = false; ghost_up_r = false; ghost_right_r = false;
+			}
+			if (isleft < isup)
+			{
+				position.x = (center_x_r * 8) + 4 - 7;
+				ghost_up_r = true; ghost_left_r = true; ghost_down_r = false; ghost_right_r = false;
+			}
+		}
+
+		if (tryleft && trydown)
+		{
+			if (isleft >= isdown)
+			{
+				position.y = (center_y_r * 8) + 4 + 7;
+				ghost_left_r = true; ghost_down_r = false; ghost_up_r = false; ghost_right_r = false;
+			}
+			if (isleft < isdown)
+			{
+				position.x = (center_x_r * 8) + 4 - 7;
+				ghost_down_r = true; ghost_left_r = true; ghost_up_r = false; ghost_right_r = false;
+			}
+		}
+
+		if (tryright && tryup)
+		{
+			if (isright >= isup)
+			{
+				position.y = (center_y_r * 8) + 4 + 7;
+				ghost_right_r = true; ghost_left_r = true; ghost_down_r = false; ghost_up_r = false;
+			}
+			if (isright < isup)
+			{
+				position.x = (center_x_r * 8) + 4 - 7;
+				ghost_up_r = true; ghost_left_r = true; ghost_down_r = false; ghost_right_r = false;
+			}
+		}
+
+		if (tryright && trydown)
+		{
+			if (isright >= isdown)
+			{
+				position.y = (center_y_r * 8) + 4 + 7;
+				ghost_right_r = true; ghost_left_r = true; ghost_down_r = false; ghost_up_r = false;
+			}
+			if (isright < isdown)
+			{
+				position.x = (center_x_r * 8) + 4 - 7;
+				ghost_down_r = true; ghost_left_r = true; ghost_up_r = false; ghost_right_r = false;
+			}
+		}
+		if (tryright && tryleft == false && trydown == false && tryup == false)
+		{
+			position.y = (center_y_r * 8) + 4 + 7;
+			ghost_right_r = true;
+		}
+		if (tryleft && tryright == false && trydown == false && tryup == false)
+		{
+			position.y = (center_y_r * 8) + 4 + 7;
+			ghost_left_r = true;
+		}
+		if (tryup && tryright == false && trydown == false && tryleft == false)
+		{
+			position.x = (center_x_r * 8) + 4 - 7;
+			ghost_up_r = true;
+		}
+		if (trydown && tryright == false && tryleft == false && tryup == false)
+		{
+			position.x = (center_x_r * 8) + 4 - 7;
+			ghost_down_r = true;
+		}
+	}*/
+
+
+
 
 	right_x_r = (position.x + 3) / PIX_TILE;
 	right_y_r = (position.y - 7) / PIX_TILE;
@@ -358,7 +528,8 @@ update_status ModuleGhostRed::Update()
 
 void ModuleGhostRed::OnCollision(Collider* c1, Collider* c2)
 {
-	if (c1 == collision && c2->type == COLLIDER_PLAYER && App->player->superpower == true)
+	if (c1 == collision && c2->type == COLLIDER_PLAYER && App->player->superpower == true ||
+		c1 == collision && c2->type == COLLIDER_PLAYER && App->player->SUPER_GOD)
 	{
 
 		position.x = 81;
