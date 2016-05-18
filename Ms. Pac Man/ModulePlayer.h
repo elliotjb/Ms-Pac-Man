@@ -39,9 +39,14 @@ public:
 	//Bool to comprovated so PacMan is Dead
 	bool destroyed = false;
 
+	//SPEED
+	int speed;
+
 	//GOD Mode
 	bool GOD;
 	SDL_Rect Mode_GOD;
+	bool SUPER_GOD;
+	SDL_Rect SUPER_Mode_GOD;
 
 	//Bool to comprovated if u change direction
 	bool key_W = false;

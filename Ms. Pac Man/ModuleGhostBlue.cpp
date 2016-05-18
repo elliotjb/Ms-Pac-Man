@@ -405,7 +405,8 @@ update_status ModuleGhostBlue::Update()
 
 void ModuleGhostBlue::OnCollision(Collider* c1, Collider* c2)
 {
-	if (c1 == collision_blue && c2->type == COLLIDER_PLAYER && App->player->superpower == true)
+	if (c1 == collision_blue && c2->type == COLLIDER_PLAYER && App->player->superpower == true ||
+		c1 == collision_blue && c2->type == COLLIDER_PLAYER && App->player->SUPER_GOD)
 	{
 
 		position_blue.x = 105;

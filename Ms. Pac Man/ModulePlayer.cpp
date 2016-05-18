@@ -47,6 +47,7 @@ ModulePlayer::ModulePlayer()
 	test = { 11, 11, 1, 1 };
 
 	Mode_GOD = { 511, 40, 58, 8 };
+	SUPER_Mode_GOD = { 511, 40, 70, 8 };
 
 }
 
@@ -67,6 +68,7 @@ bool ModulePlayer::Start()
 	time_to_start = 0;
 	playerlives = 3;
 	GOD = false;
+	SUPER_GOD = false;
 	Mix_PlayMusic(App->sound->start_mspacman, 1);
 
 	if (GOD)
@@ -114,11 +116,27 @@ update_status ModulePlayer::Update()
 	//GOD Mode
 	if (App->input->keyboard[SDL_SCANCODE_G] == KEY_STATE::KEY_UP)
 	{
+		if (SUPER_GOD) SUPER_GOD = false;
 		if (GOD) GOD = false;
 		else GOD = true;
 	}
 
-	int speed = 1;
+	//SUPER GOD MDOE
+	if (App->input->keyboard[SDL_SCANCODE_H] == KEY_STATE::KEY_UP)
+	{
+		if (GOD) GOD = false;
+		if (SUPER_GOD) SUPER_GOD = false;
+		else SUPER_GOD = true;
+	}
+
+	if (SUPER_GOD)
+	{
+		speed = 2;
+	}
+	else
+	{
+		speed = 1;
+	}
 
 	if (time_to_start > 240)
 	{
@@ -261,7 +279,11 @@ update_status ModulePlayer::Update()
 	//Draw MODE GOD
 	if (GOD == true)
 	{
-		App->render->Blit(graphics, 160, 13, &Mode_GOD);
+		App->render->Blit(graphics, 150, 13, &Mode_GOD);
+	}
+	if (SUPER_GOD == true)
+	{
+		App->render->Blit(graphics, 150, 13, &SUPER_Mode_GOD);
 	}
 
 	//gameover
@@ -281,7 +303,7 @@ update_status ModulePlayer::Update()
 void ModulePlayer::OnCollision(Collider* c1, Collider* c2)
 {
 
-	if (c1 == collision_player && c2->type == COLLIDER_ENEMY && superpower == false && GOD == false)
+	if (c1 == collision_player && c2->type == COLLIDER_ENEMY && superpower == false && GOD == false && SUPER_GOD == false)
 	{
 		destroyed = true;
 		if (destroyed == true)
