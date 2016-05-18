@@ -93,6 +93,66 @@ bool ModuleLevel1::Start()
 	App->ghost_p->Enable();
 	App->ghost_o->Enable();
 	App->player->Enable();
+	App->player->Start();
+	App->ghost_r->Start();
+	App->ghost_b->Start();
+	App->ghost_p->Start();
+	App->ghost_o->Start();
+	App->player->position.x = 105;
+	App->player->position.y = 195;
+	App->ghost_b->position_blue.x = 89;
+	App->ghost_b->position_blue.y = 121;
+	App->ghost_o->position_blue.x = 121;
+	App->ghost_o->position_blue.y = 121;
+	App->ghost_p->position_blue.x = 105;
+	App->ghost_p->position_blue.y = 121;
+	App->ghost_r->position.x = 81;
+	App->ghost_r->position.y = 99;
+	App->ghost_b->Isinmid = true;
+	App->ghost_o->Isinmid = true;
+	App->ghost_p->Isinmid = true;
+
+	//orange
+
+	App->ghost_o->new_direction_b = 0;
+	App->ghost_o->GhostBlue_ispow = false;
+	App->ghost_o->dead_blue = false;
+	App->ghost_o->ghost_up_blue = false;
+	App->ghost_o->ghost_down_blue = false;
+	App->ghost_o->ghost_left_blue = false;
+	App->ghost_o->ghost_right_blue = false;
+	App->ghost_o->can_right_b = false;
+	App->ghost_o->can_down_b = false;
+	App->ghost_o->can_left_b = false;
+	App->ghost_o->can_up_b = false;
+	App->ghost_o->change_com_b = false;
+	//pink
+	App->ghost_p->new_direction_b = 0;
+	App->ghost_p->GhostBlue_ispow = false;
+	App->ghost_p->dead_blue = false;
+	App->ghost_p->ghost_up_blue = false;
+	App->ghost_p->ghost_down_blue = false;
+	App->ghost_p->ghost_left_blue = false;
+	App->ghost_p->ghost_right_blue = false;
+	App->ghost_p->can_right_b = false;
+	App->ghost_p->can_down_b = false;
+	App->ghost_p->can_left_b = false;
+	App->ghost_p->can_up_b = false;
+	App->ghost_p->change_com_b = false;
+	//blue
+	App->ghost_b->new_direction_b = 0;
+	App->ghost_b->GhostBlue_ispow = false;
+	App->ghost_b->dead_blue = false;
+	App->ghost_b->ghost_up_blue = false;
+	App->ghost_b->ghost_down_blue = false;
+	App->ghost_b->ghost_left_blue = false;
+	App->ghost_b->ghost_right_blue = false;
+	App->ghost_b->can_right_b = false;
+	App->ghost_b->can_down_b = false;
+	App->ghost_b->can_left_b = false;
+	App->ghost_b->can_up_b = false;
+	App->ghost_b->change_com_b = false;
+
 
 	return ret;
 }

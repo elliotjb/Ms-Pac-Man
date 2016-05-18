@@ -18,7 +18,7 @@ ModulePlayer::ModulePlayer()
 {
 	position.x = 105;
 	position.y = 195;
-	lose = { 464, 351, 81, 11};
+	lose = { 464, 351, 81, 11 };
 
 	right.PushBack({ 489, 1, 15, 14 });
 	right.PushBack({ 473, 1, 15, 14 });
@@ -63,6 +63,8 @@ bool ModulePlayer::Start()
 	timer = 0;
 	graphics = App->textures->Load("MsPacMan_Sprites.png"); // Sprites
 	destroyed = false;
+	direction = 1;
+	time_to_start = 0;
 	playerlives = 3;
 	GOD = false;
 	Mix_PlayMusic(App->sound->start_mspacman, 1);
@@ -150,7 +152,7 @@ update_status ModulePlayer::Update()
 			if (key_A == true)
 			{
 				if ((position.x + 7) == (center.x * PIX_TILE) + 4 && (position.y - 7) == (center.y * PIX_TILE) + 4 ||
-					(position.y - 7) == (center.y * PIX_TILE) + 3 || (position.y - 7) == (center.y * PIX_TILE) + 5 || 
+					(position.y - 7) == (center.y * PIX_TILE) + 3 || (position.y - 7) == (center.y * PIX_TILE) + 5 ||
 					(position.y - 7) == (center.y * PIX_TILE) + 2 || (position.y - 7) == (center.y * PIX_TILE) + 6 ||
 					direction == 3)
 				{
@@ -203,8 +205,8 @@ update_status ModulePlayer::Update()
 		{
 			if (key_D == true)
 			{
-				if ((position.x + 7) == (center.x * PIX_TILE) + 4 && (position.y - 7) == (center.y * PIX_TILE) + 4 || 
-					(position.y - 7) == (center.y * PIX_TILE) + 3 || (position.y - 7) == (center.y * PIX_TILE) + 5 || 
+				if ((position.x + 7) == (center.x * PIX_TILE) + 4 && (position.y - 7) == (center.y * PIX_TILE) + 4 ||
+					(position.y - 7) == (center.y * PIX_TILE) + 3 || (position.y - 7) == (center.y * PIX_TILE) + 5 ||
 					(position.y - 7) == (center.y * PIX_TILE) + 2 || (position.y - 7) == (center.y * PIX_TILE) + 6 ||
 					direction == 1)
 				{
@@ -228,6 +230,7 @@ update_status ModulePlayer::Update()
 		{
 			right.speed = 0.0f;
 		}
+
 	}
 
 
@@ -291,4 +294,5 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2)
 		}
 	}
 }
+
 

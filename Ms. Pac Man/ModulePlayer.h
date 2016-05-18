@@ -49,7 +49,7 @@ public:
 	bool key_S = false;
 	bool key_D = false;
 
-	int direction = 1; // 0-w 1-a 2-s 3-d
+	int direction; // 0-w 1-a 2-s 3-d
 	int cont = 0;
 	//int tile[31][28];
 
