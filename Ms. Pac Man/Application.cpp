@@ -23,16 +23,16 @@ Application::Application()
 	modules[2] = input = new ModuleInput();
 	modules[3] = textures = new ModuleTextures();
 	modules[4] = welcome = new ModuleWelcome();
-	modules[5] = collision = new ModuleCollision();
-	modules[6] = level1 = new ModuleLevel1();
-	modules[7] = level2 = new ModuleLevel2();
-	modules[8] = win = new ModuleCongratulation();
-	modules[9] = ghost_r = new ModuleGhostRed();
-	modules[10] = ghost_b = new ModuleGhostBlue();
-	modules[11] = ghost_o = new ModuleGhostOrange();
-	modules[12] = ghost_p = new ModuleGhostPink();
-	modules[13] = player = new ModulePlayer();
-	modules[14] = sound = new ModuleSound();
+	modules[5] = level1 = new ModuleLevel1();
+	modules[6] = level2 = new ModuleLevel2();
+	modules[7] = win = new ModuleCongratulation();
+	modules[8] = ghost_r = new ModuleGhostRed();
+	modules[9] = ghost_b = new ModuleGhostBlue();
+	modules[10] = ghost_o = new ModuleGhostOrange();
+	modules[11] = ghost_p = new ModuleGhostPink();
+	modules[12] = player = new ModulePlayer();
+	modules[13] = sound = new ModuleSound();
+	modules[14] = collision = new ModuleCollision();
 	modules[15] = fade = new ModuleFadeToBlack();
 
 }

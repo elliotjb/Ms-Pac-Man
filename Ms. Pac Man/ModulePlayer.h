@@ -40,7 +40,8 @@ public:
 	bool destroyed = false;
 
 	//GOD Mode
-	bool GOD = false;
+	bool GOD;
+	SDL_Rect Mode_GOD;
 
 	//Bool to comprovated if u change direction
 	bool key_W = false;

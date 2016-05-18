@@ -24,7 +24,7 @@ public:
 	SDL_Texture* graphics_2 = nullptr;
 	SDL_Rect level4;
 	SDL_Rect level4_2;
-	SDL_Rect level3_center;
+	SDL_Rect level4_center;
 	SDL_Rect pills;
 	Animation water;
 

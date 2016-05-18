@@ -85,7 +85,7 @@ bool ModuleLevel1::Start()
 
 	LOG("Loading background assets");
 
-	graphics = App->textures->Load("Mspacman.png");//trampetes!! No hi han les vides ni el marcador nomes es una imatge s'ha de arreglar!!!!
+	graphics = App->textures->Load("Mspacman.png");
 	graphics_2 = App->textures->Load("MsPacMan_Sprites.png");
 
 	App->ghost_r->Enable();

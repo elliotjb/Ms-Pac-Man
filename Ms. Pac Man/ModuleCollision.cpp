@@ -80,24 +80,25 @@ update_status ModuleCollision::Update()
 
 void ModuleCollision::DebugDraw()
 {
-	if(App->input->keyboard[SDL_SCANCODE_F1] == 1)
+	if (App->input->keyboard[SDL_SCANCODE_F1] == KEY_STATE::KEY_UP)
 		debug = !debug;
 
-	if(debug == false)
+	if (debug == false)
 		return;
 
 	Uint8 alpha = 80;
-	for(uint i = 0; i < MAX_COLLIDERS; ++i)
+	for (uint i = 0; i < MAX_COLLIDERS; ++i)
 	{
-		if(colliders[i] == nullptr)
+		if (colliders[i] == nullptr)
 			continue;
-		
-		switch(colliders[i]->type)
+
+		switch (colliders[i]->type)
 		{
 			case COLLIDER_NONE: // white
 			App->render->DrawQuad(colliders[i]->rect, 255, 255, 255, alpha);
 			break;
-			case COLLIDER_WALL: // blue
+			//TODO s'ha de eliminar ja que no utilitzem colliders a les parets.
+			case COLLIDER_WALL: //
 			App->render->DrawQuad(colliders[i]->rect, 0, 0, 255, alpha);
 			break;
 			case COLLIDER_PLAYER: // green
@@ -107,7 +108,7 @@ void ModuleCollision::DebugDraw()
 			App->render->DrawQuad(colliders[i]->rect, 0, 255, 0, alpha);
 			break;
 			case COLLIDER_ENEMY: // red
-			App->render->DrawQuad(colliders[i]->rect, 255, 0, 0, alpha);
+			App->render->DrawQuad(colliders[i]->rect, 0, 255, 0, alpha);
 			break;
 			case COLLIDER_FRUIT: // yellow
 			App->render->DrawQuad(colliders[i]->rect, 255, 255, 0, alpha);

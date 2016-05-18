@@ -46,6 +46,8 @@ ModulePlayer::ModulePlayer()
 
 	test = { 11, 11, 1, 1 };
 
+	Mode_GOD = { 511, 40, 58, 8 };
+
 }
 
 ModulePlayer::~ModulePlayer()
@@ -62,6 +64,7 @@ bool ModulePlayer::Start()
 	graphics = App->textures->Load("MsPacMan_Sprites.png"); // Sprites
 	destroyed = false;
 	playerlives = 3;
+	GOD = false;
 	Mix_PlayMusic(App->sound->start_mspacman, 1);
 
 	if (GOD)
@@ -107,7 +110,7 @@ update_status ModulePlayer::Update()
 	}
 
 	//GOD Mode
-	if (App->input->keyboard[SDL_SCANCODE_G] == KEY_STATE::KEY_IDLE)
+	if (App->input->keyboard[SDL_SCANCODE_G] == KEY_STATE::KEY_UP)
 	{
 		if (GOD) GOD = false;
 		else GOD = true;
@@ -252,6 +255,12 @@ update_status ModulePlayer::Update()
 
 	App->render->Blit(graphics, position.x, position.y + 24 - r.h, &r);//EDIT FOR NEXT UPDATE!!! (Elliot)
 
+	//Draw MODE GOD
+	if (GOD == true)
+	{
+		App->render->Blit(graphics, 160, 13, &Mode_GOD);
+	}
+
 	//gameover
 	if (playerlives == 0){
 		App->render->Blit(graphics, 72, 160, &lose);
@@ -269,7 +278,7 @@ update_status ModulePlayer::Update()
 void ModulePlayer::OnCollision(Collider* c1, Collider* c2)
 {
 
-	if (c1 == collision_player && c2->type == COLLIDER_ENEMY && superpower == false)
+	if (c1 == collision_player && c2->type == COLLIDER_ENEMY && superpower == false && GOD == false)
 	{
 		destroyed = true;
 		if (destroyed == true)
