@@ -7,6 +7,7 @@
 #include "ModulePlayer.h"
 #include "ModuleInput.h"
 #include "ModuleFadeToBlack.h"
+#include "ModuleLevel_1.h"
 
 // Reference at https://youtu.be/6OlenbCC4WI?t=382
 
@@ -37,6 +38,13 @@ bool ModuleCongratulation::Start()
 
 	// TODO 1: Enable (and properly disable) the player module
 	App->player->Disable();
+	App->ghost_b->Disable();
+	App->ghost_o->Disable();
+	App->ghost_p->Disable();
+	App->ghost_r->Disable();
+
+
+
 	return ret;
 }
 
@@ -60,6 +68,7 @@ update_status ModuleCongratulation::Update()
 	if (App->input->keyboard[SDL_SCANCODE_1] == 1)
 	{
 		App->fade->FadeToBlack(this, (Module*)App->level1, 2.0f);
+
 
 	}
 
