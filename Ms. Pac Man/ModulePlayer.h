@@ -48,6 +48,9 @@ public:
 	bool SUPER_GOD;
 	SDL_Rect SUPER_Mode_GOD;
 
+	//STOP
+	int stop;
+
 	//Bool to comprovated if u change direction
 	bool key_W = false;
 	bool key_A = true;
