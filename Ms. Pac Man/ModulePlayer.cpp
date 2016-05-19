@@ -63,7 +63,7 @@ bool ModulePlayer::Start()
 	superpower = false;
 	timer = 0;
 	graphics = App->textures->Load("MsPacMan_Sprites.png"); // Sprites
-	destroyed = false;
+	isdead = false;
 	direction = 1;
 	current_animation = &left;
 	time_to_start = 0;
@@ -271,7 +271,6 @@ update_status ModulePlayer::Update()
 	//Collision follow the Ms Pac Man
 	collision_player->SetPos(position.x, position.y + 10);
 
-
 	// Draw everything --------------------------------------
 	SDL_Rect r = current_animation->GetCurrentFrame();
 
@@ -286,6 +285,14 @@ update_status ModulePlayer::Update()
 	{
 		App->render->Blit(graphics, 150, 13, &SUPER_Mode_GOD);
 	}
+
+	//Sound dead Ms Pacman
+	if (isdead == true)
+	{
+		Mix_PlayChannel(-1, App->sound->eat_big_pills, 0);
+		isdead = false;
+	}
+
 
 	//gameover
 	if (playerlives == 0){
@@ -307,15 +314,12 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2)
 
 	if (c1 == collision_player && c2->type == COLLIDER_ENEMY && superpower == false && GOD == false && SUPER_GOD == false)
 	{
-		destroyed = true;
-		if (destroyed == true)
-		{
-			position.x = 105;
-			position.y = 195;
-			current_animation = &left;
-			direction = 1;
-			--playerlives;
-		}
+		position.x = 105;
+		position.y = 195;
+		current_animation = &left;
+		direction = 1;
+		isdead = true;
+		--playerlives;
 	}
 }
 

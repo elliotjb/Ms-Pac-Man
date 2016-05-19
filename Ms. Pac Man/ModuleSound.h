@@ -33,8 +33,10 @@ public:
 
 public:
 	Mix_Music* start_mspacman;
+	Mix_Chunk* eat_big_pills;
 	Mix_Chunk* eat_ms;
-	Mix_Chunk* mov_ms;
+	Mix_Chunk* sound_mov;
+	Mix_Chunk* sound_dead;
 
 
 };

@@ -31,6 +31,8 @@ public:
 	int map[31][28];
 	int eatenpills;
 	bool victory;
+
+	bool sound_big_pill;
 };
 
 #endif // __MODULELEVEL1_H__

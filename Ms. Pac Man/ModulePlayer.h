@@ -37,7 +37,7 @@ public:
 	SDL_Rect lose;
 
 	//Bool to comprovated so PacMan is Dead
-	bool destroyed = false;
+	bool isdead;
 
 	//SPEED
 	int speed;

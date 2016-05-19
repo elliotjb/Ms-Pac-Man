@@ -18,7 +18,10 @@ bool ModuleSound::Init()
 	LOG("Loading background assets");
 
 	start_mspacman = Mix_LoadMUS("Start_MsPacman.ogg");
+	eat_big_pills = Mix_LoadWAV("Sound_Eat_Bonus.wav");
 	eat_ms = Mix_LoadWAV("Sound_Moviment_with_Eatting_Coins.wav");
+	sound_mov = Mix_LoadWAV("Sound_Eat_Ghost.wav");
+	sound_dead = Mix_LoadWAV("Sound_Ms_Pacman_Death.wav");
 
 	if ((init & flags) != flags)
 	{
@@ -37,6 +40,9 @@ bool ModuleSound::CleanUp()
 	Mix_CloseAudio();
 	Mix_FreeMusic(start_mspacman);
 	Mix_FreeChunk(eat_ms);
+	Mix_FreeChunk(sound_mov);
+	Mix_FreeChunk(sound_dead);
+	Mix_FreeChunk(eat_big_pills);
 	Mix_Quit();
 
 	return true;

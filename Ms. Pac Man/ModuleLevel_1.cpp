@@ -150,6 +150,7 @@ bool ModuleLevel1::Start()
 	App->ghost_b->can_up_b = false;
 	App->ghost_b->change_com_b = false;
 
+	sound_big_pill = false;
 
 	return ret;
 }
@@ -199,16 +200,28 @@ update_status ModuleLevel1::Update()
 	{
 	case 3:
 		map[App->player->center.y][App->player->center.x] = 5;
-		Mix_PlayChannel(-1, App->sound->eat_ms, 0);
+		if (sound_big_pill == false)
+		{
+			Mix_PlayChannel(-1, App->sound->eat_ms, 0);
+		}
 		eatenpills++;
 		break;
 	case 4:
 		map[App->player->center.y][App->player->center.x] = 5;
 		App->player->superpower = true;
-		Mix_PlayChannel(-1, App->sound->eat_ms, 0);
+		if (Mix_PlayChannel(-1, App->sound->eat_big_pills, 0))
+		{
+			sound_big_pill = true;
+		}
+		else
+		{
+			sound_big_pill = false;
+		}
 		eatenpills++;
 		break;
 	}
+
+	//TODO, S'ha de ficar el so de moviment sense menjar!
 
 	//win condition
 
