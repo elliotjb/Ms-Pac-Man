@@ -382,7 +382,7 @@ update_status ModuleGhostPink::Update()
 void ModuleGhostPink::OnCollision(Collider* c1, Collider* c2)
 {
 	if (c1 == collision_blue && c2->type == COLLIDER_PLAYER && App->player->superpower == true ||
-		c1 == collision_blue && c2->type == COLLIDER_PLAYER && App->player->SUPER_GOD)
+		c1 == collision_blue && c2->type == COLLIDER_PLAYER && App->player->SUPER_GOD == true)
 	{
 
 		position_blue.x = 105;

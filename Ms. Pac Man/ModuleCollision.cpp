@@ -97,8 +97,7 @@ void ModuleCollision::DebugDraw()
 			case COLLIDER_NONE: // white
 			App->render->DrawQuad(colliders[i]->rect, 255, 255, 255, alpha);
 			break;
-			//TODO s'ha de eliminar ja que no utilitzem colliders a les parets.
-			case COLLIDER_WALL: //
+			case COLLIDER_WALL: // blue
 			App->render->DrawQuad(colliders[i]->rect, 0, 0, 255, alpha);
 			break;
 			case COLLIDER_PLAYER: // green

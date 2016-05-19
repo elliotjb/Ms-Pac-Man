@@ -12,6 +12,7 @@
 #include "ModuleGhostBlue.h"
 #include "ModuleGhostPink.h"
 #include "ModuleSound.h"
+#include "ModuleCollision.h"
 // Reference at https://youtu.be/6OlenbCC4WI?t=382
 
 ModuleLevel1::ModuleLevel1()
@@ -93,11 +94,6 @@ bool ModuleLevel1::Start()
 	App->ghost_p->Enable();
 	App->ghost_o->Enable();
 	App->player->Enable();
-	App->player->Start();
-	App->ghost_r->Start();
-	App->ghost_b->Start();
-	App->ghost_p->Start();
-	App->ghost_o->Start();
 	App->player->position.x = 105;
 	App->player->position.y = 195;
 	App->ghost_b->position_blue.x = 89;
@@ -111,6 +107,7 @@ bool ModuleLevel1::Start()
 	App->ghost_b->Isinmid = true;
 	App->ghost_o->Isinmid = true;
 	App->ghost_p->Isinmid = true;
+	App->collision->Enable();
 
 	//orange
 
@@ -165,6 +162,7 @@ bool ModuleLevel1::CleanUp()
 	App->ghost_b->CleanUp();
 	App->ghost_r->CleanUp();
 	App->player->CleanUp();
+	App->collision->CleanUp();
 	return true;
 }
 

@@ -65,6 +65,7 @@ bool ModulePlayer::Start()
 	graphics = App->textures->Load("MsPacMan_Sprites.png"); // Sprites
 	destroyed = false;
 	direction = 1;
+	current_animation = &left;
 	time_to_start = 0;
 	playerlives = 3;
 	GOD = false;
@@ -289,11 +290,12 @@ update_status ModulePlayer::Update()
 	//gameover
 	if (playerlives == 0){
 		App->render->Blit(graphics, 72, 160, &lose);
-		App->player->Enable();
 		App->ghost_b->Disable();
 		App->ghost_r->Disable();
 		App->ghost_o->Disable();
 		App->ghost_p->Disable();
+		App->level1->Disable();
+		App->player->Disable();
 		App->fade->FadeToBlack(this, (Module*)App->win, 2.0f);
 	}
 

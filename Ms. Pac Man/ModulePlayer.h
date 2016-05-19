@@ -19,7 +19,7 @@ public:
 
 public:
 
-	Animation* current_animation = &left;
+	Animation* current_animation;
 	Collider* collision_player;
 	SDL_Texture* graphics = nullptr;
 	Animation right; //Hacia derecha
