@@ -185,19 +185,15 @@ update_status ModuleGhostRed::Update()
 
 	if (change_direction_r)
 	{
-		tryleft = false;
-		tryright = false;
-		tryup = false;
-		trydown = false;
 		look_wherePacman = true;
 		if (look_wherePacman)
 		{
 			//Pacman is left to ghost
-			if (App->player->position.x < position.x && can_left_r)
+			if (App->player->position.x <= position.x && can_left_r)
 			{
 				isleft = position.x - App->player->position.x;
 				//Pacman UP_LEFT
-				if (App->player->position.y < position.y && can_up_r)
+				if (App->player->position.y <= position.y && can_up_r)
 				{
 					isup = position.y - App->player->position.y;
 					if (isleft <= isup)
