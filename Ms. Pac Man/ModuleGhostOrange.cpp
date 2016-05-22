@@ -229,7 +229,55 @@ update_status ModuleGhostOrange::Update()
 				else{ ghost_down_blue = false; }
 			}
 		}
-
+		//When ms pacman and ghost are propetly orange can change direction but not obligatory
+		if (App->player->position.y > position_blue.y){
+			distance = App->player->position.y - position_blue.y;
+			if (distance < 4){
+				change_b = rand() % 4;
+				if (change_b == 0){
+					change_direction_blue = true;
+				}
+				else{
+					change_direction_blue = false;
+				}
+			}
+		}
+		if (App->player->position.y < position_blue.y){
+			distance = position_blue.y - App->player->position.y;
+			if (distance < 4){
+				change_b = rand() % 4;
+				if (change_b == 0){
+					change_direction_blue = true;
+				}
+				else{
+					change_direction_blue = false;
+				}
+			}
+		}
+		if (App->player->position.x > position_blue.x){
+			distance = App->player->position.x - position_blue.x;
+			if (distance < 4){
+				change_b = rand() % 4;
+				if (change_b == 0){
+					change_direction_blue = true;
+				}
+				else{
+					change_direction_blue = false;
+				}
+			}
+		}
+		if (App->player->position.x < position_blue.x){
+			distance = position_blue.x - App->player->position.x;
+			if (distance < 4){
+				change_b = rand() % 4;
+				if (change_b == 0){
+					change_direction_blue = true;
+				}
+				else{
+					change_direction_blue = false;
+				}
+			}
+		}
 
 		right_blue.x = (position_blue.x + 3) / PIX_TILE;
 		right_blue.y = (position_blue.y - 7) / PIX_TILE;
