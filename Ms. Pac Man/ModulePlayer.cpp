@@ -18,7 +18,7 @@ ModulePlayer::ModulePlayer()
 {
 	position.x = 105;
 	position.y = 195;
-	lose = { 464, 351, 81, 11 };
+	lose = { 475, 500, 81, 11 };
 	ready = { 463, 371, 75, 55 };
 	ready2 = { 569, 371, 75, 55 };
 	right.PushBack({ 489, 1, 15, 14 });
@@ -38,6 +38,7 @@ ModulePlayer::ModulePlayer()
 	up.PushBack({ 457, 31, 14, 15 });
 	up.PushBack({ 473, 31, 14, 15 });
 	up.speed = 0.3f;
+	t = 0;
 
 	down.PushBack({ 489, 49, 14, 15 });
 	down.PushBack({ 473, 49, 14, 15 });
@@ -316,19 +317,29 @@ update_status ModulePlayer::Update()
 			App->render->Blit(graphics, 33, 273, &square);
 			App->render->Blit(graphics, 49, 273, &square);
 		}
-
-
-		//gameover
 		if (playerlives == 0){
-			App->render->Blit(graphics, 72, 160, &lose);
-			App->ghost_b->Disable();
-			App->ghost_r->Disable();
-			App->ghost_o->Disable();
-			App->ghost_p->Disable();
-			App->level1->Disable();
-			App->player->Disable();
-			App->fade->FadeToBlack(this, (Module*)App->win, 2.0f);
+
+			if (t < 80){
+				App->render->Blit(graphics, 72, 160, &lose);
+				App->ghost_b->Disable();
+				App->ghost_r->Disable();
+				App->ghost_o->Disable();
+				App->ghost_p->Disable();
+				App->player->position.x = 1050;
+				App->player->position.y = 1950;
+			}
+			else if (t == 80){
+
+				App->level1->Disable();
+				App->player->Disable();
+
+				App->fade->FadeToBlack(this, (Module*)App->win, 2.0f);
+			}
+			t++;
 		}
+
+
+	
 
 	}
 	if (stop < 51)
