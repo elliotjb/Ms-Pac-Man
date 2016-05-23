@@ -492,6 +492,7 @@ void ModuleGhostRed::OnCollision(Collider* c1, Collider* c2)
 		ghost_left_r = false;
 		ghost_right_r = false;
 
+		collision->SetPos(position.x + 2, position.y + 12);
 		can_right_r = false;
 		can_down_r = false;
 		can_left_r = false;

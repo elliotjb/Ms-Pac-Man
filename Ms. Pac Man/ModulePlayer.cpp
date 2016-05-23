@@ -328,6 +328,8 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2)
 		direction = 1;
 		isdead = true;
 		--playerlives;
+		stop = 0;
+		collision_player->SetPos(position.x, position.y + 10);
 	}
 }
 

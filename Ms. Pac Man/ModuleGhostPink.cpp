@@ -396,7 +396,7 @@ void ModuleGhostPink::OnCollision(Collider* c1, Collider* c2)
 		GhostBlue_ispow = false;
 		dead_blue = false;
 
-
+		collision_blue->SetPos(position_blue.x + 2, position_blue.y + 12);
 		ghost_up_blue = false;
 		ghost_down_blue = false;
 		ghost_left_blue = false;
