@@ -6,6 +6,7 @@
 #include "ModulePlayer.h"
 #include "ModuleGhostRed.h"
 #include "ModuleCollision.h"
+#include "ModuleLevel_1.h"
 #include <cmath>
 
 ModuleGhostRed::ModuleGhostRed()
@@ -45,8 +46,9 @@ bool ModuleGhostRed::Start()
 	graphics = App->textures->Load("MsPacMan_Sprites.png"); // Sprites
 	srand(time(NULL));
 	//red
+	check_posibilities = true;
 	collision = App->collision->AddCollider({ 0, 0, 10, 10 }, COLLIDER_ENEMY, this);
-	new_direction_r = 3;
+	new_direction_r = 1;
 	return ret;
 }
 
@@ -54,409 +56,374 @@ bool ModuleGhostRed::Start()
 update_status ModuleGhostRed::Update()
 {
 
-	if (App->player->stop >= 50)
+	if (App->player->time_to_start > 240)
 	{
-		int tile[31][28] = { //Mover en otra entrega a level1
-			/*      0  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 21 22  23 24 25 26 27*/
-			/*0 */{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-			/*1 */{ 0, 3, 3, 3, 3, 3, 3, 0, 0, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 0, 0, 3, 3, 3, 3, 3, 3, 0 },
-			/*2 */{ 0, 4, 0, 0, 0, 0, 3, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 3, 0, 0, 0, 0, 4, 0 },
-			/*3 */{ 0, 3, 0, 0, 0, 0, 3, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 3, 0, 0, 0, 0, 3, 0 },
-			/*4 */{ 0, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 0 },
-			/*5 */{ 0, 0, 0, 3, 0, 0, 3, 0, 0, 0, 0, 0, 3, 0, 0, 3, 0, 0, 0, 0, 0, 3, 0, 0, 3, 0, 0, 0 },
-			/*6 */{ 0, 0, 0, 3, 0, 0, 3, 0, 0, 0, 0, 0, 3, 0, 0, 3, 0, 0, 0, 0, 0, 3, 0, 0, 3, 0, 0, 0 },
-			/*7 */{ 0, 0, 0, 3, 0, 0, 3, 0, 0, 0, 0, 0, 3, 0, 0, 3, 0, 0, 0, 0, 0, 3, 0, 0, 3, 0, 0, 0 },
-			/*8 */{ 8, 5, 5, 3, 0, 0, 3, 3, 3, 3, 3, 3, 3, 0, 0, 3, 3, 3, 3, 3, 3, 3, 0, 0, 3, 5, 5, 9 },
-			/*9 */{ 0, 0, 0, 3, 0, 0, 0, 0, 0, 5, 0, 0, 0, 0, 0, 0, 0, 0, 5, 0, 0, 0, 0, 0, 3, 0, 0, 0 },
-			/*10*/{ 0, 0, 0, 3, 0, 0, 0, 0, 0, 5, 0, 0, 0, 0, 0, 0, 0, 0, 5, 0, 0, 0, 0, 0, 3, 0, 0, 0 },
-			/*11*/{ 0, 0, 0, 3, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 3, 0, 0, 0 },
-			/*12*/{ 0, 0, 0, 3, 0, 0, 0, 0, 0, 5, 0, 0, 0, 0, 0, 0, 0, 0, 5, 0, 0, 0, 0, 0, 3, 0, 0, 0 },
-			/*13*/{ 0, 0, 0, 3, 0, 0, 0, 0, 0, 5, 0, 0, 0, 0, 0, 0, 0, 0, 5, 0, 0, 0, 0, 0, 3, 0, 0, 0 },
-			/*14*/{ 0, 0, 0, 3, 0, 0, 5, 5, 5, 5, 0, 0, 0, 0, 0, 0, 0, 0, 5, 5, 5, 5, 0, 0, 3, 0, 0, 0 },
-			/*15*/{ 0, 0, 0, 3, 0, 0, 5, 0, 0, 5, 0, 0, 0, 0, 0, 0, 0, 0, 5, 0, 0, 5, 0, 0, 3, 0, 0, 0 },
-			/*16*/{ 0, 0, 0, 3, 0, 0, 5, 0, 0, 5, 0, 0, 0, 0, 0, 0, 0, 0, 5, 0, 0, 5, 0, 0, 3, 0, 0, 0 },
-			/*17*/{ 8, 5, 5, 3, 5, 5, 5, 0, 0, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 0, 0, 5, 5, 5, 3, 5, 5, 9 },
-			/*18*/{ 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 5, 0, 0, 5, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0 },
-			/*19*/{ 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 5, 0, 0, 5, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0 },
-			/*20*/{ 0, 0, 0, 3, 3, 3, 3, 3, 3, 3, 5, 5, 5, 0, 0, 5, 5, 5, 3, 3, 3, 3, 3, 3, 3, 0, 0, 0 },
-			/*21*/{ 0, 0, 0, 3, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 3, 0, 0, 0 },
-			/*22*/{ 0, 0, 0, 3, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 3, 0, 0, 0 },
-			/*23*/{ 0, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 5, 5, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 0 },
-			/*24*/{ 0, 3, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 3, 0, 0, 3, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 3, 0 },
-			/*25*/{ 0, 3, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 3, 0, 0, 3, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 3, 0 },
-			/*26*/{ 0, 3, 0, 0, 0, 0, 3, 0, 0, 3, 3, 3, 3, 0, 0, 3, 3, 3, 3, 0, 0, 3, 0, 0, 0, 0, 3, 0 },
-			/*27*/{ 0, 4, 0, 0, 0, 0, 3, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 3, 0, 0, 0, 0, 4, 0 },
-			/*28*/{ 0, 3, 0, 0, 0, 0, 3, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 3, 0, 0, 0, 0, 3, 0 },
-			/*29*/{ 0, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 0 },
-			/*30*/{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-
-		};
-		srand(time(NULL));
-		int speed;
-		if (time_blue < 180){
-			speed = 0;
-			time_blue++;
-		}
-		if (time_blue > 179){
-			speed = 1;
-		}
-		//RED
-
-		//checking possibilities
-
-		//right
-		if (tile[right_y_r][right_x_r + 1] != 0)
+		if (App->player->stop >= 50)
 		{
-			if ((position.x + 7) == (center_x_r * 8) + 4 && (position.y - 7) == (center_y_r * 8) + 4) can_right_r = true;
-		}
-		else can_right_r = false;
+			srand(time(NULL));
+			//RED
 
-		//left
-		if (tile[left_y_r][left_x_r - 1] != 0)
-		{
-			if ((position.x + 7) == (center_x_r * 8) + 4 && (position.y - 7) == (center_y_r * 8) + 4) can_left_r = true;
-		}
-		else can_left_r = false;
+			//checking possibilities
 
-		//up
-		if (tile[up_y_r - 1][up_x_r] != 0)
-		{
-			if ((position.x + 7) == (center_x_r * 8) + 4 && (position.y - 7) == (center_y_r * 8) + 4) can_up_r = true;
-		}
-		else can_up_r = false;
-
-		// down
-		if (tile[down_y_r + 1][down_x_r] != 0)
-		{
-			if ((position.x + 7) == (center_x_r * 8) + 4 && (position.y - 7) == (center_y_r * 8) + 4) can_down_r = true;
-		}
-		else can_down_r = false;
-
-
-		//deciding if changing direction makes sense
-
-		if (can_left_r == true || can_right_r == true)
-		{
-			if (can_up_r == false && can_down_r == false) change_direction_r = false;
-			else change_direction_r = true;
-		}
-		if (can_up_r == true || can_down_r == true)
-		{
-			if (can_left_r == false && can_right_r == false) change_direction_r = false;
-			else change_direction_r = true;
-		}
-		else change_direction_r = false;
-
-
-		if (change_direction_r)
-		{
-			look_wherePacman = true;
-			if (look_wherePacman)
+			//right
+			if (App->level1->map[right_y_r][right_x_r + 1] != 0)
 			{
-				if (can_up_r)
+				if ((position.x + 7) == (center_x_r * 8) + 4 && (position.y - 7) == (center_y_r * 8) + 4) can_right_r = true;
+			}
+			else can_right_r = false;
+
+			//left
+			if (App->level1->map[left_y_r][left_x_r - 1] != 0)
+			{
+				if ((position.x + 7) == (center_x_r * 8) + 4 && (position.y - 7) == (center_y_r * 8) + 4) can_left_r = true;
+			}
+			else can_left_r = false;
+
+			//up
+			if (App->level1->map[up_y_r - 1][up_x_r] != 0)
+			{
+				if ((position.x + 7) == (center_x_r * 8) + 4 && (position.y - 7) == (center_y_r * 8) + 4) can_up_r = true;
+			}
+			else can_up_r = false;
+
+			// down
+			if (App->level1->map[down_y_r + 1][down_x_r] != 0)
+			{
+				if ((position.x + 7) == (center_x_r * 8) + 4 && (position.y - 7) == (center_y_r * 8) + 4) can_down_r = true;
+			}
+			else can_down_r = false;
+
+
+			//deciding if changing direction makes sense
+
+			if (can_left_r == true || can_right_r == true)
+			{
+				if (can_up_r == false && can_down_r == false) change_direction_r = false;
+				else change_direction_r = true;
+			}
+			if (can_up_r == true || can_down_r == true)
+			{
+				if (can_left_r == false && can_right_r == false) change_direction_r = false;
+				else change_direction_r = true;
+			}
+			else change_direction_r = false;
+
+
+			if (change_direction_r)
+			{
+				look_wherePacman = true;
+				if (look_wherePacman)
 				{
-					up.x = ((center_x_r - App->player->center.x)*(center_x_r - App->player->center.x));
-					up.y = (((center_y_r - 1) - App->player->center.y)*((center_y_r - 1) - App->player->center.y));
-					isup = sqrt(up.x + up.y);
-					//No change direction in the opposite direction
-					if (new_direction_r == 2)
+					if (can_up_r)
+					{
+						up.x = ((center_x_r - App->player->center.x)*(center_x_r - App->player->center.x));
+						up.y = (((center_y_r - 1) - App->player->center.y)*((center_y_r - 1) - App->player->center.y));
+						isup = sqrt(up.x + up.y);
+						//No change direction in the opposite direction
+						if (new_direction_r == 2)
+						{
+							isup = 300;
+						}
+					}
+					else
 					{
 						isup = 300;
 					}
-				}
-				else
-				{
-					isup = 300;
-				}
 
-				if (can_left_r)
-				{
-					left.x = (((center_x_r - 1) - App->player->center.x)*((center_x_r - 1) - App->player->center.x));
-					left.y = ((center_y_r - App->player->center.y)*(center_y_r - App->player->center.y));
-					isleft = sqrt(left.x + left.y);
-					//No change direction in the opposite direction
-					if (new_direction_r == 3)
+					if (can_left_r)
+					{
+						left.x = (((center_x_r - 1) - App->player->center.x)*((center_x_r - 1) - App->player->center.x));
+						left.y = ((center_y_r - App->player->center.y)*(center_y_r - App->player->center.y));
+						isleft = sqrt(left.x + left.y);
+						//No change direction in the opposite direction
+						if (new_direction_r == 3)
+						{
+							isleft = 300;
+						}
+					}
+					else
 					{
 						isleft = 300;
 					}
-				}
-				else
-				{
-					isleft = 300;
-				}
 
-				if (can_down_r)
-				{
-					down.x = ((center_x_r - App->player->center.x)*(center_x_r - App->player->center.x));
-					down.y = (((center_y_r + 1) - App->player->center.y)*((center_y_r + 1) - App->player->center.y));
-					isdown = sqrt(down.x + down.y);
-					//No change direction in the opposite direction
-					if (new_direction_r == 0)
+					if (can_down_r)
+					{
+						down.x = ((center_x_r - App->player->center.x)*(center_x_r - App->player->center.x));
+						down.y = (((center_y_r + 1) - App->player->center.y)*((center_y_r + 1) - App->player->center.y));
+						isdown = sqrt(down.x + down.y);
+						//No change direction in the opposite direction
+						if (new_direction_r == 0)
+						{
+							isdown = 300;
+						}
+					}
+					else
 					{
 						isdown = 300;
 					}
-				}
-				else
-				{
-					isdown = 300;
-				}
 
-				if (can_right_r)
-				{
-					right.x = (((center_x_r + 1) - App->player->center.x)*((center_x_r + 1) - App->player->center.x));
-					right.y = ((center_y_r - App->player->center.y)*(center_y_r - App->player->center.y));
-					isright = sqrt(right.x + right.y);
-					//No change direction in the opposite direction
-					if (new_direction_r == 1)
+					if (can_right_r)
+					{
+						right.x = (((center_x_r + 1) - App->player->center.x)*((center_x_r + 1) - App->player->center.x));
+						right.y = ((center_y_r - App->player->center.y)*(center_y_r - App->player->center.y));
+						isright = sqrt(right.x + right.y);
+						//No change direction in the opposite direction
+						if (new_direction_r == 1)
+						{
+							isright = 300;
+						}
+					}
+					else
 					{
 						isright = 300;
 					}
+
+					if (check_posibilities)
+					{
+						//Check which direction to go, the shortest
+						if (isup <= isleft && isup <= isdown && isup <= isright && new_direction_r != 2)
+						{
+							ghost_up_r = true; ghost_right_r = false; ghost_left_r = false; ghost_down_r = false;
+						}
+						else if (isleft <= isup && isleft <= isdown && isleft <= isright && new_direction_r != 3)
+						{
+							ghost_left_r = true; ghost_right_r = false; ghost_up_r = false; ghost_down_r = false;
+						}
+						else if (isdown <= isup && isdown <= isleft && isdown <= isright && new_direction_r != 0)
+						{
+							ghost_down_r = true; ghost_right_r = false; ghost_left_r = false; ghost_up_r = false;
+						}
+						else if (isright <= isup && isright <= isleft && isright <= isdown && new_direction_r != 1)
+						{
+							ghost_right_r = true; ghost_down_r = false; ghost_left_r = false; ghost_up_r = false;
+						}
+					}
+	
+
+
+					//This is for the corners
+					if (can_right_r && can_down_r && can_left_r == false && can_up_r == false)
+					{
+						if (new_direction_r == 1)//Pacman is moving to left
+						{
+							ghost_down_r = true; ghost_right_r = false; ghost_left_r = false; ghost_up_r = false;
+						}
+						if (new_direction_r == 0)//Pacman is moving to up
+						{
+							ghost_right_r = true; ghost_down_r = false; ghost_left_r = false; ghost_up_r = false;
+						}
+					}
+
+					if (can_left_r && can_up_r && can_right_r == false && can_down_r == false)
+					{
+						if (new_direction_r == 3)//Pacman is moving to down
+						{
+							ghost_up_r = true; ghost_right_r = false; ghost_left_r = false; ghost_down_r = false;
+						}
+						if (new_direction_r == 2)
+						{
+							ghost_left_r = true; ghost_right_r = false; ghost_up_r = false; ghost_down_r = false;
+						}
+					}
+					if (can_left_r && can_down_r && can_right_r == false && can_down_r == false)
+					{
+						if (new_direction_r == 3)
+						{
+							ghost_down_r = true; ghost_right_r = false; ghost_left_r = false; ghost_up_r = false;
+						}
+						if (new_direction_r == 0)
+						{
+							ghost_left_r = true; ghost_right_r = false; ghost_up_r = false; ghost_down_r = false;
+						}
+					}
+					if (can_right_r && can_up_r && can_left_r == false && can_down_r == false)
+					{
+						if (new_direction_r == 1)
+						{
+							ghost_up_r = true; ghost_right_r = false; ghost_left_r = false; ghost_down_r = false;
+						}
+						if (new_direction_r == 2)
+						{
+							ghost_right_r = true; ghost_up_r = false; ghost_left_r = false; ghost_down_r = false;
+						}
+					}
+					look_wherePacman = false;
+				}
+			}
+
+
+			right_x_r = (position.x + 3) / PIX_TILE;
+			right_y_r = (position.y - 7) / PIX_TILE;
+			left_x_r = (position.x + 10) / PIX_TILE;
+			left_y_r = (position.y - 7) / PIX_TILE;
+			up_x_r = (position.x + 7) / PIX_TILE;
+			up_y_r = (position.y - 4) / PIX_TILE;
+			down_x_r = (position.x + 7) / PIX_TILE;
+			down_y_r = (position.y - 11) / PIX_TILE;
+			center_x_r = (position.x + 6) / PIX_TILE;
+			center_y_r = (position.y - 7) / PIX_TILE;
+
+			int speed = 2;
+			//decided direction
+			if (App->level1->map[up_y_r - 1][up_x_r] == 3 || App->level1->map[up_y_r - 1][up_x_r] == 4 || App->level1->map[up_y_r - 1][up_x_r] == 5)
+			{
+				if (ghost_up_r)
+				{
+					if ((position.x + 7) == (center_x_r * PIX_TILE) + 4 || (position.x + 7) == (center_x_r * PIX_TILE) + 3 || (position.x + 7) == (center_x_r * PIX_TILE) + 5 ||
+						(position.x + 7) == (center_x_r * PIX_TILE) + 2 || (position.x + 7) == (center_x_r * PIX_TILE) + 6 && (position.y - 7) == (center_y_r * PIX_TILE) + 4 ||
+						new_direction_r == 2)
+					{
+						position.x = (center_x_r * PIX_TILE) + 4 - 7;
+						new_direction_r = 0;
+					}
+				}
+				if (new_direction_r == 0)
+				{
+					up_r.speed = 0.3f;
+					current_animation = &up_r;
+					position.y -= speed;
 				}
 				else
 				{
-					isright = 300;
+					up_r.speed = 0.0f;
 				}
 
-				//Check which direction to go, the shortest
-				if (isup <= isleft && isup <= isdown && isup <= isright && new_direction_r != 2)
+			}
+
+			if (App->level1->map[left_y_r][left_x_r - 1] == 3 || App->level1->map[left_y_r][left_x_r - 1] == 4 || App->level1->map[left_y_r][left_x_r - 1] == 5 || App->level1->map[left_y_r][left_x_r - 1] == 8 || position.x == 0)
+			{
+				if (ghost_left_r)
 				{
-					ghost_up_r = true; ghost_right_r = false; ghost_left_r = false; ghost_down_r = false;
+
+					if ((position.x + 7) == (center_x_r * PIX_TILE) + 4 && (position.y - 7) == (center_y_r * PIX_TILE) + 4 || (position.y - 7) == (center_y_r * PIX_TILE) + 3 ||
+						(position.y - 7) == (center_y_r * PIX_TILE) + 5 || (position.y - 7) == (center_y_r * PIX_TILE) + 2 || (position.y - 7) == (center_y_r * PIX_TILE) + 6 ||
+						new_direction_r == 3)
+					{
+						position.y = (center_y_r * PIX_TILE) + 4 + 7;
+						new_direction_r = 1;
+					}
 				}
-				if (isleft <= isup && isleft <= isdown && isleft <= isright && new_direction_r != 3)
+				if (new_direction_r == 1)
 				{
-					ghost_left_r = true; ghost_right_r = false; ghost_up_r = false; ghost_down_r = false;
+					left_r.speed = 0.3f;
+					current_animation = &left_r;
+					position.x -= speed;
 				}
-				if (isdown <= isup && isdown <= isleft && isdown <= isright && new_direction_r != 0)
+				else
 				{
-					ghost_down_r = true; ghost_right_r = false; ghost_left_r = false; ghost_up_r = false;
-				}
-				if (isright <= isup && isright <= isleft && isright <= isdown && new_direction_r != 1)
-				{
-					ghost_right_r = true; ghost_down_r = false; ghost_left_r = false; ghost_up_r = false;
+					left_r.speed = 0.0f;
 				}
 
+				if (position.x == 0)//tile[left_y][left_x-1] == 8)
+				{
+					for (int i = 0; i >= 25; i++){
+						position.x--;
+					}
+					position.x += 204;
+				}
+			}
 
-				//This is for the corners
-				if (can_right_r && can_down_r && can_left_r == false && can_up_r == false)
+			if (App->level1->map[down_y_r + 1][down_x_r] == 3 || App->level1->map[down_y_r + 1][down_x_r] == 4 || App->level1->map[down_y_r + 1][down_x_r] == 5)
+			{
+				if (ghost_down_r)
 				{
-					if (new_direction_r == 1)//Pacman is moving to left
+					if ((position.x + 7) == (center_x_r * PIX_TILE) + 4 || (position.x + 7) == (center_x_r * PIX_TILE) + 3 || (position.x + 7) == (center_x_r * PIX_TILE) + 5 ||
+						(position.x + 7) == (center_x_r * PIX_TILE) + 2 || (position.x + 7) == (center_x_r * PIX_TILE) + 6 && (position.y - 7) == (center_y_r * PIX_TILE) + 4 ||
+						new_direction_r == 0)
 					{
-						ghost_down_r = true; ghost_right_r = false; ghost_left_r = false; ghost_up_r = false;
+						position.x = (center_x_r * PIX_TILE) + 4 - 7;
+						new_direction_r = 2;
 					}
-					if (new_direction_r == 0)//Pacman is moving to up
-					{
-						ghost_right_r = true; ghost_down_r = false; ghost_left_r = false; ghost_up_r = false;
-					}
+				}
+				if (new_direction_r == 2)
+				{
+					down_r.speed = 0.3f;
+					current_animation = &down_r;
+					position.y += speed;
+
+				}
+				else
+				{
+					down_r.speed = 0.0f;
 				}
 
-				if (can_left_r && can_up_r && can_right_r == false && can_down_r == false)
+			}
+
+			if (App->level1->map[right_y_r][right_x_r + 1] == 3 || App->level1->map[right_y_r][right_x_r + 1] == 5 || App->level1->map[right_y_r][right_x_r + 1] == 4 || App->level1->map[right_y_r][right_x_r + 1] == 9)
+			{
+				if (ghost_right_r)
 				{
-					if (new_direction_r == 3)//Pacman is moving to down
+					if ((position.x + 7) == (center_x_r * PIX_TILE) + 4 && (position.y - 7) == (center_y_r * PIX_TILE) + 4 || (position.y - 7) == (center_y_r * PIX_TILE) + 3 ||
+						(position.y - 7) == (center_y_r * PIX_TILE) + 5 || (position.y - 7) == (center_y_r * PIX_TILE) + 2 || (position.y - 7) == (center_y_r * PIX_TILE) + 6 ||
+						new_direction_r == 1)
 					{
-						ghost_up_r = true; ghost_right_r = false; ghost_left_r = false; ghost_down_r = false;
-					}
-					if (new_direction_r == 2)
-					{
-						ghost_left_r = true; ghost_right_r = false; ghost_up_r = false; ghost_down_r = false;
+						position.y = (center_y_r * PIX_TILE) + 4 + 7;
+						new_direction_r = 3;
 					}
 				}
-				if (can_left_r && can_down_r && can_right_r == false && can_down_r == false)
+				if (new_direction_r == 3)
 				{
-					if (new_direction_r == 3)
-					{
-						ghost_down_r = true; ghost_right_r = false; ghost_left_r = false; ghost_up_r = false;
-					}
-					if (new_direction_r == 0)
-					{
-						ghost_left_r = true; ghost_right_r = false; ghost_up_r = false; ghost_down_r = false;
-					}
+					right_r.speed = 0.3f;
+					current_animation = &right_r;
+					position.x += speed;
 				}
-				if (can_right_r && can_up_r && can_left_r == false && can_down_r == false)
+				else
 				{
-					if (new_direction_r == 1)
-					{
-						ghost_up_r = true; ghost_right_r = false; ghost_left_r = false; ghost_down_r = false;
-					}
-					if (new_direction_r == 2)
-					{
-						ghost_right_r = true; ghost_up_r = false; ghost_left_r = false; ghost_down_r = false;
-					}
+					right_r.speed = 0.0f;
 				}
-				look_wherePacman = false;
+
+				if (App->level1->map[right_y_r][right_x_r + 1] == 9)
+				{
+
+					position.x -= 204;
+				}
 			}
 		}
+	}
 
 
-		right_x_r = (position.x + 3) / PIX_TILE;
-		right_y_r = (position.y - 7) / PIX_TILE;
-		left_x_r = (position.x + 10) / PIX_TILE;
-		left_y_r = (position.y - 7) / PIX_TILE;
-		up_x_r = (position.x + 7) / PIX_TILE;
-		up_y_r = (position.y - 4) / PIX_TILE;
-		down_x_r = (position.x + 7) / PIX_TILE;
-		down_y_r = (position.y - 11) / PIX_TILE;
-		center_x_r = (position.x + 6) / PIX_TILE;
-		center_y_r = (position.y - 7) / PIX_TILE;
+
+	collision->SetPos(position.x + 2, position.y + 12);
+	// Draw everything --------------------------------------
+
+	SDL_Rect r_r = current_animation->GetCurrentFrame();
 
 
-		//decided direction
-		if (tile[up_y_r - 1][up_x_r] == 3 || tile[up_y_r - 1][up_x_r] == 4 || tile[up_y_r - 1][up_x_r] == 5)
+	//EDIT FOR NEXT UPDATE!!! (Elliot)
+	if (App->player->superpower == true && App->player->timer < 5)
+	{
+		GhostBlue_ispow = true;
+	}
+	if (App->player->superpower == false)
+	{
+		GhostBlue_ispow = false;
+	}
+	// Draw everything --------------------------------------
+
+	SDL_Rect r_b = current_animation->GetCurrentFrame();
+	SDL_Rect r_pow = current_superpow_combination->GetCurrentFrame();
+
+	//EDIT FOR NEXT UPDATE!!! (Elliot)
+	if (GhostBlue_ispow == true)
+	{
+		if (App->player->timer > 280)
 		{
-			if (ghost_up_r)
-			{
-				if ((position.x + 7) == (center_x_r * PIX_TILE) + 4 || (position.x + 7) == (center_x_r * PIX_TILE) + 3 || (position.x + 7) == (center_x_r * PIX_TILE) + 5 ||
-					(position.x + 7) == (center_x_r * PIX_TILE) + 2 || (position.x + 7) == (center_x_r * PIX_TILE) + 6 && (position.y - 7) == (center_y_r * PIX_TILE) + 4 ||
-					new_direction_r == 2)
-				{
-					position.x = (center_x_r * PIX_TILE) + 4 - 7;
-					new_direction_r = 0;
-				}
-			}
-			if (new_direction_r == 0)
-			{
-				up_r.speed = 0.3f;
-				current_animation = &up_r;
-				position.y -= speed;
-			}
-			else
-			{
-				up_r.speed = 0.0f;
-			}
-
-		}
-
-		if (tile[left_y_r][left_x_r - 1] == 3 || tile[left_y_r][left_x_r - 1] == 4 || tile[left_y_r][left_x_r - 1] == 5 || tile[left_y_r][left_x_r - 1] == 8 || position.x == 0)
-		{
-			if (ghost_left_r)
-			{
-
-				if ((position.x + 7) == (center_x_r * PIX_TILE) + 4 && (position.y - 7) == (center_y_r * PIX_TILE) + 4 || (position.y - 7) == (center_y_r * PIX_TILE) + 3 ||
-					(position.y - 7) == (center_y_r * PIX_TILE) + 5 || (position.y - 7) == (center_y_r * PIX_TILE) + 2 || (position.y - 7) == (center_y_r * PIX_TILE) + 6 ||
-					new_direction_r == 3)
-				{
-					position.y = (center_y_r * PIX_TILE) + 4 + 7;
-					new_direction_r = 1;
-				}
-			}
-			if (new_direction_r == 1)
-			{
-				left_r.speed = 0.3f;
-				current_animation = &left_r;
-				position.x -= speed;
-			}
-			else
-			{
-				left_r.speed = 0.0f;
-			}
-
-			if (position.x == 0)//tile[left_y][left_x-1] == 8)
-			{
-				for (int i = 0; i >= 25; i++){
-					position.x--;
-				}
-				position.x += 204;
-			}
-		}
-
-		if (tile[down_y_r + 1][down_x_r] == 3 || tile[down_y_r + 1][down_x_r] == 4 || tile[down_y_r + 1][down_x_r] == 5)
-		{
-			if (ghost_down_r)
-			{
-				if ((position.x + 7) == (center_x_r * PIX_TILE) + 4 || (position.x + 7) == (center_x_r * PIX_TILE) + 3 || (position.x + 7) == (center_x_r * PIX_TILE) + 5 ||
-					(position.x + 7) == (center_x_r * PIX_TILE) + 2 || (position.x + 7) == (center_x_r * PIX_TILE) + 6 && (position.y - 7) == (center_y_r * PIX_TILE) + 4 ||
-					new_direction_r == 0)
-				{
-					position.x = (center_x_r * PIX_TILE) + 4 - 7;
-					new_direction_r = 2;
-				}
-			}
-			if (new_direction_r == 2)
-			{
-				down_r.speed = 0.3f;
-				current_animation = &down_r;
-				position.y += speed;
-
-			}
-			else
-			{
-				down_r.speed = 0.0f;
-			}
-
-		}
-
-		if (tile[right_y_r][right_x_r + 1] == 3 || tile[right_y_r][right_x_r + 1] == 5 || tile[right_y_r][right_x_r + 1] == 4 || tile[right_y_r][right_x_r + 1] == 9)
-		{
-			if (ghost_right_r)
-			{
-				if ((position.x + 7) == (center_x_r * PIX_TILE) + 4 && (position.y - 7) == (center_y_r * PIX_TILE) + 4 || (position.y - 7) == (center_y_r * PIX_TILE) + 3 ||
-					(position.y - 7) == (center_y_r * PIX_TILE) + 5 || (position.y - 7) == (center_y_r * PIX_TILE) + 2 || (position.y - 7) == (center_y_r * PIX_TILE) + 6 ||
-					new_direction_r == 1)
-				{
-					position.y = (center_y_r * PIX_TILE) + 4 + 7;
-					new_direction_r = 3;
-				}
-			}
-			if (new_direction_r == 3)
-			{
-				right_r.speed = 0.3f;
-				current_animation = &right_r;
-				position.x += speed;
-			}
-			else
-			{
-				right_r.speed = 0.0f;
-			}
-
-			if (tile[right_y_r][right_x_r + 1] == 9)
-			{
-
-				position.x -= 204;
-			}
-		}
-
-
-		collision->SetPos(position.x + 2, position.y + 12);
-		// Draw everything --------------------------------------
-
-		SDL_Rect r_r = current_animation->GetCurrentFrame();
-
-
-		//EDIT FOR NEXT UPDATE!!! (Elliot)
-		if (App->player->superpower == true && App->player->timer < 5)
-		{
-			GhostBlue_ispow = true;
-		}
-		if (App->player->superpower == false)
-		{
-			GhostBlue_ispow = false;
-		}
-		// Draw everything --------------------------------------
-
-		SDL_Rect r_b = current_animation->GetCurrentFrame();
-		SDL_Rect r_pow = current_superpow_combination->GetCurrentFrame();
-
-		//EDIT FOR NEXT UPDATE!!! (Elliot)
-		if (GhostBlue_ispow == true)
-		{
-			if (App->player->timer > 280)
-			{
-				superpow_combination.speed = 0.06f;
-				App->render->Blit(graphics, position.x, position.y + 24 - r_b.h, &r_pow);
-			}
-			else
-			{
-				App->render->Blit(graphics, position.x, position.y + 24 - r_b.h, &superpow_blue);
-			}
-
+			superpow_combination.speed = 0.06f;
+			App->render->Blit(graphics, position.x, position.y + 24 - r_b.h, &r_pow);
 		}
 		else
 		{
-			App->render->Blit(graphics, position.x, position.y + 24 - r_r.h, &r_r);
+			App->render->Blit(graphics, position.x, position.y + 24 - r_b.h, &superpow_blue);
 		}
+	}
+	else
+	{
+		App->render->Blit(graphics, position.x, position.y + 24 - r_r.h, &r_r);
 	}
 
 	return UPDATE_CONTINUE;
 }
+
 void ModuleGhostRed::OnCollision(Collider* c1, Collider* c2)
 {
 	if (c1 == collision && c2->type == COLLIDER_PLAYER && App->player->superpower == true ||

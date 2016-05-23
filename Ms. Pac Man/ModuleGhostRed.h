@@ -20,7 +20,7 @@ public:
 
 public:
 
-	Animation* current_animation = &up_r;
+	Animation* current_animation = &left_r;
 	Animation* current_superpow_combination = &superpow_combination;
 	SDL_Texture* graphics = nullptr;
 	SDL_Rect test;
@@ -53,7 +53,7 @@ public:
 	int right_y_r;
 	int center_y_r;
 
-	int change_r = 1;
+	bool check_posibilities;
 	int new_direction_r = 1; // 0-w 1-a 2-s 3-d
 
 	bool ghost_up_r = false;

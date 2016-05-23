@@ -96,8 +96,8 @@ bool ModuleLevel1::Start()
 	App->player->Enable();
 	App->player->position.x = 1050;
 	App->player->position.y = 1950;
-	App->ghost_b->position_blue.x = 89;
-	App->ghost_b->position_blue.y = 121;
+	App->ghost_b->position.x = 89;
+	App->ghost_b->position.y = 121;
 	App->ghost_o->position_blue.x = 121;
 	App->ghost_o->position_blue.y = 121;
 	App->ghost_p->position_blue.x = 105;
@@ -138,18 +138,17 @@ bool ModuleLevel1::Start()
 	App->ghost_p->can_up_b = false;
 	App->ghost_p->change_com_b = false;
 	//blue
-	App->ghost_b->new_direction_b = 0;
+	App->ghost_b->new_direction_r = 0;
 	App->ghost_b->GhostBlue_ispow = false;
 	App->ghost_b->dead_blue = false;
-	App->ghost_b->ghost_up_blue = false;
-	App->ghost_b->ghost_down_blue = false;
-	App->ghost_b->ghost_left_blue = false;
-	App->ghost_b->ghost_right_blue = false;
-	App->ghost_b->can_right_b = false;
-	App->ghost_b->can_down_b = false;
-	App->ghost_b->can_left_b = false;
-	App->ghost_b->can_up_b = false;
-	App->ghost_b->change_com_b = false;
+	App->ghost_b->ghost_up_r = false;
+	App->ghost_b->ghost_down_r = false;
+	App->ghost_b->ghost_left_r = false;
+	App->ghost_b->ghost_right_r = false;
+	App->ghost_b->can_right_r = false;
+	App->ghost_b->can_down_r = false;
+	App->ghost_b->can_left_r = false;
+	App->ghost_b->can_up_r = false;
 
 	sound_big_pill = false;
 
@@ -159,12 +158,12 @@ bool ModuleLevel1::Start()
 bool ModuleLevel1::CleanUp()
 {
 	LOG("Unloading Level1 stage");
-	App->ghost_o->CleanUp();
+	/*App->ghost_o->CleanUp();
 	App->ghost_p->CleanUp();
 	App->ghost_b->CleanUp();
 	App->ghost_r->CleanUp();
 	App->player->CleanUp();
-	App->collision->CleanUp();
+	App->collision->CleanUp();*/
 	return true;
 }
 
@@ -236,7 +235,7 @@ update_status ModuleLevel1::Update()
 
 	//App->render->Blit(graphics, 305, 136, &(water.GetCurrentFrame())); // water animation
 
-	if (victory)
+	if (victory || App->input->keyboard[SDL_SCANCODE_SPACE] == KEY_STATE::KEY_UP)
 	{
 		App->fade->FadeToBlack(this, (Module*)App->win, 2.0f);
 		App->player->Disable();

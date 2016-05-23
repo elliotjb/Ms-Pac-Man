@@ -10,8 +10,6 @@
 #include "ModuleLevel_1.h"
 #include "ModuleCollision.h"
 
-// Reference at https://youtu.be/6OlenbCC4WI?t=382
-
 ModuleCongratulation::ModuleCongratulation()
 {
 	//Welcome
@@ -36,6 +34,7 @@ bool ModuleCongratulation::Start()
 	LOG("Loading background assets");
 	bool ret = true;
 	graphics = App->textures->Load("Mspacman_congratu.png");
+	App->welcome->Disable();
 
 	// TODO 1: Enable (and properly disable) the player module
 	/*App->player->Disable();
@@ -44,7 +43,7 @@ bool ModuleCongratulation::Start()
 	App->ghost_p->Disable();
 	App->ghost_r->Disable();
 	App->collision->Disable();*/
-
+	App->level1->Disable();
 
 
 	return ret;
@@ -64,14 +63,10 @@ update_status ModuleCongratulation::Update()
 	// Draw everything --------------------------------------	
 	App->render->Blit(graphics, 0, 0, &congratulations);
 
-	//App->render->Blit(graphics, 305, 136, &(water.GetCurrentFrame())); // water animation
-
-	// TODO 3: make so pressing SPACE the KEN stage is loaded
-	if (App->input->keyboard[SDL_SCANCODE_1] == 1)
+	if (App->input->keyboard[SDL_SCANCODE_1] == KEY_STATE::KEY_UP || 
+		App->input->keyboard[SDL_SCANCODE_SPACE] == KEY_STATE::KEY_UP)
 	{
-		App->fade->FadeToBlack(this, (Module*)App->level1, 2.0f);
-
-
+		App->fade->FadeToBlack(this, (Module*)App->level1, 1.0f);
 	}
 
 

@@ -258,26 +258,14 @@ update_status ModulePlayer::Update()
 		if (time_to_start < 60)
 		{
 			App->render->Blit(graphics, 77, 112, &ready);
-			App->ghost_b->Disable();
-			App->ghost_r->Disable();
-			App->ghost_o->Disable();
-			App->ghost_p->Disable();
-
-			
 			time_to_start++;
 		}
 
 		if (time_to_start < 250 && time_to_start > 59)
 		{
 			App->render->Blit(graphics, 77, 112, &ready2);
-			App->ghost_b->Enable();
-			App->ghost_r->Enable();
-			App->ghost_o->Enable();
-			App->ghost_p->Enable();
-			App->player->position.x = 105;
-			App->player->position.y = 195;
-
-			
+			App->player->position.x = 105; //WTF????
+			App->player->position.y = 195; //WTF????
 			time_to_start++;
 		}
 		//super power
@@ -297,7 +285,7 @@ update_status ModulePlayer::Update()
 		// Draw everything --------------------------------------
 		SDL_Rect r = current_animation->GetCurrentFrame();
 
-		App->render->Blit(graphics, position.x, position.y + 24 - r.h, &r);//EDIT FOR NEXT UPDATE!!! (Elliot)
+		App->render->Blit(graphics, position.x, position.y + 24 - r.h, &r);
 
 		//Draw MODE GOD
 		if (GOD == true)
