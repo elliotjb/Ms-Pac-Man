@@ -35,6 +35,8 @@ public:
 	iPoint center;
 	SDL_Rect test;
 	SDL_Rect lose;
+	SDL_Rect ready;
+	SDL_Rect ready2;
 
 	//Bool to comprovated so PacMan is Dead
 	bool isdead;

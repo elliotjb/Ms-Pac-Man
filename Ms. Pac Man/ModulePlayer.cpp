@@ -19,7 +19,8 @@ ModulePlayer::ModulePlayer()
 	position.x = 105;
 	position.y = 195;
 	lose = { 464, 351, 81, 11 };
-
+	ready = { 463, 371, 75, 55 };
+	ready2 = { 569, 371, 75, 55 };
 	right.PushBack({ 489, 1, 15, 14 });
 	right.PushBack({ 473, 1, 15, 14 });
 	right.PushBack({ 457, 1, 15, 14 });
@@ -254,10 +255,29 @@ update_status ModulePlayer::Update()
 			}
 
 		}
-
-
-		if (time_to_start < 250)
+		if (time_to_start < 60)
 		{
+			App->render->Blit(graphics, 77, 112, &ready);
+			App->ghost_b->Disable();
+			App->ghost_r->Disable();
+			App->ghost_o->Disable();
+			App->ghost_p->Disable();
+
+			
+			time_to_start++;
+		}
+
+		if (time_to_start < 250 && time_to_start > 59)
+		{
+			App->render->Blit(graphics, 77, 112, &ready2);
+			App->ghost_b->Enable();
+			App->ghost_r->Enable();
+			App->ghost_o->Enable();
+			App->ghost_p->Enable();
+			App->player->position.x = 105;
+			App->player->position.y = 195;
+
+			
 			time_to_start++;
 		}
 		//super power

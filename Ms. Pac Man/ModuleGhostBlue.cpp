@@ -29,6 +29,7 @@ ModuleGhostBlue::ModuleGhostBlue()
 	superpow_combination.speed = 0.05f;
 
 	superpow_blue = { 585, 65, 14, 14 };
+	a = 0;
 
 
 
@@ -66,32 +67,81 @@ update_status ModuleGhostBlue::Update()
 
 		int speed = 1;
 		//BLUE
-		if (time_blue < 500 && Isinmid == true)
+		if (time_blue < 580 && Isinmid == true)
 		{
 			time_blue++;
+			
+			if (i == 10 && a == 0) {
 
-			if (i == 5) {
-
-				position_blue.y = 123;
-
-			}
-			else if (i == 10) {
-				position_blue.y = 121;
+			position_blue.y = 124;
+			animation_blue = &up_b;
 
 			}
-			else if (i == 15) {
+			else if (i == 10 && a == 1) {
 
-				position_blue.y = 119;
-				i = 0;
+			position_blue.y = 124;
+			animation_blue = &down_b;
+
 			}
+			else if (i == 20 && a == 0) {
+
+			position_blue.y = 122;
+			animation_blue = &up_b;
+
+			}
+			else if (i == 20 && a == 1) {
+
+			position_blue.y = 122;
+			animation_blue = &down_b;
+
+			}
+			else if (i == 30 && a == 0) {
+			position_blue.y = 120;
+			animation_blue = &up_b;
+
+			}
+			else if (i == 30 && a == 1) {
+			position_blue.y = 120;
+			animation_blue = &down_b;
+
+			}
+			else if (i == 40 && a == 0) {
+			animation_blue = &up_b;
+			position_blue.y = 118;
+			a = 1;
+			i = 0;
+			}
+			else if (i == 40 && a == 1 ) {
+			animation_blue = &down_b;
+			position_blue.y = 118;
+			a = 0;
+			i = 0;
+			}/*
+			if (position_blue.y > 118 && a == 0){
+				position_blue.y--;
+			}
+			else if (position_blue.y == 117){
+				a = 1;
+				position_blue.y++;
+			}
+			else if (position_blue.y == 124){
+				a = 0;
+				position_blue.y++;
+			}
+			else if (position_blue.y<125 && a == 1){
+				position_blue.y++;
+			}*/
 			i++;
+
+		
+		
 		}
 		if (Isinmid == false)
 		{
 			time_blue = 0;
 		}
 
-		if (Isinmid == true && time_blue > 499)
+		if (Isinmid == true && time_blue > 579)
 		{
 			if (position_blue.x <= 105 && Isinmid == true){
 				position_blue.x++;

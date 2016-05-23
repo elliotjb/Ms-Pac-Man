@@ -22,7 +22,7 @@ ModuleGhostRed::ModuleGhostRed()
 	down_r.PushBack({ 553, 65, 14, 14 });
 	down_r.PushBack({ 569, 65, 14, 14 });
 	down_r.speed = 0.1f;
-	position.x = 81;
+	position.x = 105;
 	position.y = 99;
 
 	superpow_combination.PushBack({ 585, 65, 14, 14 });
@@ -91,7 +91,14 @@ update_status ModuleGhostRed::Update()
 
 		};
 		srand(time(NULL));
-		int speed = 1;
+		int speed;
+		if (time_blue < 180){
+			speed = 0;
+			time_blue++;
+		}
+		if (time_blue > 179){
+			speed = 1;
+		}
 		//RED
 
 		//checking possibilities
@@ -481,7 +488,8 @@ void ModuleGhostRed::OnCollision(Collider* c1, Collider* c2)
 		c1 == collision && c2->type == COLLIDER_PLAYER && App->player->SUPER_GOD == true)
 	{
 		
-		position.x = 81;
+		position.x = 105;
+		
 		position.y = 99;
 		new_direction_r = 1;
 		current_animation = &left_r;

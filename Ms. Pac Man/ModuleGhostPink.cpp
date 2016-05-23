@@ -64,7 +64,7 @@ update_status ModuleGhostPink::Update()
 
 		int speed = 1;
 		//BLUE
-		if (time_blue < 45 && Isinmid == true)
+		if (time_blue < 180 && Isinmid == true)
 		{
 			time_blue++;
 		}
@@ -73,7 +73,7 @@ update_status ModuleGhostPink::Update()
 			time_blue = 0;
 		}
 
-		if (Isinmid == true && time_blue > 44)
+		if (Isinmid == true && time_blue > 179)
 		{
 			position_blue.y -= 1;
 			if (position_blue.y == 99)

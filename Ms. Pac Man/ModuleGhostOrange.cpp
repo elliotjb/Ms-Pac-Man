@@ -64,7 +64,7 @@ update_status ModuleGhostOrange::Update()
 
 		int speed = 1;
 		//BLUE
-		if (time_blue < 1000 && Isinmid == true)
+		if (time_blue < 1100 && Isinmid == true)
 		{
 			time_blue++;
 
@@ -89,7 +89,7 @@ update_status ModuleGhostOrange::Update()
 			time_blue = 0;
 		}
 
-		if (Isinmid == true && time_blue > 999)
+		if (Isinmid == true && time_blue > 1099)
 		{
 			if (position_blue.x >= 105 && Isinmid == true){
 				position_blue.x--;

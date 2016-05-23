@@ -69,6 +69,7 @@ public:
 	int isright;
 	int isup;
 	int isdown;
+	int time_blue;
 
 	bool look_wherePacman;
 
