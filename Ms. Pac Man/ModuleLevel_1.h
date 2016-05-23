@@ -26,6 +26,7 @@ public:
 	SDL_Rect level1_2;
 	SDL_Rect level1_center;
 	SDL_Rect pills;
+	SDL_Rect blacksquare;
 	Animation water;
 
 	int map[31][28];

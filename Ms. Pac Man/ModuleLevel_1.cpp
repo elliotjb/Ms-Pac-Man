@@ -22,6 +22,7 @@ ModuleLevel1::ModuleLevel1()
 	level1_2 = { 0, 272, 224, 16 };
 	level1_center = { 228, 0, 224, 288 };
 	pills = { 8, 8, 8, 8 };
+	blacksquare = { 79, 273, 13, 14 };
 
 	big_pill.PushBack({ 208, 16, 8, 8 });
 	big_pill.PushBack({ 235, 16, 8, 8 });
@@ -194,6 +195,24 @@ update_status ModuleLevel1::Update()
 				break;
 			}
 		}
+	}
+
+	//printing lives
+
+	if (App->player->playerlives == 3)
+	{
+		App->render->Blit(graphics, 65, 273, &blacksquare);
+	}
+	else if (App->player->playerlives == 2)
+	{
+		App->render->Blit(graphics, 65, 273, &blacksquare);
+		App->render->Blit(graphics, 49, 273, &blacksquare);
+	}
+	else if (App->player->playerlives == 1)
+	{
+		App->render->Blit(graphics, 65, 273, &blacksquare);
+		App->render->Blit(graphics, 49, 273, &blacksquare);
+		App->render->Blit(graphics, 33, 273, &blacksquare);
 	}
 
 	switch (map[App->player->center.y][App->player->center.x])
