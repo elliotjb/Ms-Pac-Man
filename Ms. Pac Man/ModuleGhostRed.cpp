@@ -46,7 +46,6 @@ bool ModuleGhostRed::Start()
 	graphics = App->textures->Load("MsPacMan_Sprites.png"); // Sprites
 	srand(time(NULL));
 	//red
-	check_posibilities = true;
 	collision = App->collision->AddCollider({ 0, 0, 10, 10 }, COLLIDER_ENEMY, this);
 	new_direction_r = 1;
 	return ret;
@@ -178,27 +177,23 @@ update_status ModuleGhostRed::Update()
 						isright = 300;
 					}
 
-					if (check_posibilities)
+					//Check which direction to go, the shortest
+					if (isup <= isleft && isup <= isdown && isup <= isright && new_direction_r != 2)
 					{
-						//Check which direction to go, the shortest
-						if (isup <= isleft && isup <= isdown && isup <= isright && new_direction_r != 2)
-						{
-							ghost_up_r = true; ghost_right_r = false; ghost_left_r = false; ghost_down_r = false;
-						}
-						else if (isleft <= isup && isleft <= isdown && isleft <= isright && new_direction_r != 3)
-						{
-							ghost_left_r = true; ghost_right_r = false; ghost_up_r = false; ghost_down_r = false;
-						}
-						else if (isdown <= isup && isdown <= isleft && isdown <= isright && new_direction_r != 0)
-						{
-							ghost_down_r = true; ghost_right_r = false; ghost_left_r = false; ghost_up_r = false;
-						}
-						else if (isright <= isup && isright <= isleft && isright <= isdown && new_direction_r != 1)
-						{
-							ghost_right_r = true; ghost_down_r = false; ghost_left_r = false; ghost_up_r = false;
-						}
+						ghost_up_r = true; ghost_right_r = false; ghost_left_r = false; ghost_down_r = false;
 					}
-	
+					if (isleft <= isup && isleft <= isdown && isleft <= isright && new_direction_r != 3)
+					{
+						ghost_left_r = true; ghost_right_r = false; ghost_up_r = false; ghost_down_r = false;
+					}
+					if (isdown <= isup && isdown <= isleft && isdown <= isright && new_direction_r != 0)
+					{
+						ghost_down_r = true; ghost_right_r = false; ghost_left_r = false; ghost_up_r = false;
+					}
+					if (isright <= isup && isright <= isleft && isright <= isdown && new_direction_r != 1)
+					{
+						ghost_right_r = true; ghost_down_r = false; ghost_left_r = false; ghost_up_r = false;
+					}
 
 
 					//This is for the corners
@@ -263,7 +258,7 @@ update_status ModuleGhostRed::Update()
 			center_x_r = (position.x + 6) / PIX_TILE;
 			center_y_r = (position.y - 7) / PIX_TILE;
 
-			int speed = 2;
+			int speed = 1;
 			//decided direction
 			if (App->level1->map[up_y_r - 1][up_x_r] == 3 || App->level1->map[up_y_r - 1][up_x_r] == 4 || App->level1->map[up_y_r - 1][up_x_r] == 5)
 			{

@@ -53,7 +53,6 @@ public:
 	int right_y_r;
 	int center_y_r;
 
-	bool check_posibilities;
 	int new_direction_r = 1; // 0-w 1-a 2-s 3-d
 
 	bool ghost_up_r = false;
