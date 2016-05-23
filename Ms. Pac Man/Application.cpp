@@ -17,6 +17,7 @@
 #include "ModuleGhostBlue.h"
 #include "ModuleGhostOrange.h"
 #include "ModuleCollision.h"
+#include "ModuleRating.h"
 
 Application::Application()
 {
@@ -37,7 +38,8 @@ Application::Application()
 	modules[14] = player = new ModulePlayer();
 	modules[15] = sound = new ModuleSound();
 	modules[16] = collision = new ModuleCollision();
-	modules[17] = fade = new ModuleFadeToBlack();
+	modules[17] = rating = new ModuleRating();
+	modules[18] = fade = new ModuleFadeToBlack();
 
 }
 
@@ -57,6 +59,7 @@ bool Application::Init()
 	ghost_o->Disable();
 	ghost_p->Disable();
 	collision->Disable();
+	rating->Disable();
 	player->Disable();
 	level1->Disable();
 	level2->Disable();

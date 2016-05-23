@@ -89,6 +89,9 @@
     <ClInclude Include="ModuleLevel_4.h">
       <Filter>Levels - Modules</Filter>
     </ClInclude>
+    <ClInclude Include="ModuleRating.h">
+      <Filter>Modules</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -153,6 +156,9 @@
     </ClCompile>
     <ClCompile Include="ModuleLevel_4.cpp">
       <Filter>Levels - Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="ModuleRating.cpp">
+      <Filter>Modules</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
