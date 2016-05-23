@@ -36,6 +36,11 @@ public:
 	Animation down_r;
 	iPoint position;
 
+	iPoint up;
+	iPoint left;
+	iPoint down;
+	iPoint right;
+
 	int up_x_r;
 	int down_x_r;
 	int left_x_r;

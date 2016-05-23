@@ -6,6 +6,7 @@
 #include "ModulePlayer.h"
 #include "ModuleGhostRed.h"
 #include "ModuleCollision.h"
+#include <cmath>
 
 ModuleGhostRed::ModuleGhostRed()
 {
@@ -147,120 +148,95 @@ update_status ModuleGhostRed::Update()
 		else change_direction_r = false;
 
 
-		//changing direction
-
-		/*if (change_direction_r)
-		{
-		change_comp_r = false;
-		while (change_comp_r == false)
-		{
-		change_r = rand() % 4;
-		if (can_right_r && change_r == 0)
-		{
-		position.y = (center_y_r * 8) + 4 + 7;
-		ghost_right_r = true;
-		change_comp_r = true;
-		}
-		else{ ghost_right_r = false; }
-
-
-		if (can_left_r && change_r == 1)
-		{
-		position.y = (center_y_r * 8) + 4 + 7;
-		ghost_left_r = true;
-		change_comp_r = true;
-		}
-		else{ ghost_left_r = false; }
-
-
-		if (can_up_r && change_r == 2)
-		{
-		position.x = (center_x_r * 8) + 4 - 7;
-		ghost_up_r = true;
-		change_comp_r = true;
-		}
-		else{ ghost_up_r = false; }
-
-
-		if (can_down_r && change_r == 3)
-		{
-		position.x = (center_x_r * 8) + 4 - 7;
-		ghost_down_r = true;
-		change_comp_r = true;
-		}
-		else{ ghost_down_r = false; }
-		}
-		}*/
-
 		if (change_direction_r)
 		{
 			look_wherePacman = true;
 			if (look_wherePacman)
 			{
-				//Pacman is left to ghost
-				if (App->player->position.x <= position.x && can_left_r)
+				if (can_up_r)
 				{
-					isleft = position.x - App->player->position.x;
-					//Pacman UP_LEFT
-					if (App->player->position.y <= position.y && can_up_r)
+					up.x = ((center_x_r - App->player->center.x)*(center_x_r - App->player->center.x));
+					up.y = (((center_y_r - 1) - App->player->center.y)*((center_y_r - 1) - App->player->center.y));
+					isup = sqrt(up.x + up.y);
+					//No change direction in the opposite direction
+					if (new_direction_r == 2)
 					{
-						isup = position.y - App->player->position.y;
-						if (isleft <= isup)
-						{
-							ghost_up_r = true; ghost_right_r = false; ghost_left_r = false; ghost_down_r = false;
-						}
-						else
-						{
-							ghost_left_r = true; ghost_right_r = false; ghost_up_r = false; ghost_down_r = false;
-						}
-					}
-					//PACMAN DOWN_LEFT
-					if (App->player->position.y > position.y && can_down_r)
-					{
-						isdown = App->player->position.y - position.y;
-						if (isleft <= isdown)
-						{
-							ghost_down_r = true; ghost_right_r = false; ghost_up_r = false; ghost_left_r = false;
-						}
-						else
-						{
-							ghost_left_r = true; ghost_right_r = false; ghost_up_r = false; ghost_down_r = false;
-						}
+						isup = 300;
 					}
 				}
-
-				if (App->player->position.x >= position.x && can_right_r)
+				else
 				{
-					//Pacman is right to ghost
-					isright = App->player->position.x - position.x;
-					if (App->player->position.y <= position.y && can_up_r)
+					isup = 300;
+				}
+
+				if (can_left_r)
+				{
+					left.x = (((center_x_r - 1) - App->player->center.x)*((center_x_r - 1) - App->player->center.x));
+					left.y = ((center_y_r - App->player->center.y)*(center_y_r - App->player->center.y));
+					isleft = sqrt(left.x + left.y);
+					//No change direction in the opposite direction
+					if (new_direction_r == 3)
 					{
-						isup = position.y - App->player->position.y;
-						if (isright <= isup)
-						{
-							ghost_up_r = true; ghost_right_r = false; ghost_left_r = false; ghost_down_r = false;
-						}
-						else
-						{
-							ghost_right_r = true; ghost_left_r = false; ghost_up_r = false; ghost_down_r = false;
-						}
+						isleft = 300;
 					}
-					//PACMAN DOWN_LEFT
-					if (App->player->position.y > position.y && can_down_r)
+				}
+				else
+				{
+					isleft = 300;
+				}
+
+				if (can_down_r)
+				{
+					down.x = ((center_x_r - App->player->center.x)*(center_x_r - App->player->center.x));
+					down.y = (((center_y_r + 1) - App->player->center.y)*((center_y_r + 1) - App->player->center.y));
+					isdown = sqrt(down.x + down.y);
+					//No change direction in the opposite direction
+					if (new_direction_r == 0)
 					{
-						isdown = App->player->position.y - position.y;
-						if (isright <= isdown)
-						{
-							ghost_down_r = true; ghost_right_r = false; ghost_up_r = false; ghost_left_r = false;
-						}
-						else
-						{
-							ghost_right_r = true; ghost_left_r = false; ghost_up_r = false; ghost_down_r = false;
-						}
+						isdown = 300;
 					}
+				}
+				else
+				{
+					isdown = 300;
+				}
+
+				if (can_right_r)
+				{
+					right.x = (((center_x_r + 1) - App->player->center.x)*((center_x_r + 1) - App->player->center.x));
+					right.y = ((center_y_r - App->player->center.y)*(center_y_r - App->player->center.y));
+					isright = sqrt(right.x + right.y);
+					//No change direction in the opposite direction
+					if (new_direction_r == 1)
+					{
+						isright = 300;
+					}
+				}
+				else
+				{
+					isright = 300;
+				}
+
+				//Check which direction to go, the shortest
+				if (isup <= isleft && isup <= isdown && isup <= isright && new_direction_r != 2)
+				{
+					ghost_up_r = true; ghost_right_r = false; ghost_left_r = false; ghost_down_r = false;
+				}
+				if (isleft <= isup && isleft <= isdown && isleft <= isright && new_direction_r != 3)
+				{
+					ghost_left_r = true; ghost_right_r = false; ghost_up_r = false; ghost_down_r = false;
+				}
+				if (isdown <= isup && isdown <= isleft && isdown <= isright && new_direction_r != 0)
+				{
+					ghost_down_r = true; ghost_right_r = false; ghost_left_r = false; ghost_up_r = false;
+				}
+				if (isright <= isup && isright <= isleft && isright <= isdown && new_direction_r != 1)
+				{
+					ghost_right_r = true; ghost_down_r = false; ghost_left_r = false; ghost_up_r = false;
 				}
 
 
+				//This is for the corners
 				if (can_right_r && can_down_r && can_left_r == false && can_up_r == false)
 				{
 					if (new_direction_r == 1)//Pacman is moving to left
@@ -309,7 +285,6 @@ update_status ModuleGhostRed::Update()
 				look_wherePacman = false;
 			}
 		}
-
 
 
 		right_x_r = (position.x + 3) / PIX_TILE;
