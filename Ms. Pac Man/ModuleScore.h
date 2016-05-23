@@ -8,11 +8,11 @@
 
 struct SDL_Texture;
 
-class ModuleRating : public Module
+class ModuleScore : public Module
 {
 public:
-	ModuleRating();
-	~ModuleRating();
+	ModuleScore();
+	~ModuleScore();
 
 	bool Start();
 	update_status Update();
@@ -31,6 +31,18 @@ public:
 	SDL_Rect number7;
 	SDL_Rect number8;
 	SDL_Rect number9;
+
+	int number_pos1;
+	int number_pos2;
+	int number_pos3;
+	int number_pos4;
+
+	bool p_1;
+	bool p_2;
+	int puntuation;
+
+
+
 
 
 };

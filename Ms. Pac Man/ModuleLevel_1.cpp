@@ -13,7 +13,6 @@
 #include "ModuleGhostPink.h"
 #include "ModuleSound.h"
 #include "ModuleCollision.h"
-// Reference at https://youtu.be/6OlenbCC4WI?t=382
 
 ModuleLevel1::ModuleLevel1()
 {
@@ -203,6 +202,7 @@ update_status ModuleLevel1::Update()
 		if (sound_big_pill == false)
 		{
 			Mix_PlayChannel(-1, App->sound->eat_ms, 0);
+
 		}
 		eatenpills++;
 		break;

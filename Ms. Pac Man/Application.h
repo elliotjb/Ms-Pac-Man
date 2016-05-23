@@ -24,7 +24,7 @@ class ModuleGhostPink;
 class ModuleGhostOrange;
 class ModuleGhostBlue;
 class ModuleCollision;
-class ModuleRating;
+class ModuleScore;
 
 class Application
 {
@@ -48,7 +48,7 @@ public:
 	ModuleGhostBlue* ghost_b;
 	ModuleGhostOrange* ghost_o;
 	ModuleGhostPink* ghost_p;
-	ModuleRating* rating;
+	ModuleScore* score;
 
 	ModuleCollision* collision;
 public:

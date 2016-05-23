@@ -89,7 +89,7 @@
     <ClInclude Include="ModuleLevel_4.h">
       <Filter>Levels - Modules</Filter>
     </ClInclude>
-    <ClInclude Include="ModuleRating.h">
+    <ClInclude Include="ModuleScore.h">
       <Filter>Modules</Filter>
     </ClInclude>
   </ItemGroup>
@@ -157,7 +157,7 @@
     <ClCompile Include="ModuleLevel_4.cpp">
       <Filter>Levels - Modules</Filter>
     </ClCompile>
-    <ClCompile Include="ModuleRating.cpp">
+    <ClCompile Include="ModuleScore.cpp">
       <Filter>Modules</Filter>
     </ClCompile>
   </ItemGroup>
