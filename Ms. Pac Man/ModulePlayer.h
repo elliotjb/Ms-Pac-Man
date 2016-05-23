@@ -37,6 +37,7 @@ public:
 	SDL_Rect lose;
 	SDL_Rect ready;
 	SDL_Rect ready2;
+	SDL_Rect square;
 
 	//Bool to comprovated so PacMan is Dead
 	bool isdead;

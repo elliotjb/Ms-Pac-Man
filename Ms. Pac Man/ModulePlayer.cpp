@@ -26,7 +26,7 @@ ModulePlayer::ModulePlayer()
 	right.PushBack({ 457, 1, 15, 14 });
 	right.PushBack({ 473, 1, 15, 14 });
 	right.speed = 0.3f;
-
+	square = { 474, 471, 13, 15 };
 	left.PushBack({ 488, 17, 15, 14 });
 	left.PushBack({ 472, 17, 15, 14 });
 	left.PushBack({ 456, 17, 15, 14 });
@@ -314,6 +314,19 @@ update_status ModulePlayer::Update()
 		{
 			Mix_PlayChannel(-1, App->sound->eat_big_pills, 0);
 			isdead = false;
+		}
+			
+		if (playerlives == 2 ){
+			App->render->Blit(graphics, 49, 273, &square);
+		}
+		else if (playerlives == 1){
+			App->render->Blit(graphics, 33, 273, &square);
+			App->render->Blit(graphics, 49, 273, &square);
+		}
+		else if (playerlives == 0){
+			App->render->Blit(graphics, 17, 273, &square);
+			App->render->Blit(graphics, 33, 273, &square);
+			App->render->Blit(graphics, 49, 273, &square);
 		}
 
 
