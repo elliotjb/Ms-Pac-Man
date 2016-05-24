@@ -19,10 +19,13 @@ ModuleLevel1::ModuleLevel1()
 {
 	//Welcome
 	level1 = { 0, 0, 224, 288 };
+	next = { 0, 0, 224, 288 };
+	next2 = { 0, 0, 224, 288 };
 	level1_2 = { 0, 272, 224, 16 };
 	level1_center = { 228, 0, 224, 288 };
 	pills = { 8, 8, 8, 8 };
 	blacksquare = { 79, 273, 13, 14 };
+	
 
 	big_pill.PushBack({ 208, 16, 8, 8 });
 	big_pill.PushBack({ 235, 16, 8, 8 });
@@ -89,6 +92,8 @@ bool ModuleLevel1::Start()
 
 	graphics = App->textures->Load("Mspacman.png");
 	graphics_2 = App->textures->Load("MsPacMan_Sprites.png");
+	graphics_3 = App->textures->Load("MsPacMan_next.png");
+	graphics_4 = App->textures->Load("MsPacMan_next2.png");
 
 	App->ghost_r->Enable();
 	App->ghost_b->Enable();
@@ -175,6 +180,7 @@ update_status ModuleLevel1::Update()
 
 	App->render->Blit(graphics, 0, 0, &level1);
 	App->render->Blit(graphics_2, 0, 24, &level1_center);
+
 	App->render->Blit(graphics, 0, 272, &level1_2);
 	SDL_Rect r = actual_animation->GetCurrentFrame();
 
@@ -198,7 +204,7 @@ update_status ModuleLevel1::Update()
 	}
 
 	//printing lives
-
+	/*
 	if (App->player->playerlives == 3)
 	{
 		App->render->Blit(graphics, 65, 273, &blacksquare);
@@ -213,7 +219,7 @@ update_status ModuleLevel1::Update()
 		App->render->Blit(graphics, 65, 273, &blacksquare);
 		App->render->Blit(graphics, 49, 273, &blacksquare);
 		App->render->Blit(graphics, 33, 273, &blacksquare);
-	}
+	}*/
 
 	switch (map[App->player->center.y][App->player->center.x])
 	{
@@ -249,6 +255,7 @@ update_status ModuleLevel1::Update()
 
 	if (eatenpills == 224)
 	{
+		p = 0;
 		victory = true;
 	}
 
@@ -256,13 +263,24 @@ update_status ModuleLevel1::Update()
 
 	if (victory || App->input->keyboard[SDL_SCANCODE_SPACE] == KEY_STATE::KEY_UP)
 	{
-		App->fade->FadeToBlack(this, (Module*)App->win, 2.0f);
-		App->player->Disable();
+
 		App->ghost_b->Disable();
 		App->ghost_r->Disable();
 		App->ghost_o->Disable();
 		App->ghost_p->Disable();
-	}
+		if (p <= 10 || p >= 21 && p <= 31 || p >= 43 && p <= 53){
+			App->render->Blit(graphics_3, 0, 0, &next);
+		}
+		else if (p <= 11 || p >= 32 && p <= 42 || p >= 54 && p <= 64){
+			App->render->Blit(graphics_3, 0, 0, &next2);
 
+		}
+		else if ( p > 64) {
+			App->fade->FadeToBlack(this, (Module*)App->win, 2.0f);
+			App->player->Disable();
+		}
+		p++;
+
+		}
 	return UPDATE_CONTINUE;
 }

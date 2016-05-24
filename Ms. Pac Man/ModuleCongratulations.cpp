@@ -14,6 +14,8 @@ ModuleCongratulation::ModuleCongratulation()
 {
 	//Welcome
 	congratulations = { 0, 0, 224, 288 };
+	credit = { 528 , 133 , 7, 7 };
+	p = 0;
 	// ground
 	//ground = { 8, 376, 848, 64 };
 
@@ -34,6 +36,7 @@ bool ModuleCongratulation::Start()
 	LOG("Loading background assets");
 	bool ret = true;
 	graphics = App->textures->Load("Mspacman_congratu.png");
+	graphics_2 = App->textures->Load("MsPacMan_Sprites.png");
 	App->welcome->Disable();
 
 	// TODO 1: Enable (and properly disable) the player module
@@ -62,12 +65,17 @@ update_status ModuleCongratulation::Update()
 {
 	// Draw everything --------------------------------------	
 	App->render->Blit(graphics, 0, 0, &congratulations);
-
-	if (App->input->keyboard[SDL_SCANCODE_1] == KEY_STATE::KEY_UP || 
-		App->input->keyboard[SDL_SCANCODE_SPACE] == KEY_STATE::KEY_UP)
-	{
-		App->fade->FadeToBlack(this, (Module*)App->level1, 1.0f);
+	if (p > 70){
+		App->render->Blit(graphics_2, 81, 280, &credit);
 	}
+	if (p > 70){
+		if (App->input->keyboard[SDL_SCANCODE_1] == KEY_STATE::KEY_UP ||
+			App->input->keyboard[SDL_SCANCODE_SPACE] == KEY_STATE::KEY_UP)
+		{
+			App->fade->FadeToBlack(this, (Module*)App->level1, 1.0f);
+		}
+	}
+	p++;
 
 
 	return UPDATE_CONTINUE;

@@ -21,9 +21,12 @@ public:
 public:
 
 	SDL_Texture* graphics = nullptr;
+	SDL_Texture* graphics_2 = nullptr;
 	_Mix_Music* sounds;
 	SDL_Rect congratulations;
+	SDL_Rect credit;
 	Animation water;
+	int p;
 };
 
 #endif // __MODULECONGRATULATIONS_H__

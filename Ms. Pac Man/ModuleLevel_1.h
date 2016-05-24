@@ -22,7 +22,11 @@ public:
 	Animation* actual_animation = &big_pill;
 	SDL_Texture* graphics = nullptr;
 	SDL_Texture* graphics_2 = nullptr;
+	SDL_Texture* graphics_3 = nullptr;
+	SDL_Texture* graphics_4 = nullptr;
 	SDL_Rect level1;
+	SDL_Rect next;
+	SDL_Rect next2;
 	SDL_Rect level1_2;
 	SDL_Rect level1_center;
 	SDL_Rect pills;
@@ -30,6 +34,7 @@ public:
 	Animation water;
 
 	int map[31][28];
+	int p;
 	int eatenpills;
 	bool victory;
 
