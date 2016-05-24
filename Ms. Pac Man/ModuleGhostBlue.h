@@ -86,7 +86,7 @@ public:
 	bool Isinmid = true;
 	int time_blue = 0;
 	int a = 0;
-	
+	int t;
 	int i;
 
 };

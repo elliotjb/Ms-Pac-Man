@@ -68,6 +68,7 @@ public:
 	int time_blue = 0;
 	int i = 0;
 	int distance;
+	int t = 0;
 };
 
 #endif

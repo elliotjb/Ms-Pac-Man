@@ -259,15 +259,13 @@ update_status ModulePlayer::Update()
 		if (time_to_start < 60)
 		{
 			App->render->Blit(graphics, 77, 112, &ready);
-			time_to_start++;
+		
 		}
 
 		if (time_to_start < 250 && time_to_start > 59)
 		{
 			App->render->Blit(graphics, 77, 112, &ready2);
-			App->player->position.x = 105; //WTF????
-			App->player->position.y = 195; //WTF????
-			time_to_start++;
+			
 		}
 		//super power
 		if (superpower)

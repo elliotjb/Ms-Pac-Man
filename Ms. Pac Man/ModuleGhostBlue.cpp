@@ -31,7 +31,7 @@ ModuleGhostBlue::ModuleGhostBlue()
 
 	superpow_blue = { 585, 65, 14, 14 };
 	a = 0;
-
+	t = 1;
 
 
 	position.x = 89;
@@ -69,53 +69,41 @@ update_status ModuleGhostBlue::Update()
 			if (time_blue < 580 && Isinmid == true)
 			{
 				time_blue++;
+				
+				if (i == 0 ) {
+					
+					position.y = 118;
+	
 
-				if (i == 10 && a == 0) {
+				}
+				
+				else if (i == 4) {
+
+					position.y = 120;
+				
+
+				}
+			
+				else if (i == 8 ) {
+					position.y = 122;
+
+
+				}
+			
+				else if (i == 12) {
 
 					position.y = 124;
-					current_animation = &up_r;
+
+				
 
 				}
-				else if (i == 10 && a == 1) {
+				else if (i == 16) {
 
-					position.y = 124;
-					current_animation = &down_r;
+					position.y = 126;
 
-				}
-				else if (i == 20 && a == 0) {
-
-					position.y = 122;
-					current_animation = &up_r;
 
 				}
-				else if (i == 20 && a == 1) {
-
-					position.y = 122;
-					current_animation = &down_r;
-
-				}
-				else if (i == 30 && a == 0) {
-					position.y = 120;
-					current_animation = &up_r;
-
-				}
-				else if (i == 30 && a == 1) {
-					position.y = 120;
-					current_animation = &down_r;
-
-				}
-				else if (i == 40 && a == 0) {
-					current_animation = &up_r;
-					position.y = 118;
-					a = 1;
-					i = 0;
-				}
-				else if (i == 40 && a == 1) {
-					current_animation = &down_r;
-					position.y = 118;
-					a = 0;
-					i = 0;
-				}/*
+				/*
 				 if (position_blue.y > 118 && a == 0){
 				 position_blue.y--;
 				 }
@@ -130,7 +118,22 @@ update_status ModuleGhostBlue::Update()
 				 else if (position_blue.y<125 && a == 1){
 				 position_blue.y++;
 				 }*/
-				i++;
+				
+				if (i == 16){
+					t = -1;
+				}
+				else if (i == 0){
+					t = 1;
+				}
+				if (t == -1){
+					i--;
+					current_animation = &up_r;
+				}
+				else if (t == 1){
+					i++;
+					current_animation = &down_r;
+				}
+			
 
 
 
@@ -514,7 +517,6 @@ void ModuleGhostBlue::OnCollision(Collider* c1, Collider* c2)
 	if (c1 == collision_blue && c2->type == COLLIDER_PLAYER && App->player->superpower == true ||
 		c1 == collision_blue && c2->type == COLLIDER_PLAYER && App->player->SUPER_GOD == true)
 	{
-		
 		position.x = 105;
 		position.y = 121;
 		Isinmid = true;

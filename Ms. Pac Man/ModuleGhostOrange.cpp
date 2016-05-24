@@ -28,7 +28,7 @@ ModuleGhostOrange::ModuleGhostOrange()
 	superpow_combination.speed = 0.05f;
 
 	superpow_blue = { 585, 65, 14, 14 };
-
+	t = 1;
 	i = 0;
 
 	position_blue.x = 121;
@@ -67,22 +67,53 @@ update_status ModuleGhostOrange::Update()
 		if (time_blue < 1100 && Isinmid == true)
 		{
 			time_blue++;
+			if (i == 0) {
 
-			if (i == 5) {
+				position_blue.y = 118;
 
-				position_blue.y = 123;
-
-			}
-			else if (i == 10) {
-				position_blue.y = 121;
 
 			}
-			else if (i == 15) {
 
-				position_blue.y = 119;
-				i = 0;
+			else if (i == 4) {
+
+				position_blue.y = 120;
+
+
 			}
-			i++;
+
+			else if (i == 8) {
+				position_blue.y = 122;
+
+
+			}
+
+			else if (i == 12) {
+
+				position_blue.y = 124;
+
+
+
+			}
+			else if (i == 16) {
+
+				position_blue.y = 126;
+
+
+			}
+			if (i == 16){
+				t = -1;
+			}
+			else if (i == 0){
+				t = 1;
+			}
+			if (t == -1){
+				i--;
+			
+			}
+			else if (t == 1){
+				i++;
+			
+			}
 		}
 		if (Isinmid == false)
 		{

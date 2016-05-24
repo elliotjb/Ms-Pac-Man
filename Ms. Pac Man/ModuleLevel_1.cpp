@@ -25,6 +25,7 @@ ModuleLevel1::ModuleLevel1()
 	level1_center = { 228, 0, 224, 288 };
 	pills = { 8, 8, 8, 8 };
 	blacksquare = { 79, 273, 13, 14 };
+
 	
 
 	big_pill.PushBack({ 208, 16, 8, 8 });
@@ -100,8 +101,8 @@ bool ModuleLevel1::Start()
 	App->ghost_p->Enable();
 	App->ghost_o->Enable();
 	App->player->Enable();
-	App->player->position.x = 1050;
-	App->player->position.y = 1950;
+	App->player->position.x = 105;
+	App->player->position.y = 195;
 	App->ghost_b->position.x = 89;
 	App->ghost_b->position.y = 121;
 	App->ghost_o->position_blue.x = 121;
@@ -202,7 +203,31 @@ update_status ModuleLevel1::Update()
 			}
 		}
 	}
+	if (App->player->time_to_start < 60){
 
+		App->player->time_to_start++;
+		App->ghost_b->Disable();
+		App->ghost_r->Disable();
+		App->ghost_o->Disable();
+		App->ghost_p->Disable();
+	
+
+	}
+ 
+
+	
+
+	else if (App->player->time_to_start < 250 && App->player->time_to_start > 59)
+	{
+
+		App->player->time_to_start++;
+		App->ghost_b->Enable();
+		App->ghost_r->Enable();
+		App->ghost_o->Enable();
+		App->ghost_p->Enable();
+
+	
+	}
 	//printing lives
 	/*
 	if (App->player->playerlives == 3)
@@ -255,7 +280,7 @@ update_status ModuleLevel1::Update()
 
 	if (eatenpills == 224)
 	{
-		p = 0;
+	
 		victory = true;
 	}
 
@@ -270,10 +295,11 @@ update_status ModuleLevel1::Update()
 		App->ghost_p->Disable();
 		if (p <= 10 || p >= 21 && p <= 31 || p >= 43 && p <= 53){
 			App->render->Blit(graphics_3, 0, 0, &next);
+		
 		}
 		else if (p <= 11 || p >= 32 && p <= 42 || p >= 54 && p <= 64){
 			App->render->Blit(graphics_3, 0, 0, &next2);
-
+		
 		}
 		else if ( p > 64) {
 			App->fade->FadeToBlack(this, (Module*)App->win, 2.0f);
