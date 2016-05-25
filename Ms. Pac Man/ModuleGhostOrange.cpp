@@ -58,6 +58,7 @@ bool ModuleGhostOrange::Start()
 // Update
 update_status ModuleGhostOrange::Update()
 {
+	//TODO Gerard, posar time_to_start!!!
 	if (App->player->stop >= 50)
 	{
 		//new_direction = rand() % 4;

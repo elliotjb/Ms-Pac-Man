@@ -75,6 +75,10 @@ public:
 	int isdown;
 	int time_blue;
 
+	bool superfristmoviment;
+
+	int Time_change_direction;
+
 	bool look_wherePacman;
 
 	void OnCollision(Collider* c1, Collider* c2);

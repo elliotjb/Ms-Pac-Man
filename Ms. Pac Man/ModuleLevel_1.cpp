@@ -206,12 +206,11 @@ update_status ModuleLevel1::Update()
 	if (App->player->time_to_start < 60){
 
 		App->player->time_to_start++;
-		App->ghost_b->Disable();
+		/*App->ghost_b->Disable();
 		App->ghost_r->Disable();
 		App->ghost_o->Disable();
 		App->ghost_p->Disable();
-	
-
+		App->collision->Disable();*/
 	}
  
 
@@ -221,10 +220,11 @@ update_status ModuleLevel1::Update()
 	{
 
 		App->player->time_to_start++;
-		App->ghost_b->Enable();
+		/*App->ghost_b->Enable();
 		App->ghost_r->Enable();
 		App->ghost_o->Enable();
 		App->ghost_p->Enable();
+		App->collision->Enable();*/
 
 	
 	}

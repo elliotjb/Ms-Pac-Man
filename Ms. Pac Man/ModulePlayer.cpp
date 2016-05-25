@@ -69,6 +69,7 @@ bool ModulePlayer::Start()
 	direction = 1;
 	current_animation = &left;
 	time_to_start = 0;
+	t = 0;
 	playerlives = 3;
 	GOD = false;
 	SUPER_GOD = false;
@@ -330,7 +331,6 @@ update_status ModulePlayer::Update()
 
 				App->level1->Disable();
 				App->player->Disable();
-
 				App->fade->FadeToBlack(this, (Module*)App->win, 2.0f);
 			}
 			t++;

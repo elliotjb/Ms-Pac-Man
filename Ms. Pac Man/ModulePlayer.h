@@ -67,7 +67,8 @@ public:
 	int time_to_start = 0;
 	bool superpower;
 	int timer;
-	int t = 0;
+	int t;
+
 
 	void OnCollision(Collider* c1, Collider* c2);
 };
