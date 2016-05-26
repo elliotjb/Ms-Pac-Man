@@ -135,15 +135,14 @@ bool ModuleLevel1::Start()
 	App->ghost_p->new_direction_b = 0;
 	App->ghost_p->GhostBlue_ispow = false;
 	App->ghost_p->dead_blue = false;
-	App->ghost_p->ghost_up_blue = false;
-	App->ghost_p->ghost_down_blue = false;
-	App->ghost_p->ghost_left_blue = false;
-	App->ghost_p->ghost_right_blue = false;
-	App->ghost_p->can_right_b = false;
-	App->ghost_p->can_down_b = false;
-	App->ghost_p->can_left_b = false;
-	App->ghost_p->can_up_b = false;
-	App->ghost_p->change_com_b = false;
+	App->ghost_p->ghost_up_r = false;
+	App->ghost_p->ghost_down_r = false;
+	App->ghost_p->ghost_left_r = false;
+	App->ghost_p->ghost_right_r = false;
+	App->ghost_p->can_right_r = false;
+	App->ghost_p->can_down_r = false;
+	App->ghost_p->can_left_r = false;
+	App->ghost_p->can_up_r = false;
 	//blue
 	App->ghost_b->new_direction_r = 0;
 	App->ghost_b->GhostBlue_ispow = false;

@@ -45,29 +45,40 @@ public:
 	iPoint down_blue;
 	iPoint center_blue;
 
+
+	iPoint test_num_UP;
+	iPoint test_num_DOWN;
+	iPoint test_num_LEFT;
+	iPoint test_num_RIGHT;
+
 	int change_b = 1;
 	int new_direction_b = 1; // 0-w 1-a 2-s 3-d
 
-	bool ghost_up_blue = false;
-	bool ghost_down_blue = false;
-	bool ghost_left_blue = false;
-	bool ghost_right_blue = false;
+	bool ghost_up_r = false;
+	bool ghost_down_r = false;
+	bool ghost_left_r = false;
+	bool ghost_right_r = false;
 
-	bool can_right_b = false;
-	bool can_down_b = false;
-	bool can_left_b = false;
-	bool can_up_b = false;
+	bool can_right_r = false;
+	bool can_down_r = false;
+	bool can_left_r = false;
+	bool can_up_r = false;
 
-	bool change_com_b = false;
-	bool change_direction_blue;
+	bool change_direction_r;
 
 	void OnCollision(Collider* c1, Collider* c2);
 	bool dead_blue = false;
 	bool GhostBlue_ispow = false;
+	bool look_wherePacman;
 
 	bool Isinmid = true;
 	int time_blue = 0;
 
+	int isleft;
+	int isright;
+	int isup;
+	int isdown;
+	int Time_change_direction;
 	
 
 };

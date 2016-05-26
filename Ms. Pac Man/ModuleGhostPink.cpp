@@ -7,6 +7,8 @@
 #include "ModuleGhostPink.h"
 #include "ModuleCollision.h"
 #include "ModuleLevel_1.h"
+#include <cmath>
+
 
 ModuleGhostPink::ModuleGhostPink()
 {
@@ -34,7 +36,7 @@ ModuleGhostPink::ModuleGhostPink()
 	position_blue.x = 105;
 	position_blue.y = 121;
 
-	test = { 11, 11, 1, 1 };
+	test = { 488, 201, 8, 8 };
 
 }
 
@@ -48,8 +50,21 @@ bool ModuleGhostPink::Start()
 	LOG("Loading Ghost textures");
 	bool ret = true;
 	graphics = App->textures->Load("MsPacMan_Sprites.png"); // Sprites
-
+	test_num_UP.x = 0;
+	test_num_DOWN.x = 0;
+	test_num_LEFT.x = 0;
+	test_num_RIGHT.x = 0;
+	test_num_UP.y = 0;
+	test_num_DOWN.y = 0;
+	test_num_LEFT.y = 0;
+	test_num_RIGHT.y = 0;
 	new_direction_b = 0;
+	look_wherePacman = false;
+	isleft = 0;
+	isright = 0;
+	isup = 0;
+	isdown = 0;
+	Time_change_direction = 0;
 	collision_blue = App->collision->AddCollider({ 0, 0, 10, 10 }, COLLIDER_ENEMY, this);
 	srand(time(NULL));
 	return ret;
@@ -90,12 +105,12 @@ update_status ModuleGhostPink::Update()
 				if ((position_blue.x + 7) == (center_blue.x * 8) + 4 &&
 					(position_blue.y - 7) == (center_blue.y * 8) + 4)
 				{
-					can_left_b = true;
+					can_left_r = true;
 				}
 			}
 			else
 			{
-				can_left_b = false;
+				can_left_r = false;
 			}
 
 			//up
@@ -104,12 +119,12 @@ update_status ModuleGhostPink::Update()
 				if ((position_blue.x + 7) == (center_blue.x * 8) + 4 &&
 					(position_blue.y - 7) == (center_blue.y * 8) + 4)
 				{
-					can_up_b = true;
+					can_up_r = true;
 				}
 			}
 			else
 			{
-				can_up_b = false;
+				can_up_r = false;
 			}
 
 			// down
@@ -118,82 +133,235 @@ update_status ModuleGhostPink::Update()
 				if ((position_blue.x + 7) == (center_blue.x * 8) + 4 &&
 					(position_blue.y - 7) == (center_blue.y * 8) + 4)
 				{
-					can_down_b = true;
+					can_down_r = true;
 				}
 			}
 			else
 			{
-				can_down_b = false;
+				can_down_r = false;
 			}
 
 			//left
-			if (can_left_b == true || can_right_b == true)
+			if (can_left_r == true || can_right_r == true)
 			{
-				if (can_up_b == false && can_down_b == false)
+				if (can_up_r == false && can_down_r == false)
 				{
-					change_direction_blue = false;
+					change_direction_r = false;
 				}
 				else
 				{
-					change_direction_blue = true;
+					change_direction_r = true;
 				}
 			}
-			if (can_up_b == true || can_down_b == true)
+			if (can_up_r == true || can_down_r == true)
 			{
-				if (can_left_b == false && can_right_b == false)
+				if (can_left_r == false && can_right_r == false)
 				{
-					change_direction_blue = false;
+					change_direction_r = false;
 				}
 				else
 				{
-					change_direction_blue = true;
+					change_direction_r = true;
 				}
 			}
-			else{ change_direction_blue = false; }
+			else{ change_direction_r = false; }
+
+
+			if (App->player->direction == 0)
+			{
+				test_num_UP.y = App->player->center.y;
+				while (App->level1->map[test_num_UP.y - 1][App->player->center.x] != 0)
+				{
+					test_num_UP.y -= 1;
+				}
+				test_num_UP.x = App->player->center.x;
+				if (App->player->SUPER_GOD)
+				{
+					App->render->Blit(graphics, (test_num_UP.x * 8), (test_num_UP.y*8) + 24, &test);
+				}
+			}
+			if (App->player->direction == 1)
+			{
+				test_num_LEFT.x = App->player->center.x;
+				while (App->level1->map[App->player->center.y][test_num_LEFT.x - 1] != 0)
+				{
+					test_num_LEFT.x -= 1;
+				}
+				test_num_LEFT.y = App->player->center.y;
+				if (App->player->SUPER_GOD)
+				{
+					App->render->Blit(graphics, test_num_LEFT.x * 8, (test_num_LEFT.y * 8) + 24, &test);
+				}
+			}
+			if (App->player->direction == 2)
+			{
+				test_num_DOWN.y = App->player->center.y;
+				while (App->level1->map[test_num_DOWN.y + 1][App->player->center.x] != 0)
+				{
+					test_num_DOWN.y += 1;
+				}
+				test_num_DOWN.x = App->player->center.x;
+				if (App->player->SUPER_GOD)
+				{
+					App->render->Blit(graphics, test_num_DOWN.x * 8, (test_num_DOWN.y * 8) + 24, &test);
+				}
+			}
+			if (App->player->direction == 3)
+			{
+				test_num_RIGHT.x = App->player->center.x;
+				while (App->level1->map[App->player->center.y][test_num_RIGHT.x + 1] != 0)
+				{
+					test_num_RIGHT.x += 1;
+				}
+				test_num_RIGHT.y = App->player->center.y;
+				if (App->player->SUPER_GOD)
+				{
+					App->render->Blit(graphics, test_num_RIGHT.x * 8, (test_num_RIGHT.y * 8) + 24, &test);
+				}
+			}
 
 			//
-			if (change_direction_blue)
+			/*if (change_direction_r && App->player->superpower == false)
 			{
-				change_com_b = false;
-				while (change_com_b == false)
+				look_wherePacman = true;
+				if (look_wherePacman)
 				{
-					change_b = rand() % 4;
-					if (can_right_b && change_b == 2)
+					if (can_up_r)
 					{
-						position_blue.y = (center_blue.y * 8) + 4 + 7;
-						ghost_right_blue = true;
-						change_com_b = true;
+						up_blue.x = ((center_blue.x - App->player->center.x)*(center_blue.x - App->player->center.x));
+						up_blue.y = (((center_blue.y - 1) - App->player->center.y)*((center_blue.y - 1) - App->player->center.y));
+						isup = sqrt(up_blue.x + up_blue.y);
+						//No change direction in the opposite direction
+						if (new_direction_b == 2)
+						{
+							isup = 300;
+						}
 					}
-					else{ ghost_right_blue = false; }
-
-
-					if (can_left_b && change_b == 3)
+					else
 					{
-						position_blue.y = (center_blue.y * 8) + 4 + 7;
-						ghost_left_blue = true;
-						change_com_b = true;
+						isup = 300;
 					}
-					else{ ghost_left_blue = false; }
 
-
-					if (can_up_b && change_b == 0)
+					if (can_left_r)
 					{
-						position_blue.x = (center_blue.x * 8) + 4 - 7;
-						ghost_up_blue = true;
-						change_com_b = true;
+						left_blue.x = (((center_blue.x - 1) - App->player->center.x)*((center_blue.x - 1) - App->player->center.x));
+						left_blue.y = ((center_blue.y - App->player->center.y)*(center_blue.y - App->player->center.y));
+						isleft = sqrt(left_blue.x + left_blue.y);
+						//No change direction in the opposite direction
+						if (new_direction_b == 3)
+						{
+							isleft = 300;
+						}
 					}
-					else{ ghost_up_blue = false; }
-
-
-					if (can_down_b && change_b == 1)
+					else
 					{
-						position_blue.x = (center_blue.x * 8) + 4 - 7;
-						ghost_down_blue = true;
-						change_com_b = true;
+						isleft = 300;
 					}
-					else{ ghost_down_blue = false; }
+
+					if (can_down_r)
+					{
+						down_blue.x = ((center_blue.x - App->player->center.x)*(center_blue.x - App->player->center.x));
+						down_blue.y = (((center_blue.y + 1) - App->player->center.y)*((center_blue.y + 1) - App->player->center.y));
+						isdown = sqrt(down_blue.x + down_blue.y);
+						//No change direction in the opposite direction
+						if (new_direction_b == 0)
+						{
+							isdown = 300;
+						}
+					}
+					else
+					{
+						isdown = 300;
+					}
+
+					if (can_right_r)
+					{
+						right_blue.x = (((center_blue.x + 1) - App->player->center.x)*((center_blue.x + 1) - App->player->center.x));
+						right_blue.y = ((center_blue.y - App->player->center.y)*(center_blue.y - App->player->center.y));
+						isright = sqrt(right_blue.x + right_blue.y);
+						//No change direction in the opposite direction
+						if (new_direction_b == 1)
+						{
+							isright = 300;
+						}
+					}
+					else
+					{
+						isright = 300;
+					}
+					Time_change_direction++;
+					if (Time_change_direction > 5)
+					{
+						Time_change_direction = 0;
+						//Check which direction to go, the shortest
+						if (isup <= isleft && isup <= isdown && isup <= isright && new_direction_b != 2)
+						{
+							ghost_up_r = true; ghost_right_r = false; ghost_left_r = false; ghost_down_r = false;
+						}
+						if (isleft <= isup && isleft <= isdown && isleft <= isright && new_direction_b != 3)
+						{
+							ghost_left_r = true; ghost_right_r = false; ghost_up_r = false; ghost_down_r = false;
+						}
+						if (isdown <= isup && isdown <= isleft && isdown <= isright && new_direction_b != 0)
+						{
+							ghost_down_r = true; ghost_right_r = false; ghost_left_r = false; ghost_up_r = false;
+						}
+						if (isright <= isup && isright <= isleft && isright <= isdown && new_direction_b != 1)
+						{
+							ghost_right_r = true; ghost_down_r = false; ghost_left_r = false; ghost_up_r = false;
+						}
+
+
+						//This is for the corners
+						if (can_right_r && can_down_r && can_left_r == false && can_up_r == false)
+						{
+							if (new_direction_b == 1)//Pacman is moving to left
+							{
+								ghost_down_r = true; ghost_right_r = false; ghost_left_r = false; ghost_up_r = false;
+							}
+							if (new_direction_b == 0)//Pacman is moving to up
+							{
+								ghost_right_r = true; ghost_down_r = false; ghost_left_r = false; ghost_up_r = false;
+							}
+						}
+
+						if (can_left_r && can_up_r && can_right_r == false && can_down_r == false)
+						{
+							if (new_direction_b == 3)//Pacman is moving to down
+							{
+								ghost_up_r = true; ghost_right_r = false; ghost_left_r = false; ghost_down_r = false;
+							}
+							if (new_direction_b == 2)
+							{
+								ghost_left_r = true; ghost_right_r = false; ghost_up_r = false; ghost_down_r = false;
+							}
+						}
+						if (can_left_r && can_down_r && can_right_r == false && can_down_r == false)
+						{
+							if (new_direction_b == 3)
+							{
+								ghost_down_r = true; ghost_right_r = false; ghost_left_r = false; ghost_up_r = false;
+							}
+							if (new_direction_b == 0)
+							{
+								ghost_left_r = true; ghost_right_r = false; ghost_up_r = false; ghost_down_r = false;
+							}
+						}
+						if (can_right_r && can_up_r && can_left_r == false && can_down_r == false)
+						{
+							if (new_direction_b == 1)
+							{
+								ghost_up_r = true; ghost_right_r = false; ghost_left_r = false; ghost_down_r = false;
+							}
+							if (new_direction_b == 2)
+							{
+								ghost_right_r = true; ghost_up_r = false; ghost_left_r = false; ghost_down_r = false;
+							}
+						}
+					}
+					look_wherePacman = false;
 				}
-			}
+			}*/
 
 
 			right_blue.x = (position_blue.x + 3) / PIX_TILE;
@@ -211,7 +379,7 @@ update_status ModuleGhostPink::Update()
 			//decided direction
 			if (App->level1->map[up_blue.y - 1][up_blue.x] != 0)
 			{
-				if (ghost_up_blue)
+				if (ghost_up_r)
 				{
 					if ((position_blue.x + 7) == (center_blue.x * PIX_TILE) + 4 || (position_blue.x + 7) == (center_blue.x * PIX_TILE) + 3 ||
 						(position_blue.x + 7) == (center_blue.x * PIX_TILE) + 5 || (position_blue.x + 7) == (center_blue.x * PIX_TILE) + 2 ||
@@ -238,7 +406,7 @@ update_status ModuleGhostPink::Update()
 
 			if (App->level1->map[left_blue.y][left_blue.x - 1] != 0 || position_blue.x <= 0 || position_blue.x >= 220 && position_blue.x <= 239)
 			{
-				if (ghost_left_blue)
+				if (ghost_left_r)
 				{
 					if ((position_blue.x + 7) == (center_blue.x * PIX_TILE) + 4 && (position_blue.y - 7) == (center_blue.y * PIX_TILE) + 4 ||
 						(position_blue.y - 7) == (center_blue.y * PIX_TILE) + 3 || (position_blue.y - 7) == (center_blue.y * PIX_TILE) + 5 ||
@@ -267,7 +435,7 @@ update_status ModuleGhostPink::Update()
 
 			if (App->level1->map[down_blue.y + 1][down_blue.x] != 0)
 			{
-				if (ghost_down_blue)
+				if (ghost_down_r)
 				{
 					if ((position_blue.x + 7) == (center_blue.x * PIX_TILE) + 4 || (position_blue.x + 7) == (center_blue.x * PIX_TILE) + 3 ||
 						(position_blue.x + 7) == (center_blue.x * PIX_TILE) + 5 || (position_blue.x + 7) == (center_blue.x * PIX_TILE) + 2 ||
@@ -295,9 +463,9 @@ update_status ModuleGhostPink::Update()
 				if ((position_blue.x + 7) == (center_blue.x * 8) + 4 &&
 					(position_blue.y - 7) == (center_blue.y * 8) + 4)
 				{
-					can_right_b = true;
+					can_right_r = true;
 				}
-				if (ghost_right_blue)
+				if (ghost_right_r)
 				{
 					if ((position_blue.x + 7) == (center_blue.x * PIX_TILE) + 4 && (position_blue.y - 7) == (center_blue.y * PIX_TILE) + 4 ||
 						(position_blue.y - 7) == (center_blue.y * PIX_TILE) + 3 || (position_blue.y - 7) == (center_blue.y * PIX_TILE) + 5 ||
@@ -326,7 +494,7 @@ update_status ModuleGhostPink::Update()
 			}
 			if (App->level1->map[right_blue.y][right_blue.x + 1] == 0)
 			{
-				can_right_b = false;
+				can_right_r = false;
 			}
 
 			collision_blue->SetPos(position_blue.x + 2, position_blue.y + 12);
@@ -389,17 +557,15 @@ void ModuleGhostPink::OnCollision(Collider* c1, Collider* c2)
 		dead_blue = false;
 
 		collision_blue->SetPos(position_blue.x + 2, position_blue.y + 12);
-		ghost_up_blue = false;
-		ghost_down_blue = false;
-		ghost_left_blue = false;
-		ghost_right_blue = false;
+		ghost_up_r = false;
+		ghost_down_r = false;
+		ghost_left_r = false;
+		ghost_right_r = false;
 
-		can_right_b = false;
-		can_down_b = false;
-		can_left_b = false;
-		can_up_b = false;
-
-		change_com_b = false;
+		can_right_r = false;
+		can_down_r = false;
+		can_left_r = false;
+		can_up_r = false;
 		App->player->stop = 0;
 
 	}
