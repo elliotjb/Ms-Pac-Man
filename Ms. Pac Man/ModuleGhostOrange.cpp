@@ -263,50 +263,74 @@ update_status ModuleGhostOrange::Update()
 		}
 		//When ms pacman and ghost are propetly orange can change direction but not obligatory
 		if (App->player->position.y > position_blue.y){
+
 			distance = App->player->position.y - position_blue.y;
 			if (distance < 4){
-				change_b = rand() % 4;
-				if (change_b == 0){
+				if (App->player->superpower == true){
 					change_direction_blue = true;
 				}
 				else{
-					change_direction_blue = false;
+					change_b = rand() % 4;
+					if (change_b == 0){
+						change_direction_blue = true;
+					}
+					else{
+						change_direction_blue = false;
+					}
 				}
 			}
 		}
 		if (App->player->position.y < position_blue.y){
+
 			distance = position_blue.y - App->player->position.y;
 			if (distance < 4){
-				change_b = rand() % 4;
-				if (change_b == 0){
+				if (App->player->superpower == true){
 					change_direction_blue = true;
 				}
 				else{
-					change_direction_blue = false;
+					change_b = rand() % 4;
+					if (change_b == 0){
+						change_direction_blue = true;
+					}
+					else{
+						change_direction_blue = false;
+					}
 				}
 			}
 		}
 		if (App->player->position.x > position_blue.x){
+
 			distance = App->player->position.x - position_blue.x;
 			if (distance < 4){
-				change_b = rand() % 4;
-				if (change_b == 0){
+				if (App->player->superpower == true){
 					change_direction_blue = true;
 				}
 				else{
-					change_direction_blue = false;
+					change_b = rand() % 4;
+					if (change_b == 0){
+						change_direction_blue = true;
+					}
+					else{
+						change_direction_blue = false;
+					}
 				}
 			}
 		}
 		if (App->player->position.x < position_blue.x){
-			distance = position_blue.x - App->player->position.x;
-			if (distance < 4){
-				change_b = rand() % 4;
-				if (change_b == 0){
-					change_direction_blue = true;
-				}
-				else{
-					change_direction_blue = false;
+			
+			
+				distance = position_blue.x - App->player->position.x;
+				if (distance < 4){
+					if (App->player->superpower == true){
+						change_direction_blue = true;
+					}
+					else{change_b = rand() % 4;
+					if (change_b == 0){
+						change_direction_blue = true;
+					}
+					else{
+						change_direction_blue = false;
+					}
 				}
 			}
 		}
@@ -484,8 +508,8 @@ update_status ModuleGhostOrange::Update()
 }
 
 
-void ModuleGhostOrange::OnCollision(Collider* c1, Collider* c2)
-{
+void ModuleGhostOrange::OnCollision(Collider* c1, Collider* c2){
+
 	if (c1 == collision_blue && c2->type == COLLIDER_PLAYER && App->player->superpower == true ||
 		c1 == collision_blue && c2->type == COLLIDER_PLAYER && App->player->SUPER_GOD == true)
 	{
