@@ -244,6 +244,25 @@ update_status ModuleLevel1::Update()
 		App->render->Blit(graphics, 49, 273, &blacksquare);
 		App->render->Blit(graphics, 33, 273, &blacksquare);
 	}*/
+	if (App->player->playerlives == 0){
+		if (App->player->t < 80){
+
+			App->ghost_b->Disable();
+			App->ghost_r->Disable();
+			App->ghost_o->Disable();
+			App->ghost_p->Disable();
+			
+
+		}
+		else if (App->player->t == 80){
+			App->collision->Disable();
+			App->level1->Disable();
+			App->player->Disable();
+			App->fade->FadeToBlack(this, (Module*)App->win, 2.0f);
+		}
+		App->player->t++;
+	}
+	
 
 	switch (map[App->player->center.y][App->player->center.x])
 	{

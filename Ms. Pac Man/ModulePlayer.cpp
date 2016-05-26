@@ -311,23 +311,12 @@ update_status ModulePlayer::Update()
 			App->render->Blit(graphics, 49, 273, &square);
 		}
 		if (playerlives == 0){
-
+			direction = 0;
 			if (t < 80){
 				App->render->Blit(graphics, 72, 160, &lose);
-				App->ghost_b->Disable();
-				App->ghost_r->Disable();
-				App->ghost_o->Disable();
-				App->ghost_p->Disable();
-				App->player->position.x = 1050;
-				App->player->position.y = 1950;
+		
 			}
-			else if (t == 80){
-
-				App->level1->Disable();
-				App->player->Disable();
-				App->fade->FadeToBlack(this, (Module*)App->win, 2.0f);
-			}
-			t++;
+	
 		}
 
 
