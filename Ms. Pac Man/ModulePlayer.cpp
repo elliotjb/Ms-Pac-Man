@@ -136,14 +136,7 @@ update_status ModulePlayer::Update()
 			else SUPER_GOD = true;
 		}
 
-		if (SUPER_GOD)
-		{
-			speed = 2;
-		}
-		else
-		{
-			speed = 1;
-		}
+		speed = 1;
 
 		if (time_to_start > 240)
 		{
@@ -286,6 +279,7 @@ update_status ModulePlayer::Update()
 		SDL_Rect r = current_animation->GetCurrentFrame();
 
 		App->render->Blit(graphics, position.x, position.y + 24 - r.h, &r);
+
 
 		//Draw MODE GOD
 		if (GOD == true)
