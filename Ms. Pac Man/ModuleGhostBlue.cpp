@@ -53,6 +53,7 @@ bool ModuleGhostBlue::Start()
 	bool ret = true;
 	graphics = App->textures->Load("MsPacMan_Sprites.png"); // Sprites
 	speed = 0;
+	dead = false;
 	new_direction_r = 0;
 	collision_blue = App->collision->AddCollider({ 50, 50, 10, 10 }, COLLIDER_ENEMY, this);
 	srand(time(NULL));
@@ -66,7 +67,7 @@ update_status ModuleGhostBlue::Update()
 	{
 		if (App->player->stop >= 50)
 		{
-			if (time_blue < 580 && Isinmid == true)
+			if (time_blue < 580 && Isinmid == true && dead == false)
 			{
 				time_blue++;
 				
@@ -138,12 +139,13 @@ update_status ModuleGhostBlue::Update()
 
 
 			}
+		
 			if (Isinmid == false)
 			{
 				time_blue = 0;
 			}
 
-			if (Isinmid == true && time_blue > 579)
+			if (Isinmid == true && time_blue > 579 && dead == false)
 			{
 				if (position.x <= 105 && Isinmid == true){
 					position.x++;
@@ -160,7 +162,22 @@ update_status ModuleGhostBlue::Update()
 			}
 			srand(time(NULL));
 			//RED
-
+			if (dead == true && Isinmid == true){
+				if (position.x <= 105){
+					position.x++;
+				}
+				else if (position.x >= 104){
+					
+						position.y--;
+						if (position.y == 99){
+							dead = false;
+							new_direction_r = 1;
+							Isinmid = false;
+							speed = 1;
+						}
+				
+				}
+			}
 			//checking possibilities
 
 			//right
@@ -517,13 +534,14 @@ void ModuleGhostBlue::OnCollision(Collider* c1, Collider* c2)
 	if (c1 == collision_blue && c2->type == COLLIDER_PLAYER && App->player->superpower == true ||
 		c1 == collision_blue && c2->type == COLLIDER_PLAYER && App->player->SUPER_GOD == true)
 	{
-		position.x = 105;
+		position.x = 89;
 		position.y = 121;
-		Isinmid = true;
+		dead = true;
 		new_direction_r = 0;
 		current_animation = &up_r;
 		GhostBlue_ispow = false;
 		dead_blue = false;
+		Isinmid = true;
 
 		collision_blue->SetPos(position.x + 2, position.y + 12);
 		ghost_up_r = false;

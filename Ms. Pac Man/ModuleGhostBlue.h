@@ -88,6 +88,7 @@ public:
 	int a = 0;
 	int t;
 	int i;
+	bool dead;
 
 };
 

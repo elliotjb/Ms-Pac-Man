@@ -74,6 +74,7 @@ public:
 	int isup;
 	int isdown;
 	int time_blue;
+	bool dead;
 
 	bool superfristmoviment;
 

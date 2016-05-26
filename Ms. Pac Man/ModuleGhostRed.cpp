@@ -47,6 +47,7 @@ bool ModuleGhostRed::Start()
 	position.x = 105;
 	position.y = 99;
 	superfristmoviment = false;
+	dead = false;
 	//red
 	collision = App->collision->AddCollider({ 0, 0, 10, 10 }, COLLIDER_ENEMY, this);
 	new_direction_r = 1;
@@ -398,6 +399,14 @@ update_status ModuleGhostRed::Update()
 			center_x_r = (position.x + 6) / PIX_TILE;
 			center_y_r = (position.y - 7) / PIX_TILE;
 
+			if (dead == true){
+				if (position.y > 99){
+					position.y--;
+				}
+				else if (position.y = 99){
+					dead = false;
+				}
+			}
 			int speed = 1;
 			//decided direction
 			if (App->level1->map[up_y_r - 1][up_x_r] == 3 || App->level1->map[up_y_r - 1][up_x_r] == 4 || App->level1->map[up_y_r - 1][up_x_r] == 5)
@@ -558,7 +567,7 @@ update_status ModuleGhostRed::Update()
 			App->render->Blit(graphics, position.x, position.y + 24 - r_r.h, &r_r);
 		}
 	}
-
+	
 
 	return UPDATE_CONTINUE;
 }
@@ -569,9 +578,9 @@ void ModuleGhostRed::OnCollision(Collider* c1, Collider* c2)
 		c1 == collision && c2->type == COLLIDER_PLAYER && App->player->SUPER_GOD == true)
 	{
 		
-		position.x = 105;
-		
-		position.y = 99;
+		position.x = 105;		
+		position.y = 121;
+		dead = true;
 		new_direction_r = 1;
 		current_animation = &left_r;
 		GhostBlue_ispow = false;

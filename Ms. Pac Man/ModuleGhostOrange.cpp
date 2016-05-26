@@ -30,7 +30,7 @@ ModuleGhostOrange::ModuleGhostOrange()
 	superpow_blue = { 585, 65, 14, 14 };
 	t = 1;
 	i = 0;
-
+	
 	position_blue.x = 121;
 	position_blue.y = 121;
 
@@ -48,7 +48,7 @@ bool ModuleGhostOrange::Start()
 	LOG("Loading Ghost textures");
 	bool ret = true;
 	graphics = App->textures->Load("MsPacMan_Sprites.png"); // Sprites
-
+	dead = false;
 	new_direction_b = 0;
 	collision_blue = App->collision->AddCollider({ 50, 50, 10, 10 }, COLLIDER_ENEMY, this);
 	srand(time(NULL));
@@ -66,7 +66,7 @@ update_status ModuleGhostOrange::Update()
 
 			int speed = 1;
 			//BLUE
-			if (time_blue < 1100 && Isinmid == true)
+			if (time_blue < 1100 && Isinmid == true && dead== false)
 			{
 				time_blue++;
 				if (i == 0) {
@@ -122,7 +122,7 @@ update_status ModuleGhostOrange::Update()
 				time_blue = 0;
 			}
 
-			if (Isinmid == true && time_blue > 1099)
+			if (Isinmid == true && time_blue > 1099 && dead == false)
 			{
 				if (position_blue.x >= 105 && Isinmid == true){
 					position_blue.x--;
@@ -136,7 +136,22 @@ update_status ModuleGhostOrange::Update()
 					}
 				}
 			}
-
+			if (dead == true && Isinmid == true){
+				if (position_blue.x >= 105){
+					position_blue.x--;
+				}
+				else if (position_blue.x <= 104){
+					position_blue.y--;
+					
+					if (position_blue.y == 99){
+					
+						dead = false;
+						new_direction_b = 1;
+						Isinmid = false;
+						speed = 1;
+					}
+				}
+			}
 
 			//check possibilities
 			/*if (App->level1->map[right_blue.y][right_blue.x + 1] != 0)
@@ -516,13 +531,15 @@ void ModuleGhostOrange::OnCollision(Collider* c1, Collider* c2){
 		c1 == collision_blue && c2->type == COLLIDER_PLAYER && App->player->SUPER_GOD == true)
 	{
 		
-		position_blue.x = 105;
+		position_blue.x = 121;
 		position_blue.y = 121;
-		Isinmid = true;
+		
 		new_direction_b = 0;
 		animation_blue = &up_b;
 		GhostBlue_ispow = false;
 		dead_blue = false;
+		dead = true;
+		Isinmid = true;
 
 		collision_blue->SetPos(position_blue.x + 2, position_blue.y + 12);
 		ghost_up_blue = false;

@@ -59,6 +59,7 @@ public:
 
 	bool change_com_b = false;
 	bool change_direction_blue;
+	bool dead;
 
 	void OnCollision(Collider* c1, Collider* c2);
 	bool dead_blue = false;
