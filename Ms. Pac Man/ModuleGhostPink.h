@@ -47,9 +47,9 @@ public:
 
 
 	iPoint test_num_UP;
-	iPoint test_num_DOWN;
-	iPoint test_num_LEFT;
-	iPoint test_num_RIGHT;
+	//iPoint test_num_DOWN;
+	//iPoint test_num_LEFT;
+	//iPoint test_num_RIGHT;
 
 	int change_b = 1;
 	int new_direction_b = 1; // 0-w 1-a 2-s 3-d
@@ -79,6 +79,7 @@ public:
 	int isup;
 	int isdown;
 	int Time_change_direction;
+	bool superfristmoviment;
 	
 
 };

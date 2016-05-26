@@ -51,13 +51,13 @@ bool ModuleGhostPink::Start()
 	bool ret = true;
 	graphics = App->textures->Load("MsPacMan_Sprites.png"); // Sprites
 	test_num_UP.x = 0;
-	test_num_DOWN.x = 0;
-	test_num_LEFT.x = 0;
-	test_num_RIGHT.x = 0;
+	//test_num_DOWN.x = 0;
+	//test_num_LEFT.x = 0;
+	//test_num_RIGHT.x = 0;
 	test_num_UP.y = 0;
-	test_num_DOWN.y = 0;
-	test_num_LEFT.y = 0;
-	test_num_RIGHT.y = 0;
+	//test_num_DOWN.y = 0;
+	//test_num_LEFT.y = 0;
+	//test_num_RIGHT.y = 0;
 	new_direction_b = 0;
 	look_wherePacman = false;
 	isleft = 0;
@@ -182,54 +182,54 @@ update_status ModuleGhostPink::Update()
 			}
 			if (App->player->direction == 1)
 			{
-				test_num_LEFT.x = App->player->center.x;
-				while (App->level1->map[App->player->center.y][test_num_LEFT.x - 1] != 0)
+				test_num_UP.x = App->player->center.x;
+				while (App->level1->map[App->player->center.y][test_num_UP.x - 1] != 0)
 				{
-					test_num_LEFT.x -= 1;
+					test_num_UP.x -= 1;
 				}
-				test_num_LEFT.y = App->player->center.y;
+				test_num_UP.y = App->player->center.y;
 				if (App->player->SUPER_GOD)
 				{
-					App->render->Blit(graphics, test_num_LEFT.x * 8, (test_num_LEFT.y * 8) + 24, &test);
+					App->render->Blit(graphics, test_num_UP.x * 8, (test_num_UP.y * 8) + 24, &test);
 				}
 			}
 			if (App->player->direction == 2)
 			{
-				test_num_DOWN.y = App->player->center.y;
-				while (App->level1->map[test_num_DOWN.y + 1][App->player->center.x] != 0)
+				test_num_UP.y = App->player->center.y;
+				while (App->level1->map[test_num_UP.y + 1][App->player->center.x] != 0)
 				{
-					test_num_DOWN.y += 1;
+					test_num_UP.y += 1;
 				}
-				test_num_DOWN.x = App->player->center.x;
+				test_num_UP.x = App->player->center.x;
 				if (App->player->SUPER_GOD)
 				{
-					App->render->Blit(graphics, test_num_DOWN.x * 8, (test_num_DOWN.y * 8) + 24, &test);
+					App->render->Blit(graphics, test_num_UP.x * 8, (test_num_UP.y * 8) + 24, &test);
 				}
 			}
 			if (App->player->direction == 3)
 			{
-				test_num_RIGHT.x = App->player->center.x;
-				while (App->level1->map[App->player->center.y][test_num_RIGHT.x + 1] != 0)
+				test_num_UP.x = App->player->center.x;
+				while (App->level1->map[App->player->center.y][test_num_UP.x + 1] != 0)
 				{
-					test_num_RIGHT.x += 1;
+					test_num_UP.x += 1;
 				}
-				test_num_RIGHT.y = App->player->center.y;
+				test_num_UP.y = App->player->center.y;
 				if (App->player->SUPER_GOD)
 				{
-					App->render->Blit(graphics, test_num_RIGHT.x * 8, (test_num_RIGHT.y * 8) + 24, &test);
+					App->render->Blit(graphics, test_num_UP.x * 8, (test_num_UP.y * 8) + 24, &test);
 				}
 			}
 
 			//
-			/*if (change_direction_r && App->player->superpower == false)
+			if (change_direction_r && App->player->superpower == false)
 			{
 				look_wherePacman = true;
 				if (look_wherePacman)
 				{
 					if (can_up_r)
 					{
-						up_blue.x = ((center_blue.x - App->player->center.x)*(center_blue.x - App->player->center.x));
-						up_blue.y = (((center_blue.y - 1) - App->player->center.y)*((center_blue.y - 1) - App->player->center.y));
+						up_blue.x = ((center_blue.x - test_num_UP.x)*(center_blue.x - test_num_UP.x));
+						up_blue.y = (((center_blue.y - 1) - test_num_UP.y)*((center_blue.y - 1) - test_num_UP.y));
 						isup = sqrt(up_blue.x + up_blue.y);
 						//No change direction in the opposite direction
 						if (new_direction_b == 2)
@@ -244,8 +244,8 @@ update_status ModuleGhostPink::Update()
 
 					if (can_left_r)
 					{
-						left_blue.x = (((center_blue.x - 1) - App->player->center.x)*((center_blue.x - 1) - App->player->center.x));
-						left_blue.y = ((center_blue.y - App->player->center.y)*(center_blue.y - App->player->center.y));
+						left_blue.x = (((center_blue.x - 1) - test_num_UP.x)*((center_blue.x - 1) - test_num_UP.x));
+						left_blue.y = ((center_blue.y - test_num_UP.y)*(center_blue.y - test_num_UP.y));
 						isleft = sqrt(left_blue.x + left_blue.y);
 						//No change direction in the opposite direction
 						if (new_direction_b == 3)
@@ -260,8 +260,8 @@ update_status ModuleGhostPink::Update()
 
 					if (can_down_r)
 					{
-						down_blue.x = ((center_blue.x - App->player->center.x)*(center_blue.x - App->player->center.x));
-						down_blue.y = (((center_blue.y + 1) - App->player->center.y)*((center_blue.y + 1) - App->player->center.y));
+						down_blue.x = ((center_blue.x - test_num_UP.x)*(center_blue.x - test_num_UP.x));
+						down_blue.y = (((center_blue.y + 1) - test_num_UP.y)*((center_blue.y + 1) - test_num_UP.y));
 						isdown = sqrt(down_blue.x + down_blue.y);
 						//No change direction in the opposite direction
 						if (new_direction_b == 0)
@@ -276,8 +276,8 @@ update_status ModuleGhostPink::Update()
 
 					if (can_right_r)
 					{
-						right_blue.x = (((center_blue.x + 1) - App->player->center.x)*((center_blue.x + 1) - App->player->center.x));
-						right_blue.y = ((center_blue.y - App->player->center.y)*(center_blue.y - App->player->center.y));
+						right_blue.x = (((center_blue.x + 1) - test_num_UP.x)*((center_blue.x + 1) - test_num_UP.x));
+						right_blue.y = ((center_blue.y - test_num_UP.y)*(center_blue.y - test_num_UP.y));
 						isright = sqrt(right_blue.x + right_blue.y);
 						//No change direction in the opposite direction
 						if (new_direction_b == 1)
@@ -361,7 +361,140 @@ update_status ModuleGhostPink::Update()
 					}
 					look_wherePacman = false;
 				}
-			}*/
+			}
+			if (App->player->superpower == true)
+			{
+				if (superfristmoviment == false)
+				{
+					if (new_direction_b == 0)
+					{
+						new_direction_b = 2; ghost_down_r = true; ghost_right_r = false; ghost_left_r = false; ghost_up_r = false;
+					}
+					if (new_direction_b == 1)
+					{
+						new_direction_b = 3; ghost_right_r = true; ghost_down_r = false; ghost_left_r = false; ghost_up_r = false;
+					}
+					if (new_direction_b == 2)
+					{
+						new_direction_b = 0; ghost_up_r = true; ghost_right_r = false; ghost_left_r = false; ghost_down_r = false;
+					}
+					if (new_direction_b == 3)
+					{
+						new_direction_b = 1; ghost_left_r = true; ghost_right_r = false; ghost_up_r = false; ghost_down_r = false;
+					}
+				}
+				if (change_direction_r && App->player->superpower == true && superfristmoviment == true)
+				{
+					isup = 0;
+					isdown = 0;
+					isleft = 0;
+					isright = 0;
+					look_wherePacman = true;
+					if (look_wherePacman)
+					{
+						if (can_up_r)
+						{
+							up_blue.x = (center_blue.x - App->player->center.x)*(center_blue.x - App->player->center.x);
+							up_blue.y = (((center_blue.y - 1) - App->player->center.y)*((center_blue.y - 1) - App->player->center.y));
+							isup = sqrt(up_blue.x + up_blue.y);
+						}
+
+						if (can_left_r)
+						{
+							left_blue.x = (((center_blue.x - 1) - App->player->center.x)*((center_blue.x - 1) - App->player->center.x));
+							left_blue.y = ((center_blue.y - App->player->center.y)*(center_blue.y - App->player->center.y));
+							isleft = sqrt(left_blue.x + left_blue.y);
+						}
+
+						if (can_down_r)
+						{
+							down_blue.x = ((center_blue.x - App->player->center.x)*(center_blue.x - App->player->center.x));
+							down_blue.y = (((center_blue.y + 1) - App->player->center.y)*((center_blue.y + 1) - App->player->center.y));
+							isdown = sqrt(down_blue.x + down_blue.y);
+						}
+
+						if (can_right_r)
+						{
+							right_blue.x = (((center_blue.x + 1) - App->player->center.x)*((center_blue.x + 1) - App->player->center.x));
+							right_blue.y = ((center_blue.y - App->player->center.y)*(center_blue.y - App->player->center.y));
+							isright = sqrt(right_blue.x + right_blue.y);
+						}
+
+						Time_change_direction++;
+						if (Time_change_direction > 5)
+						{
+							Time_change_direction = 0;
+							//Check which direction to go, the shortest
+							if (isup >= isleft && isup >= isdown && isup >= isright)
+							{
+								ghost_up_r = true; ghost_right_r = false; ghost_left_r = false; ghost_down_r = false;
+							}
+							if (isleft >= isup && isleft >= isdown && isleft >= isright)
+							{
+								ghost_left_r = true; ghost_right_r = false; ghost_up_r = false; ghost_down_r = false;
+							}
+							if (isdown >= isup && isdown >= isleft && isdown >= isright)
+							{
+								ghost_down_r = true; ghost_right_r = false; ghost_left_r = false; ghost_up_r = false;
+							}
+							if (isright >= isup && isright >= isleft && isright >= isdown)
+							{
+								ghost_right_r = true; ghost_down_r = false; ghost_left_r = false; ghost_up_r = false;
+							}
+
+
+							//This is for the corners
+							if (can_right_r && can_down_r && can_left_r == false && can_up_r == false)
+							{
+								if (new_direction_b == 1)//Pacman is moving to left
+								{
+									ghost_down_r = true; ghost_right_r = false; ghost_left_r = false; ghost_up_r = false;
+								}
+								if (new_direction_b == 0)//Pacman is moving to up
+								{
+									ghost_right_r = true; ghost_down_r = false; ghost_left_r = false; ghost_up_r = false;
+								}
+							}
+
+							if (can_left_r && can_up_r && can_right_r == false && can_down_r == false)
+							{
+								if (new_direction_b == 3)//Pacman is moving to down
+								{
+									ghost_up_r = true; ghost_right_r = false; ghost_left_r = false; ghost_down_r = false;
+								}
+								if (new_direction_b == 2)
+								{
+									ghost_left_r = true; ghost_right_r = false; ghost_up_r = false; ghost_down_r = false;
+								}
+							}
+							if (can_left_r && can_down_r && can_right_r == false && can_down_r == false)
+							{
+								if (new_direction_b == 3)
+								{
+									ghost_down_r = true; ghost_right_r = false; ghost_left_r = false; ghost_up_r = false;
+								}
+								if (new_direction_b == 0)
+								{
+									ghost_left_r = true; ghost_right_r = false; ghost_up_r = false; ghost_down_r = false;
+								}
+							}
+							if (can_right_r && can_up_r && can_left_r == false && can_down_r == false)
+							{
+								if (new_direction_b == 1)
+								{
+									ghost_up_r = true; ghost_right_r = false; ghost_left_r = false; ghost_down_r = false;
+								}
+								if (new_direction_b == 2)
+								{
+									ghost_right_r = true; ghost_up_r = false; ghost_left_r = false; ghost_down_r = false;
+								}
+							}
+						}
+						look_wherePacman = false;
+					}
+				}
+				superfristmoviment = true;
+			}
 
 
 			right_blue.x = (position_blue.x + 3) / PIX_TILE;
