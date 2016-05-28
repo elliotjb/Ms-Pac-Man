@@ -245,7 +245,7 @@ update_status ModuleLevel1::Update()
 		App->render->Blit(graphics, 33, 273, &blacksquare);
 	}*/
 	if (App->player->playerlives == 0){
-		if (App->player->t < 80){
+		if (App->player->t < 160 ){
 
 			App->ghost_b->Disable();
 			App->ghost_r->Disable();
@@ -254,7 +254,7 @@ update_status ModuleLevel1::Update()
 			
 
 		}
-		else if (App->player->t == 80){
+		else if (App->player->t == 160){
 			App->collision->Disable();
 			App->level1->Disable();
 			App->player->Disable();

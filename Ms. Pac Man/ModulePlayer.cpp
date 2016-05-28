@@ -18,15 +18,19 @@ ModulePlayer::ModulePlayer()
 {
 	position.x = 105;
 	position.y = 195;
+
 	lose = { 475, 500, 81, 11 };
 	ready = { 463, 371, 75, 55 };
 	ready2 = { 569, 371, 75, 55 };
+
 	right.PushBack({ 489, 1, 15, 14 });
 	right.PushBack({ 473, 1, 15, 14 });
 	right.PushBack({ 457, 1, 15, 14 });
 	right.PushBack({ 473, 1, 15, 14 });
 	right.speed = 0.3f;
+
 	square = { 474, 471, 13, 15 };
+
 	left.PushBack({ 488, 17, 15, 14 });
 	left.PushBack({ 472, 17, 15, 14 });
 	left.PushBack({ 456, 17, 15, 14 });
@@ -45,6 +49,12 @@ ModulePlayer::ModulePlayer()
 	down.PushBack({ 457, 49, 14, 15 });
 	down.PushBack({ 473, 49, 14, 15 });
 	down.speed = 0.3f;
+
+	dead.PushBack({ 473, 49, 14, 15 });
+	dead.PushBack({ 472, 17, 15, 14 });
+	dead.PushBack({ 473, 31, 14, 15 });
+	dead.PushBack({ 473, 1, 15, 14 });
+	dead.speed = 0.1f;
 
 	test = { 11, 11, 1, 1 };
 
@@ -256,7 +266,7 @@ update_status ModulePlayer::Update()
 		
 		}
 
-		if (time_to_start < 250 && time_to_start > 59)
+		if (time_to_start < 240 && time_to_start > 59)
 		{
 			App->render->Blit(graphics, 77, 112, &ready2);
 			
@@ -312,9 +322,9 @@ update_status ModulePlayer::Update()
 		}
 		if (playerlives == 0){
 			direction = 0;
-			if (t < 80){
+			if (t < 160){
 				App->render->Blit(graphics, 72, 160, &lose);
-		
+				current_animation = &dead;
 			}
 	
 		}

@@ -295,11 +295,11 @@ update_status ModuleWelcome::Update()
 		App->render->Blit(graphics_2, position_o.x, position_o.y - r_o.h, &r_o);
 	}
 
-	if (time_welcome <= 40)
+	if (time_welcome <= 32)
 	{
 		App->render->Blit(graphics_Balls, 60, 88, &balls_first);
 	}
-	else if (time_welcome > 40)
+	else if (time_welcome > 32)
 	{
 		App->render->Blit(graphics_Balls, 60, 88, &balls);
 	}

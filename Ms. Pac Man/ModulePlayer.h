@@ -26,6 +26,7 @@ public:
 	Animation left; //Hacia izqueirda
 	Animation up;
 	Animation down;
+	Animation dead;
 	iPoint position;
 	int playerlives;
 	iPoint direction_right;
