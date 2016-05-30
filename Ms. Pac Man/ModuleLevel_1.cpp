@@ -289,20 +289,23 @@ update_status ModuleLevel1::Update()
 		App->ghost_r->Disable();
 		App->ghost_o->Disable();
 		App->ghost_p->Disable();
+		App->collision->Disable();
+		App->player->Disable();
+		App->score->puntuation = 0;
 		if (p <= 10 || p >= 21 && p <= 31 || p >= 43 && p <= 53){
 			App->render->Blit(graphics_3, 0, 0, &next);
-		
+
 		}
 		else if (p <= 11 || p >= 32 && p <= 42 || p >= 54 && p <= 64){
 			App->render->Blit(graphics_3, 0, 0, &next2);
-		
+
 		}
-		else if ( p > 64) {
+		else if (p > 64) {
 			App->fade->FadeToBlack(this, (Module*)App->win, 2.0f);
 			App->player->Disable();
 		}
 		p++;
 
-		}
+	}
 	return UPDATE_CONTINUE;
 }
