@@ -55,26 +55,25 @@ public:
 	int change_b = 1;
 	int new_direction_b = 1; // 0-w 1-a 2-s 3-d
 
-	bool ghost_up_r = false;
-	bool ghost_down_r = false;
-	bool ghost_left_r = false;
-	bool ghost_right_r = false;
+	bool ghost_up_r;
+	bool ghost_down_r;
+	bool ghost_left_r;
+	bool ghost_right_r;
 
-	bool can_right_r = false;
-	bool can_down_r = false;
-	bool can_left_r = false;
-	bool can_up_r = false;
-
+	bool can_right_r;
+	bool can_down_r;
+	bool can_left_r;
+	bool can_up_r;
 	bool change_direction_r;
 
 	void OnCollision(Collider* c1, Collider* c2);
-	bool dead_blue = false;
-	bool GhostBlue_ispow = false;
+	bool dead_blue;
+	bool GhostBlue_ispow;
 	bool look_wherePacman;
 	bool finish;
 
 	bool Isinmid = true;
-	int time_blue = 0;
+	int time_blue;
 
 	int isleft;
 	int isright;

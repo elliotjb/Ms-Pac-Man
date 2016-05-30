@@ -8,6 +8,7 @@
 #include "ModuleInput.h"
 #include "ModuleFadeToBlack.h"
 #include "ModuleLevel_1.h"
+#include "ModuleLevel_3.h"
 #include "ModuleCollision.h"
 
 ModuleCongratulation::ModuleCongratulation()
@@ -38,17 +39,7 @@ bool ModuleCongratulation::Start()
 	graphics = App->textures->Load("Mspacman_congratu.png");
 	graphics_2 = App->textures->Load("MsPacMan_Sprites.png");
 	App->welcome->Disable();
-
-	// TODO 1: Enable (and properly disable) the player module
-	/*App->player->Disable();
-	App->ghost_b->Disable();
-	App->ghost_o->Disable();
-	App->ghost_p->Disable();
-	App->ghost_r->Disable();
-	App->collision->Disable();*/
 	App->level1->Disable();
-
-
 	return ret;
 }
 
@@ -74,7 +65,7 @@ update_status ModuleCongratulation::Update()
 			App->input->keyboard[SDL_SCANCODE_SPACE] == KEY_STATE::KEY_UP)
 			
 		{
-			App->fade->FadeToBlack(this, (Module*)App->level1, 1.0f);
+			App->fade->FadeToBlack(this, (Module*)App->level3, 1.0f);
 		}
 	}
 	p++;

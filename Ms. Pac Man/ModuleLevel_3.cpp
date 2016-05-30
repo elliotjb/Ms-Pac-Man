@@ -157,6 +157,10 @@ bool ModuleLevel3::Start()
 bool ModuleLevel3::CleanUp()
 {
 	LOG("Unloading Level3 stage");
+	App->textures->Unload(graphics);
+	App->textures->Unload(graphics_2);
+	App->textures->Unload(graphics_3);
+	App->textures->Unload(graphics_4);
 	return true;
 }
 

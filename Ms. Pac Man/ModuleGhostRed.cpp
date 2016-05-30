@@ -53,23 +53,25 @@ bool ModuleGhostRed::Start()
 	dead = false;
 	finish = false;
 	super = false;
-	int new_direction_r=0;
+	int new_direction_r = 0;
 
-ghost_up_r = false;
-ghost_down_r = false;
- ghost_left_r = false;
-ghost_right_r = false;
+	ghost_up_r = false;
+	ghost_down_r = false;
+	ghost_left_r = false;
+	ghost_right_r = false;
 
- can_right_r = false;
-can_down_r = false;
-can_left_r = false;
-can_up_r = false;
+	can_right_r = false;
+	can_down_r = false;
+	can_left_r = false;
+	can_up_r = false;
 	//red
 	collision = App->collision->AddCollider({ 0, 0, 10, 10 }, COLLIDER_ENEMY, this);
 	new_direction_r = 1;
 	return ret;
 }
-bool ModuleGhostRed::CleanUp(){
+
+bool ModuleGhostRed::CleanUp()
+{
 	App->textures->Unload(graphics);
 		return true;
 }
@@ -299,7 +301,7 @@ update_status ModuleGhostRed::Update()
 						new_direction_r = 1; ghost_left_r = true; ghost_right_r = false; ghost_up_r = false; ghost_down_r = false;
 					}
 				}
-				if (change_direction_r && App->player->superpower == true && superfristmoviment == true)
+				if (change_direction_r && superfristmoviment == true)
 				{
 					isup = 0;
 					isdown = 0;
@@ -438,6 +440,7 @@ update_status ModuleGhostRed::Update()
 			}
 			int speed = 1;
 			//decided direction
+			//TODO ELLIOT BUG ATRAVESAR PORTAL
 			if (App->level1->map[up_y_r - 1][up_x_r] == 3 || App->level1->map[up_y_r - 1][up_x_r] == 4 || App->level1->map[up_y_r - 1][up_x_r] == 5)
 			{
 				if (ghost_up_r)

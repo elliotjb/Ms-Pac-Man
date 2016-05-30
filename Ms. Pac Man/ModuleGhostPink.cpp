@@ -6,7 +6,7 @@
 #include "ModulePlayer.h"
 #include "ModuleGhostPink.h"
 #include "ModuleCollision.h"
-#include "ModuleLevel_1.h"
+#include "ModuleLevel_3.h"
 #include "ModuleScore.h"
 #include <cmath>
 
@@ -59,7 +59,18 @@ bool ModuleGhostPink::Start()
 	//test_num_DOWN.y = 0;
 	//test_num_LEFT.y = 0;
 	//test_num_RIGHT.y = 0;
+	ghost_up_r = false;
+	ghost_down_r = false;
+	ghost_left_r = false;
+	ghost_right_r = false;
+	dead_blue = false;
+	can_right_r = false;
+	can_down_r = false;
+	can_left_r = false;
+	can_up_r = false;
+	GhostBlue_ispow = false;
 	new_direction_b = 0;
+	time_blue = 0;
 	look_wherePacman = false;
 	isleft = 0;
 	isright = 0;
@@ -108,7 +119,7 @@ update_status ModuleGhostPink::Update()
 
 			//check possibilities
 			//lefy
-			if (App->level1->map[left_blue.y][left_blue.x - 1] != 0)
+			if (App->level3->map[left_blue.y][left_blue.x - 1] != 0)
 			{
 				if ((position_blue.x + 7) == (center_blue.x * 8) + 4 &&
 					(position_blue.y - 7) == (center_blue.y * 8) + 4)
@@ -122,7 +133,7 @@ update_status ModuleGhostPink::Update()
 			}
 
 			//up
-			if (App->level1->map[up_blue.y - 1][up_blue.x] != 0)
+			if (App->level3->map[up_blue.y - 1][up_blue.x] != 0)
 			{
 				if ((position_blue.x + 7) == (center_blue.x * 8) + 4 &&
 					(position_blue.y - 7) == (center_blue.y * 8) + 4)
@@ -136,7 +147,7 @@ update_status ModuleGhostPink::Update()
 			}
 
 			// down
-			if (App->level1->map[down_blue.y + 1][down_blue.x] != 0)
+			if (App->level3->map[down_blue.y + 1][down_blue.x] != 0)
 			{
 				if ((position_blue.x + 7) == (center_blue.x * 8) + 4 &&
 					(position_blue.y - 7) == (center_blue.y * 8) + 4)
@@ -178,7 +189,7 @@ update_status ModuleGhostPink::Update()
 			if (App->player->direction == 0)
 			{
 				test_num_UP.y = App->player->center.y;
-				while (App->level1->map[test_num_UP.y - 1][App->player->center.x] != 0)
+				while (App->level3->map[test_num_UP.y - 1][App->player->center.x] != 0)
 				{
 					test_num_UP.y -= 1;
 				}
@@ -191,7 +202,7 @@ update_status ModuleGhostPink::Update()
 			if (App->player->direction == 1)
 			{
 				test_num_UP.x = App->player->center.x;
-				while (App->level1->map[App->player->center.y][test_num_UP.x - 1] != 0)
+				while (App->level3->map[App->player->center.y][test_num_UP.x - 1] != 0)
 				{
 					test_num_UP.x -= 1;
 				}
@@ -204,7 +215,7 @@ update_status ModuleGhostPink::Update()
 			if (App->player->direction == 2)
 			{
 				test_num_UP.y = App->player->center.y;
-				while (App->level1->map[test_num_UP.y + 1][App->player->center.x] != 0)
+				while (App->level3->map[test_num_UP.y + 1][App->player->center.x] != 0)
 				{
 					test_num_UP.y += 1;
 				}
@@ -217,7 +228,7 @@ update_status ModuleGhostPink::Update()
 			if (App->player->direction == 3)
 			{
 				test_num_UP.x = App->player->center.x;
-				while (App->level1->map[App->player->center.y][test_num_UP.x + 1] != 0)
+				while (App->level3->map[App->player->center.y][test_num_UP.x + 1] != 0)
 				{
 					test_num_UP.x += 1;
 				}
@@ -518,7 +529,7 @@ update_status ModuleGhostPink::Update()
 
 
 			//decided direction
-			if (App->level1->map[up_blue.y - 1][up_blue.x] != 0)
+			if (App->level3->map[up_blue.y - 1][up_blue.x] != 0)
 			{
 				if (ghost_up_r)
 				{
@@ -545,7 +556,7 @@ update_status ModuleGhostPink::Update()
 
 
 
-			if (App->level1->map[left_blue.y][left_blue.x - 1] != 0 || position_blue.x <= 0 || position_blue.x >= 220 && position_blue.x <= 239)
+			if (App->level3->map[left_blue.y][left_blue.x - 1] != 0 || position_blue.x <= 0 || position_blue.x >= 220 && position_blue.x <= 239)
 			{
 				if (ghost_left_r)
 				{
@@ -574,7 +585,7 @@ update_status ModuleGhostPink::Update()
 				left_b.speed = 0.0f;
 			}
 
-			if (App->level1->map[down_blue.y + 1][down_blue.x] != 0)
+			if (App->level3->map[down_blue.y + 1][down_blue.x] != 0)
 			{
 				if (ghost_down_r)
 				{
@@ -599,7 +610,7 @@ update_status ModuleGhostPink::Update()
 				down_b.speed = 0.0f;
 			}
 
-			if (App->level1->map[right_blue.y][right_blue.x + 1] != 0 || position_blue.x > 210)
+			if (App->level3->map[right_blue.y][right_blue.x + 1] != 0 || position_blue.x > 210)
 			{
 				if ((position_blue.x + 7) == (center_blue.x * 8) + 4 &&
 					(position_blue.y - 7) == (center_blue.y * 8) + 4)
@@ -633,7 +644,7 @@ update_status ModuleGhostPink::Update()
 			{
 				right_b.speed = 0.0f;
 			}
-			if (App->level1->map[right_blue.y][right_blue.x + 1] == 0)
+			if (App->level3->map[right_blue.y][right_blue.x + 1] == 0)
 			{
 				can_right_r = false;
 			}

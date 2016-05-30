@@ -148,7 +148,8 @@ update_status ModuleGhostOrange::Update()
 
 			if (Isinmid == true && time_blue > 199 && dead == false)
 			{
-				if (position_blue.x >= 105 && Isinmid == true){
+				if (position_blue.x >= 105 && Isinmid == true)
+				{
 					position_blue.x--;
 				}
 				if (position_blue.x <= 104){
@@ -180,6 +181,7 @@ update_status ModuleGhostOrange::Update()
 					}
 				}
 			}
+
 			if (dead == true && Isinmid == true && finish == true && m == true){
 				if (position_blue.x >= 105){
 					position_blue.x--;

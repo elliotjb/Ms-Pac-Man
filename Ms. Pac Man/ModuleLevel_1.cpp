@@ -103,6 +103,7 @@ bool ModuleLevel1::Start()
 	App->ghost_p->Enable();
 	App->ghost_o->Enable();
 	App->player->Enable();
+
 	App->player->position.x = 105;
 	App->player->position.y = 195;
 	App->ghost_b->position.x = 89;
@@ -273,13 +274,12 @@ update_status ModuleLevel1::Update()
 	//TODO, S'ha de ficar el so de moviment sense menjar!
 
 	//win condition
-
 	if (eatenpills == 12)
 	{
 		victory = true;
 	}
 
-	if (victory || App->input->keyboard[SDL_SCANCODE_SPACE] == KEY_STATE::KEY_UP)
+	if (victory)
 	{
 		App->ghost_b->Disable();
 		App->ghost_r->Disable();

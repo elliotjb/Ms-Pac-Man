@@ -18,6 +18,7 @@ public:
 
 	bool Start();
 	update_status Update();
+	bool CleanUp();
 
 public:
 
@@ -58,7 +59,7 @@ public:
 	int right_y_r;
 	int center_y_r;
 
-	int speed = 0;
+	int speed;
 
 	int new_direction_r; // 0-w 1-a 2-s 3-d
 
@@ -72,9 +73,8 @@ public:
 	bool can_left_r ;
 	bool can_up_r ;
 
-	bool change_comp_r = false;
 	bool change_direction_r;
-	bool GhostBlue_ispow = false;
+	bool GhostBlue_ispow;
 
 	void OnCollision(Collider* c1, Collider* c2);
 	bool dead_blue ;
@@ -82,15 +82,17 @@ public:
 	bool m;
 	int s;
 	bool look_wherePacman;
-
+	int Time_change_direction;
 	int isleft;
 	int isright;
 	int isup;
 	int isdown;
 
+	bool super;
+
 	bool Isinmid = true;
-	int time_blue = 0;
-	int a = 0;
+	int time_blue;
+	int a;
 	int t;
 	int i;
 	bool dead;

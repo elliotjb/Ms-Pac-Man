@@ -55,24 +55,30 @@ bool ModuleGhostBlue::Start()
 	speed = 0;
 	dead = false;
 	m = false;
+	Time_change_direction = 0;
 	ghost_up_r = false;
 	ghost_down_r = false;
 	ghost_left_r = false;
 	ghost_right_r = false;
-
+	a = 0;
+	time_blue = 0;
 	can_right_r = false;
 	can_down_r = false;
-	 can_left_r = false;
-	 can_up_r = false;
-	 dead_blue = false;
-	 new_direction_r = 0;
+	can_left_r = false;
+	can_up_r = false;
+	dead_blue = false;
+	new_direction_r = 0;
 	finish = false;
+	GhostBlue_ispow = false;
 	new_direction_r = 0;
 	collision_blue = App->collision->AddCollider({ 50, 50, 10, 10 }, COLLIDER_ENEMY, this);
 	srand(time(NULL));
+	super = false;
 	return ret;
 }
-bool ModuleGhostRed::CleanUp(){
+
+bool ModuleGhostBlue::CleanUp()
+{
 	App->textures->Unload(graphics);
 	return true;
 }
@@ -258,7 +264,7 @@ update_status ModuleGhostBlue::Update()
 			else change_direction_r = false;
 
 
-			if (change_direction_r)
+			if (change_direction_r && super == false)
 			{
 				look_wherePacman = true;
 				if (look_wherePacman)
@@ -326,76 +332,193 @@ update_status ModuleGhostBlue::Update()
 					{
 						isright = 300;
 					}
-
-					//Check which direction to go, the shortest
-					if (isup <= isleft && isup <= isdown && isup <= isright && new_direction_r != 2)
+					Time_change_direction++;
+					if (Time_change_direction > 5)
 					{
-						ghost_up_r = true; ghost_right_r = false; ghost_left_r = false; ghost_down_r = false;
-					}
-					if (isleft <= isup && isleft <= isdown && isleft <= isright && new_direction_r != 3)
-					{
-						ghost_left_r = true; ghost_right_r = false; ghost_up_r = false; ghost_down_r = false;
-					}
-					if (isdown <= isup && isdown <= isleft && isdown <= isright && new_direction_r != 0)
-					{
-						ghost_down_r = true; ghost_right_r = false; ghost_left_r = false; ghost_up_r = false;
-					}
-					if (isright <= isup && isright <= isleft && isright <= isdown && new_direction_r != 1)
-					{
-						ghost_right_r = true; ghost_down_r = false; ghost_left_r = false; ghost_up_r = false;
-					}
-
-
-					//This is for the corners
-					if (can_right_r && can_down_r && can_left_r == false && can_up_r == false)
-					{
-						if (new_direction_r == 1)//Pacman is moving to left
+						Time_change_direction = 0;
+						//Check which direction to go, the shortest
+						if (isup <= isleft && isup <= isdown && isup <= isright && new_direction_r != 2)
+						{
+							ghost_up_r = true; ghost_right_r = false; ghost_left_r = false; ghost_down_r = false;
+						}
+						if (isleft <= isup && isleft <= isdown && isleft <= isright && new_direction_r != 3)
+						{
+							ghost_left_r = true; ghost_right_r = false; ghost_up_r = false; ghost_down_r = false;
+						}
+						if (isdown <= isup && isdown <= isleft && isdown <= isright && new_direction_r != 0)
 						{
 							ghost_down_r = true; ghost_right_r = false; ghost_left_r = false; ghost_up_r = false;
 						}
-						if (new_direction_r == 0)//Pacman is moving to up
+						if (isright <= isup && isright <= isleft && isright <= isdown && new_direction_r != 1)
 						{
 							ghost_right_r = true; ghost_down_r = false; ghost_left_r = false; ghost_up_r = false;
 						}
-					}
 
-					if (can_left_r && can_up_r && can_right_r == false && can_down_r == false)
-					{
-						if (new_direction_r == 3)//Pacman is moving to down
+
+						//This is for the corners
+						if (can_right_r && can_down_r && can_left_r == false && can_up_r == false)
 						{
-							ghost_up_r = true; ghost_right_r = false; ghost_left_r = false; ghost_down_r = false;
+							if (new_direction_r == 1)//Pacman is moving to left
+							{
+								ghost_down_r = true; ghost_right_r = false; ghost_left_r = false; ghost_up_r = false;
+							}
+							if (new_direction_r == 0)//Pacman is moving to up
+							{
+								ghost_right_r = true; ghost_down_r = false; ghost_left_r = false; ghost_up_r = false;
+							}
 						}
-						if (new_direction_r == 2)
+
+						if (can_left_r && can_up_r && can_right_r == false && can_down_r == false)
 						{
-							ghost_left_r = true; ghost_right_r = false; ghost_up_r = false; ghost_down_r = false;
+							if (new_direction_r == 3)//Pacman is moving to down
+							{
+								ghost_up_r = true; ghost_right_r = false; ghost_left_r = false; ghost_down_r = false;
+							}
+							if (new_direction_r == 2)
+							{
+								ghost_left_r = true; ghost_right_r = false; ghost_up_r = false; ghost_down_r = false;
+							}
 						}
-					}
-					if (can_left_r && can_down_r && can_right_r == false && can_down_r == false)
-					{
-						if (new_direction_r == 3)
+						if (can_left_r && can_down_r && can_right_r == false && can_down_r == false)
 						{
-							ghost_down_r = true; ghost_right_r = false; ghost_left_r = false; ghost_up_r = false;
+							if (new_direction_r == 3)
+							{
+								ghost_down_r = true; ghost_right_r = false; ghost_left_r = false; ghost_up_r = false;
+							}
+							if (new_direction_r == 0)
+							{
+								ghost_left_r = true; ghost_right_r = false; ghost_up_r = false; ghost_down_r = false;
+							}
 						}
-						if (new_direction_r == 0)
+						if (can_right_r && can_up_r && can_left_r == false && can_down_r == false)
 						{
-							ghost_left_r = true; ghost_right_r = false; ghost_up_r = false; ghost_down_r = false;
-						}
-					}
-					if (can_right_r && can_up_r && can_left_r == false && can_down_r == false)
-					{
-						if (new_direction_r == 1)
-						{
-							ghost_up_r = true; ghost_right_r = false; ghost_left_r = false; ghost_down_r = false;
-						}
-						if (new_direction_r == 2)
-						{
-							ghost_right_r = true; ghost_up_r = false; ghost_left_r = false; ghost_down_r = false;
+							if (new_direction_r == 1)
+							{
+								ghost_up_r = true; ghost_right_r = false; ghost_left_r = false; ghost_down_r = false;
+							}
+							if (new_direction_r == 2)
+							{
+								ghost_right_r = true; ghost_up_r = false; ghost_left_r = false; ghost_down_r = false;
+							}
 						}
 					}
 					look_wherePacman = false;
 				}
 			}
 
+			if (super == true)
+			{
+				if (change_direction_r)
+				{
+					isup = 0;
+					isdown = 0;
+					isleft = 0;
+					isright = 0;
+					look_wherePacman = true;
+					if (look_wherePacman)
+					{
+						if (can_up_r)
+						{
+							up.x = ((center_x_r - App->player->center.x)*(center_x_r - App->player->center.x));
+							up.y = (((center_y_r - 1) - App->player->center.y)*((center_y_r - 1) - App->player->center.y));
+							isup = sqrt(up.x + up.y);
+						}
+
+						if (can_left_r)
+						{
+							left.x = (((center_x_r - 1) - App->player->center.x)*((center_x_r - 1) - App->player->center.x));
+							left.y = ((center_y_r - App->player->center.y)*(center_y_r - App->player->center.y));
+							isleft = sqrt(left.x + left.y);
+						}
+
+						if (can_down_r)
+						{
+							down.x = ((center_x_r - App->player->center.x)*(center_x_r - App->player->center.x));
+							down.y = (((center_y_r + 1) - App->player->center.y)*((center_y_r + 1) - App->player->center.y));
+							isdown = sqrt(down.x + down.y);
+						}
+
+						if (can_right_r)
+						{
+							right.x = (((center_x_r + 1) - App->player->center.x)*((center_x_r + 1) - App->player->center.x));
+							right.y = ((center_y_r - App->player->center.y)*(center_y_r - App->player->center.y));
+							isright = sqrt(right.x + right.y);
+						}
+
+						Time_change_direction++;
+						if (Time_change_direction > 5)
+						{
+							Time_change_direction = 0;
+							//Check which direction to go, the shortest
+							if (isup >= isleft && isup >= isdown && isup >= isright)
+							{
+								ghost_up_r = true; ghost_right_r = false; ghost_left_r = false; ghost_down_r = false;
+							}
+							if (isleft >= isup && isleft >= isdown && isleft >= isright)
+							{
+								ghost_left_r = true; ghost_right_r = false; ghost_up_r = false; ghost_down_r = false;
+							}
+							if (isdown >= isup && isdown >= isleft && isdown >= isright)
+							{
+								ghost_down_r = true; ghost_right_r = false; ghost_left_r = false; ghost_up_r = false;
+							}
+							if (isright >= isup && isright >= isleft && isright >= isdown)
+							{
+								ghost_right_r = true; ghost_down_r = false; ghost_left_r = false; ghost_up_r = false;
+							}
+
+
+							//This is for the corners
+							if (can_right_r && can_down_r && can_left_r == false && can_up_r == false)
+							{
+								if (new_direction_r == 1)//Pacman is moving to left
+								{
+									ghost_down_r = true; ghost_right_r = false; ghost_left_r = false; ghost_up_r = false;
+								}
+								if (new_direction_r == 0)//Pacman is moving to up
+								{
+									ghost_right_r = true; ghost_down_r = false; ghost_left_r = false; ghost_up_r = false;
+								}
+							}
+
+							if (can_left_r && can_up_r && can_right_r == false && can_down_r == false)
+							{
+								if (new_direction_r == 3)//Pacman is moving to down
+								{
+									ghost_up_r = true; ghost_right_r = false; ghost_left_r = false; ghost_down_r = false;
+								}
+								if (new_direction_r == 2)
+								{
+									ghost_left_r = true; ghost_right_r = false; ghost_up_r = false; ghost_down_r = false;
+								}
+							}
+							if (can_left_r && can_down_r && can_right_r == false && can_down_r == false)
+							{
+								if (new_direction_r == 3)
+								{
+									ghost_down_r = true; ghost_right_r = false; ghost_left_r = false; ghost_up_r = false;
+								}
+								if (new_direction_r == 0)
+								{
+									ghost_left_r = true; ghost_right_r = false; ghost_up_r = false; ghost_down_r = false;
+								}
+							}
+							if (can_right_r && can_up_r && can_left_r == false && can_down_r == false)
+							{
+								if (new_direction_r == 1)
+								{
+									ghost_up_r = true; ghost_right_r = false; ghost_left_r = false; ghost_down_r = false;
+								}
+								if (new_direction_r == 2)
+								{
+									ghost_right_r = true; ghost_up_r = false; ghost_left_r = false; ghost_down_r = false;
+								}
+							}
+						}
+						look_wherePacman = false;
+					}
+				}
+			}
 
 			right_x_r = (position.x + 3) / PIX_TILE;
 			right_y_r = (position.y - 7) / PIX_TILE;
