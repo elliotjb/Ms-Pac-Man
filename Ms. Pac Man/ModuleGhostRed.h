@@ -18,6 +18,7 @@ public:
 	bool Start();
 	update_status Update();
 
+
 public:
 
 	Animation* current_animation = &left_r;

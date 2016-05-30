@@ -134,7 +134,9 @@ bool ModuleWelcome::Start()
 bool ModuleWelcome::CleanUp()
 {
 	LOG("Unloading honda stage");
-	App->player->CleanUp();
+	App->textures->Unload(graphics);
+	App->textures->Unload(graphics_2);
+	App->textures->Unload(graphics_Balls);
 	while (!Mix_FadeOutMusic(1000) && Mix_PlayingMusic())
 		SDL_Delay(1000);
 

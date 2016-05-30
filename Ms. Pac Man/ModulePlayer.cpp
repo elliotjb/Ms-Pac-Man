@@ -89,7 +89,11 @@ bool ModulePlayer::Start()
 	collision_player = App->collision->AddCollider({ position.x+6, position.y + 6, 9, 8 }, COLLIDER_PLAYER, this);
 	return ret;
 }
-
+bool ModulePlayer::CleanUp()
+{
+	App->textures->Unload(graphics);
+	return true;
+}
 // Update: draw background
 update_status ModulePlayer::Update()
 {

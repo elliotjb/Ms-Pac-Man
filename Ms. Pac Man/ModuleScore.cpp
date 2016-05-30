@@ -45,6 +45,12 @@ bool ModuleScore::Start()
 	return ret;
 }
 
+bool ModuleScore::CleanUp()
+{
+	App->textures->Unload(graphics);
+	return true;
+}
+
 // Update: draw background
 update_status ModuleScore::Update()
 {

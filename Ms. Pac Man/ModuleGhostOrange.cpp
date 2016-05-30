@@ -77,6 +77,7 @@ bool ModuleGhostOrange::Start()
 bool ModuleGhostOrange::CleanUp()
 {
 	App->textures->Unload(graphics);
+	return true;
 }
 // Update
 update_status ModuleGhostOrange::Update()

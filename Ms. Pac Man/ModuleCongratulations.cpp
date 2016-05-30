@@ -56,7 +56,8 @@ bool ModuleCongratulation::Start()
 bool ModuleCongratulation::CleanUp()
 {
 	LOG("Unloading honda stage");
-	App->player->CleanUp();
+	App->textures->Unload(graphics);
+	App->textures->Unload(graphics_2);
 	return true;
 }
 

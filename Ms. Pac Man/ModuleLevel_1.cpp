@@ -166,7 +166,10 @@ bool ModuleLevel1::Start()
 bool ModuleLevel1::CleanUp()
 {
 	LOG("Unloading Level1 stage");
-
+	App->textures->Unload(graphics);
+	App->textures->Unload(graphics_2);
+	App->textures->Unload(graphics_3);
+	App->textures->Unload(graphics_4);
 	return true;
 }
 
@@ -271,15 +274,13 @@ update_status ModuleLevel1::Update()
 
 	//win condition
 
-	if (eatenpills == 224)
+	if (eatenpills == 12)
 	{
-	
 		victory = true;
 	}
 
 	if (victory || App->input->keyboard[SDL_SCANCODE_SPACE] == KEY_STATE::KEY_UP)
 	{
-
 		App->ghost_b->Disable();
 		App->ghost_r->Disable();
 		App->ghost_o->Disable();

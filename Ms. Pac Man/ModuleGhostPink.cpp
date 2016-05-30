@@ -71,6 +71,11 @@ bool ModuleGhostPink::Start()
 	srand(time(NULL));
 	return ret;
 }
+bool ModuleGhostPink::CleanUp()
+{
+	App->textures->Unload(graphics);
+	return true;
+}
 
 // Update
 update_status ModuleGhostPink::Update()
