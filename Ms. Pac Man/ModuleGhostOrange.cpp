@@ -7,6 +7,7 @@
 #include "ModuleGhostOrange.h"
 #include "ModuleCollision.h"
 #include "ModuleLevel_1.h"
+#include "ModuleScore.h"
 
 ModuleGhostOrange::ModuleGhostOrange()
 {
@@ -30,7 +31,7 @@ ModuleGhostOrange::ModuleGhostOrange()
 	superpow_blue = { 585, 65, 14, 14 };
 	t = 1;
 	i = 0;
-	
+	puntuation = { 456, 133, 15, 7 };
 	
 	position_blue.x = 121;
 	position_blue.y = 121;
@@ -560,7 +561,8 @@ void ModuleGhostOrange::OnCollision(Collider* c1, Collider* c2){
 	if (c1 == collision_blue && c2->type == COLLIDER_PLAYER && App->player->superpower == true ||
 		c1 == collision_blue && c2->type == COLLIDER_PLAYER && App->player->SUPER_GOD == true )
 	{
-		
+		App->render->Blit(graphics, position_blue.x, position_blue.y, &puntuation);
+
 		position_blue.x = 121;
 		position_blue.y = 121;
 		
@@ -570,6 +572,7 @@ void ModuleGhostOrange::OnCollision(Collider* c1, Collider* c2){
 		dead_blue = false;
 		dead = true;
 		Isinmid = true;
+		App->score->puntuation += 200;
 
 		collision_blue->SetPos(position_blue.x + 2, position_blue.y + 12);
 		ghost_up_blue = false;

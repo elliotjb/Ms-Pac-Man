@@ -7,6 +7,7 @@
 #include "ModuleGhostPink.h"
 #include "ModuleCollision.h"
 #include "ModuleLevel_1.h"
+#include "ModuleScore.h"
 #include <cmath>
 
 
@@ -30,7 +31,7 @@ ModuleGhostPink::ModuleGhostPink()
 	superpow_combination.speed = 0.05f;
 
 	superpow_blue = { 585, 65, 14, 14 };
-
+	puntuation = { 456, 133, 15, 7 };
 
 
 	position_blue.x = 105;
@@ -702,7 +703,7 @@ void ModuleGhostPink::OnCollision(Collider* c1, Collider* c2)
 	if (c1 == collision_blue && c2->type == COLLIDER_PLAYER && App->player->superpower == true ||
 		c1 == collision_blue && c2->type == COLLIDER_PLAYER && App->player->SUPER_GOD == true)
 	{
-
+		App->render->Blit(graphics, position_blue.x, position_blue.y, &puntuation);
 		position_blue.x = 105;
 		position_blue.y = 121;
 		Isinmid = true;
@@ -710,6 +711,7 @@ void ModuleGhostPink::OnCollision(Collider* c1, Collider* c2)
 		animation_blue = &up_b;
 		GhostBlue_ispow = false;
 		dead_blue = false;
+		App->score->puntuation += 200;
 
 		collision_blue->SetPos(position_blue.x + 2, position_blue.y + 12);
 		ghost_up_r = false;

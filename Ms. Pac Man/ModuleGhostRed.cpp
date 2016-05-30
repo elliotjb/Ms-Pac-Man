@@ -7,6 +7,7 @@
 #include "ModuleGhostRed.h"
 #include "ModuleCollision.h"
 #include "ModuleLevel_1.h"
+#include "ModuleScore.h"
 #include <cmath>
 
 ModuleGhostRed::ModuleGhostRed()
@@ -24,7 +25,7 @@ ModuleGhostRed::ModuleGhostRed()
 	down_r.PushBack({ 553, 65, 14, 14 });
 	down_r.PushBack({ 569, 65, 14, 14 });
 	down_r.speed = 0.1f;
-
+	puntuation = { 456, 133, 15, 7 };
 	superpow_combination.PushBack({ 585, 65, 14, 14 });
 	superpow_combination.PushBack({ 617, 65, 14, 14 });
 	superpow_combination.speed = 0.05f;
@@ -606,7 +607,7 @@ void ModuleGhostRed::OnCollision(Collider* c1, Collider* c2)
 	if (c1 == collision && c2->type == COLLIDER_PLAYER && App->player->superpower == true && super == true ||
 		c1 == collision && c2->type == COLLIDER_PLAYER && App->player->SUPER_GOD == true )
 	{
-		
+		App->render->Blit(graphics, position.x, position.y, &puntuation);
 		position.x = 105;		
 		position.y = 121;
 		dead = true;
@@ -617,6 +618,7 @@ void ModuleGhostRed::OnCollision(Collider* c1, Collider* c2)
 		ghost_down_r = false;
 		ghost_left_r = false;
 		ghost_right_r = false;
+		App->score->puntuation += 200;
 
 		collision->SetPos(position.x + 2, position.y + 12);
 		can_right_r = false;

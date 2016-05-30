@@ -7,6 +7,7 @@
 #include "ModuleGhostBlue.h"
 #include "ModuleCollision.h"
 #include "ModuleLevel_1.h"
+#include "ModuleScore.h"
 #include <cmath>
 
 ModuleGhostBlue::ModuleGhostBlue()
@@ -30,6 +31,7 @@ ModuleGhostBlue::ModuleGhostBlue()
 	superpow_combination.speed = 0.05f;
 
 	superpow_blue = { 585, 65, 14, 14 };
+	puntuation = { 456, 133, 15, 7 };
 	a = 0;
 	t = 1;
 
@@ -72,23 +74,15 @@ update_status ModuleGhostBlue::Update()
 			{
 				time_blue++;
 				
-				if (i == 0 ) {
-					
-					position.y = 118;
-	
-
-				}
-				
-				else if (i == 4) {
-
-					position.y = 120;
-				
-
+				if (i == 0 ) {				
+					position.y = 118;	
 				}
 			
+				else if (i == 4) {
+					position.y = 120;	
+				}	
 				else if (i == 8 ) {
 					position.y = 122;
-
 
 				}
 			
@@ -571,12 +565,15 @@ void ModuleGhostBlue::OnCollision(Collider* c1, Collider* c2)
 	if (c1 == collision_blue && c2->type == COLLIDER_PLAYER && App->player->superpower == true ||
 		c1 == collision_blue && c2->type == COLLIDER_PLAYER && App->player->SUPER_GOD == true)
 	{
+		App->render->Blit(graphics, position.x, position.y, &puntuation);
+
 		position.x = 89;
 		position.y = 121;
 		dead = true;
 		new_direction_r = 0;
 		current_animation = &up_r;
 		GhostBlue_ispow = false;
+		App->score->puntuation += 200;
 		dead_blue = false;
 		Isinmid = true;
 

@@ -27,7 +27,7 @@ public:
 	Animation* current_superpow_combination = &superpow_combination;
 	SDL_Texture* graphics = nullptr;
 	SDL_Rect test;
-
+	SDL_Rect puntuation;
 	Collider* collision_blue;
 	//ghost blue
 	Animation right_b;

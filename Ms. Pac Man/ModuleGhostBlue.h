@@ -36,6 +36,8 @@ public:
 	iPoint position;
 
 	SDL_Rect superpow_blue;
+
+	SDL_Rect puntuation;
 	Animation superpow_combination;
 
 	iPoint up;
