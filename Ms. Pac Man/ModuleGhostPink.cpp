@@ -64,6 +64,7 @@ bool ModuleGhostPink::Start()
 	isright = 0;
 	isup = 0;
 	isdown = 0;
+	finish = false;
 	Time_change_direction = 0;
 	collision_blue = App->collision->AddCollider({ 0, 0, 10, 10 }, COLLIDER_ENEMY, this);
 	srand(time(NULL));
@@ -95,6 +96,7 @@ update_status ModuleGhostPink::Update()
 				{
 					new_direction_b = 3;
 					Isinmid = false;
+					finish = true;
 				}
 			}
 
@@ -669,7 +671,27 @@ update_status ModuleGhostPink::Update()
 			App->render->Blit(graphics, position_blue.x, position_blue.y + 24 - r_b.h, &r_b);
 		}
 	}
+	if (App->player->isdead == true && finish == true){
+		position_blue.x = 105;
+		position_blue.y = 121;
+		Isinmid = true;
+		new_direction_b = 0;
+		animation_blue = &up_b;
+		GhostBlue_ispow = false;
+		dead_blue = false;
 
+		collision_blue->SetPos(position_blue.x + 2, position_blue.y + 12);
+		ghost_up_r = false;
+		ghost_down_r = false;
+		ghost_left_r = false;
+		ghost_right_r = false;
+
+		can_right_r = false;
+		can_down_r = false;
+		can_left_r = false;
+		can_up_r = false;
+	 
+	}
 
 	return UPDATE_CONTINUE;
 }

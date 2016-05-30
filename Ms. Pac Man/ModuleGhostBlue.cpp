@@ -54,6 +54,7 @@ bool ModuleGhostBlue::Start()
 	graphics = App->textures->Load("MsPacMan_Sprites.png"); // Sprites
 	speed = 0;
 	dead = false;
+	finish = false;
 	new_direction_r = 0;
 	collision_blue = App->collision->AddCollider({ 50, 50, 10, 10 }, COLLIDER_ENEMY, this);
 	srand(time(NULL));
@@ -145,7 +146,7 @@ update_status ModuleGhostBlue::Update()
 				time_blue = 0;
 			}
 
-			if (Isinmid == true && time_blue > 579 && dead == false)
+			if (Isinmid == true && time_blue > 579 && dead == false )
 			{
 				if (position.x <= 105 && Isinmid == true){
 					position.x++;
@@ -157,12 +158,24 @@ update_status ModuleGhostBlue::Update()
 						new_direction_r = 1;
 						Isinmid = false;
 						speed = 1;
+						finish = true;
 					}
 				}
 			}
 			srand(time(NULL));
 			//RED
-			if (dead == true && Isinmid == true){
+			if (finish == false && Isinmid== true && dead == true){
+				if (time_blue < 800){
+					time_blue++;
+					position.x = 89;
+					position.y = 121;
+					
+				}
+				else if (time_blue == 800){
+					finish = true;
+				}
+			}
+			else if (dead == true && Isinmid == true && finish == true){
 				if (position.x <= 105){
 					position.x++;
 				}
@@ -525,6 +538,30 @@ update_status ModuleGhostBlue::Update()
 	{
 		App->render->Blit(graphics, position.x, position.y + 24 - r_b.h, &r_b);
 	}
+	if (App->player->isdead == true && finish == true){
+		position.x = 89;
+		position.y = 121;
+		finish == false;
+		dead = true;
+	
+		current_animation = &up_r;
+		GhostBlue_ispow = false;
+		dead_blue = false;
+		Isinmid = true;
+
+		collision_blue->SetPos(position.x + 2, position.y + 12);
+		ghost_up_r = false;
+		ghost_down_r = false;
+		ghost_left_r = false;
+		ghost_right_r = false;
+
+		can_right_r = false;
+		can_down_r = false;
+		can_left_r = false;
+		can_up_r = false;
+		
+	}
+
 	return UPDATE_CONTINUE;
 }
 

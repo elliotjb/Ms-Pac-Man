@@ -75,6 +75,7 @@ public:
 
 	void OnCollision(Collider* c1, Collider* c2);
 	bool dead_blue = false;
+	bool finish;
 
 	bool look_wherePacman;
 

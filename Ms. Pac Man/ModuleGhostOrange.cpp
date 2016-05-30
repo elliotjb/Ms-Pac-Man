@@ -31,6 +31,7 @@ ModuleGhostOrange::ModuleGhostOrange()
 	t = 1;
 	i = 0;
 	
+	
 	position_blue.x = 121;
 	position_blue.y = 121;
 
@@ -49,6 +50,7 @@ bool ModuleGhostOrange::Start()
 	bool ret = true;
 	graphics = App->textures->Load("MsPacMan_Sprites.png"); // Sprites
 	dead = false;
+	finish = false;
 	new_direction_b = 0;
 	collision_blue = App->collision->AddCollider({ 50, 50, 10, 10 }, COLLIDER_ENEMY, this);
 	srand(time(NULL));
@@ -133,6 +135,7 @@ update_status ModuleGhostOrange::Update()
 					{
 						new_direction_b = 1;
 						Isinmid = false;
+						finish = true;
 					}
 				}
 			}
@@ -149,6 +152,7 @@ update_status ModuleGhostOrange::Update()
 						new_direction_b = 1;
 						Isinmid = false;
 						speed = 1;
+					
 					}
 				}
 			}
@@ -520,7 +524,32 @@ update_status ModuleGhostOrange::Update()
 			}
 
 		}
+		if (App->player->isdead == true && finish == true){
+			position_blue.x = 121;
+			position_blue.y = 121;
 
+			new_direction_b = 0;
+			animation_blue = &up_b;
+			GhostBlue_ispow = false;
+			dead_blue = false;
+			dead = true;
+			Isinmid = true;
+
+			collision_blue->SetPos(position_blue.x + 2, position_blue.y + 12);
+			ghost_up_blue = false;
+			ghost_down_blue = false;
+			ghost_left_blue = false;
+			ghost_right_blue = false;
+
+			can_right_b = false;
+			can_down_b = false;
+			can_left_b = false;
+			can_up_b = false;
+			finish == false;
+
+		
+		
+		}
 		return UPDATE_CONTINUE;
 	}
 }
@@ -528,7 +557,7 @@ update_status ModuleGhostOrange::Update()
 void ModuleGhostOrange::OnCollision(Collider* c1, Collider* c2){
 
 	if (c1 == collision_blue && c2->type == COLLIDER_PLAYER && App->player->superpower == true ||
-		c1 == collision_blue && c2->type == COLLIDER_PLAYER && App->player->SUPER_GOD == true)
+		c1 == collision_blue && c2->type == COLLIDER_PLAYER && App->player->SUPER_GOD == true )
 	{
 		
 		position_blue.x = 121;

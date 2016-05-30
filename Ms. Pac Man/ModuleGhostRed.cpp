@@ -48,6 +48,7 @@ bool ModuleGhostRed::Start()
 	position.y = 99;
 	superfristmoviment = false;
 	dead = false;
+	finish = false;
 	//red
 	collision = App->collision->AddCollider({ 0, 0, 10, 10 }, COLLIDER_ENEMY, this);
 	new_direction_r = 1;
@@ -60,6 +61,7 @@ update_status ModuleGhostRed::Update()
 
 	if (App->player->time_to_start > 240)
 	{
+		finish = true;
 		if (App->player->stop >= 50)
 		{
 			srand(time(NULL));
@@ -567,6 +569,28 @@ update_status ModuleGhostRed::Update()
 			App->render->Blit(graphics, position.x, position.y + 24 - r_r.h, &r_r);
 		}
 	}
+	if (App->player->isdead == true && finish == true){
+		position.x = 105;
+		position.y = 121;
+		dead = true;
+		new_direction_r = 1;
+		current_animation = &left_r;
+		GhostBlue_ispow = false;
+
+		ghost_up_r = false;
+		ghost_down_r = false;
+		ghost_left_r = false;
+		ghost_right_r = false;
+
+		collision->SetPos(position.x + 2, position.y + 12);
+		can_right_r = false;
+		can_down_r = false;
+		can_left_r = false;
+		can_up_r = false;
+
+		
+	
+	}
 	
 
 	return UPDATE_CONTINUE;
@@ -575,7 +599,7 @@ update_status ModuleGhostRed::Update()
 void ModuleGhostRed::OnCollision(Collider* c1, Collider* c2)
 {
 	if (c1 == collision && c2->type == COLLIDER_PLAYER && App->player->superpower == true ||
-		c1 == collision && c2->type == COLLIDER_PLAYER && App->player->SUPER_GOD == true)
+		c1 == collision && c2->type == COLLIDER_PLAYER && App->player->SUPER_GOD == true )
 	{
 		
 		position.x = 105;		
