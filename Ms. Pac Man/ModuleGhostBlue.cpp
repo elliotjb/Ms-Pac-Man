@@ -7,7 +7,6 @@
 #include "ModuleGhostBlue.h"
 #include "ModuleCollision.h"
 #include "ModuleLevel_1.h"
-#include "ModuleScore.h"
 #include <cmath>
 
 ModuleGhostBlue::ModuleGhostBlue()
@@ -31,7 +30,6 @@ ModuleGhostBlue::ModuleGhostBlue()
 	superpow_combination.speed = 0.05f;
 
 	superpow_blue = { 585, 65, 14, 14 };
-	puntuation = { 456, 133, 15, 7 };
 	a = 0;
 	t = 1;
 
@@ -56,6 +54,7 @@ bool ModuleGhostBlue::Start()
 	graphics = App->textures->Load("MsPacMan_Sprites.png"); // Sprites
 	speed = 0;
 	dead = false;
+	m = false;
 	finish = false;
 	new_direction_r = 0;
 	collision_blue = App->collision->AddCollider({ 50, 50, 10, 10 }, COLLIDER_ENEMY, this);
@@ -70,19 +69,27 @@ update_status ModuleGhostBlue::Update()
 	{
 		if (App->player->stop >= 50)
 		{
-			if (time_blue < 580 && Isinmid == true && dead == false)
+			if (time_blue < 130 && Isinmid == true && dead == false)
 			{
 				time_blue++;
 				
-				if (i == 0 ) {				
-					position.y = 118;	
+				if (i == 0 ) {
+					
+					position.y = 118;
+	
+
+				}
+				
+				else if (i == 4) {
+
+					position.y = 120;
+				
+
 				}
 			
-				else if (i == 4) {
-					position.y = 120;	
-				}	
 				else if (i == 8 ) {
 					position.y = 122;
+
 
 				}
 			
@@ -140,7 +147,7 @@ update_status ModuleGhostBlue::Update()
 				time_blue = 0;
 			}
 
-			if (Isinmid == true && time_blue > 579 && dead == false )
+			if (Isinmid == true && time_blue > 129 && dead == false )
 			{
 				if (position.x <= 105 && Isinmid == true){
 					position.x++;
@@ -158,18 +165,24 @@ update_status ModuleGhostBlue::Update()
 			}
 			srand(time(NULL));
 			//RED
-			if (finish == false && Isinmid== true && dead == true){
-				if (time_blue < 800){
-					time_blue++;
-					position.x = 89;
-					position.y = 121;
-					
+			if (dead == true && Isinmid == true && finish == true && m == false){
+				dead = false;
+				if (position.x <= 105){
+					position.x++;
 				}
-				else if (time_blue == 800){
-					finish = true;
+				else if (position.x >= 104){
+
+					position.y--;
+					if (position.y == 99){
+						dead = false;
+						new_direction_r = 1;
+						Isinmid = false;
+						speed = 1;
+					}
+
 				}
 			}
-			else if (dead == true && Isinmid == true && finish == true){
+			if (dead == true && Isinmid == true && finish == true && m == true){
 				if (position.x <= 105){
 					position.x++;
 				}
@@ -535,7 +548,7 @@ update_status ModuleGhostBlue::Update()
 	if (App->player->isdead == true && finish == true){
 		position.x = 89;
 		position.y = 121;
-		finish == false;
+		m = false;
 		dead = true;
 	
 		current_animation = &up_r;
@@ -565,17 +578,15 @@ void ModuleGhostBlue::OnCollision(Collider* c1, Collider* c2)
 	if (c1 == collision_blue && c2->type == COLLIDER_PLAYER && App->player->superpower == true ||
 		c1 == collision_blue && c2->type == COLLIDER_PLAYER && App->player->SUPER_GOD == true)
 	{
-		App->render->Blit(graphics, position.x, position.y, &puntuation);
-
 		position.x = 89;
 		position.y = 121;
 		dead = true;
 		new_direction_r = 0;
 		current_animation = &up_r;
 		GhostBlue_ispow = false;
-		App->score->puntuation += 200;
 		dead_blue = false;
 		Isinmid = true;
+		m = true;
 
 		collision_blue->SetPos(position.x + 2, position.y + 12);
 		ghost_up_r = false;

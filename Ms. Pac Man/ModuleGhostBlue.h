@@ -50,6 +50,7 @@ public:
 	int left_x_r;
 	int right_x_r;
 	int center_x_r;
+	int r;
 
 	int up_y_r;
 	int down_y_r;
@@ -78,7 +79,7 @@ public:
 	void OnCollision(Collider* c1, Collider* c2);
 	bool dead_blue = false;
 	bool finish;
-
+	bool m;
 	bool look_wherePacman;
 
 	int isleft;

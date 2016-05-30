@@ -7,7 +7,6 @@
 #include "ModuleGhostOrange.h"
 #include "ModuleCollision.h"
 #include "ModuleLevel_1.h"
-#include "ModuleScore.h"
 
 ModuleGhostOrange::ModuleGhostOrange()
 {
@@ -31,7 +30,7 @@ ModuleGhostOrange::ModuleGhostOrange()
 	superpow_blue = { 585, 65, 14, 14 };
 	t = 1;
 	i = 0;
-	puntuation = { 456, 133, 15, 7 };
+	
 	
 	position_blue.x = 121;
 	position_blue.y = 121;
@@ -51,9 +50,9 @@ bool ModuleGhostOrange::Start()
 	bool ret = true;
 	graphics = App->textures->Load("MsPacMan_Sprites.png"); // Sprites
 	dead = false;
+	m = false;
 	finish = false;
 	new_direction_b = 0;
-	super = false;
 	collision_blue = App->collision->AddCollider({ 50, 50, 10, 10 }, COLLIDER_ENEMY, this);
 	srand(time(NULL));
 	return ret;
@@ -70,7 +69,7 @@ update_status ModuleGhostOrange::Update()
 
 			int speed = 1;
 			//BLUE
-			if (time_blue < 1100 && Isinmid == true && dead== false)
+			if (time_blue < 200 && Isinmid == true && dead== false)
 			{
 				time_blue++;
 				if (i == 0) {
@@ -126,7 +125,7 @@ update_status ModuleGhostOrange::Update()
 				time_blue = 0;
 			}
 
-			if (Isinmid == true && time_blue > 1099 && dead == false)
+			if (Isinmid == true && time_blue > 199 && dead == false)
 			{
 				if (position_blue.x >= 105 && Isinmid == true){
 					position_blue.x--;
@@ -141,7 +140,9 @@ update_status ModuleGhostOrange::Update()
 					}
 				}
 			}
-			if (dead == true && Isinmid == true){
+			
+			if (dead == true && Isinmid == true && finish == true && m==false){
+				dead = false;
 				if (position_blue.x >= 105){
 					position_blue.x--;
 				}
@@ -155,6 +156,23 @@ update_status ModuleGhostOrange::Update()
 						Isinmid = false;
 						speed = 1;
 					
+					}
+				}
+			}
+			if (dead == true && Isinmid == true && finish == true && m == true){
+				if (position_blue.x >= 105){
+					position_blue.x--;
+				}
+				else if (position_blue.x <= 104){
+					position_blue.y--;
+
+					if (position_blue.y == 99){
+
+						dead = false;
+						new_direction_b = 1;
+						Isinmid = false;
+						speed = 1;
+
 					}
 				}
 			}
@@ -493,11 +511,11 @@ update_status ModuleGhostOrange::Update()
 
 			collision_blue->SetPos(position_blue.x + 2, position_blue.y + 12);
 
-			if (super == true && App->player->timer < 5)
+			if (App->player->superpower == true && App->player->timer < 5)
 			{
 				GhostBlue_ispow = true;
 			}
-			if (super == false)
+			if (App->player->superpower == false)
 			{
 				GhostBlue_ispow = false;
 			}
@@ -529,12 +547,12 @@ update_status ModuleGhostOrange::Update()
 		if (App->player->isdead == true && finish == true){
 			position_blue.x = 121;
 			position_blue.y = 121;
-
+			m = false;
 			new_direction_b = 0;
 			animation_blue = &up_b;
 			GhostBlue_ispow = false;
 			dead_blue = false;
-			dead = true;
+			dead = false;
 			Isinmid = true;
 
 			collision_blue->SetPos(position_blue.x + 2, position_blue.y + 12);
@@ -561,8 +579,7 @@ void ModuleGhostOrange::OnCollision(Collider* c1, Collider* c2){
 	if (c1 == collision_blue && c2->type == COLLIDER_PLAYER && App->player->superpower == true ||
 		c1 == collision_blue && c2->type == COLLIDER_PLAYER && App->player->SUPER_GOD == true )
 	{
-		App->render->Blit(graphics, position_blue.x, position_blue.y, &puntuation);
-
+		
 		position_blue.x = 121;
 		position_blue.y = 121;
 		
@@ -572,7 +589,7 @@ void ModuleGhostOrange::OnCollision(Collider* c1, Collider* c2){
 		dead_blue = false;
 		dead = true;
 		Isinmid = true;
-		App->score->puntuation += 200;
+		m = true;
 
 		collision_blue->SetPos(position_blue.x + 2, position_blue.y + 12);
 		ghost_up_blue = false;

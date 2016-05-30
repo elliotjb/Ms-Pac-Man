@@ -57,7 +57,7 @@ public:
 	bool can_down_b = false;
 	bool can_left_b = false;
 	bool can_up_b = false;
-
+	bool m;
 	bool change_com_b = false;
 	bool change_direction_blue;
 	bool dead;
