@@ -55,17 +55,17 @@ public:
 	int right_y_r;
 	int center_y_r;
 
-	int new_direction_r = 1; // 0-w 1-a 2-s 3-d
+	int new_direction_r; // 0-w 1-a 2-s 3-d
 
-	bool ghost_up_r = false;
-	bool ghost_down_r = false;
-	bool ghost_left_r = false;
-	bool ghost_right_r = false;
+	bool ghost_up_r ;
+	bool ghost_down_r ;
+	bool ghost_left_r ;
+	bool ghost_right_r ;
 
-	bool can_right_r = false;
-	bool can_down_r = false;
-	bool can_left_r = false;
-	bool can_up_r = false;
+	bool can_right_r ;
+	bool can_down_r ;
+	bool can_left_r ;
+	bool can_up_r ;
 
 	bool change_comp_r = false;
 	bool change_direction_r;
@@ -76,6 +76,7 @@ public:
 	int isup;
 	int isdown;
 	int time_blue;
+	int s;
 	bool finish;
 	bool dead;
 

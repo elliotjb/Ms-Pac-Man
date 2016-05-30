@@ -60,26 +60,27 @@ public:
 
 	int speed = 0;
 
-	int new_direction_r = 1; // 0-w 1-a 2-s 3-d
+	int new_direction_r; // 0-w 1-a 2-s 3-d
 
-	bool ghost_up_r = false;
-	bool ghost_down_r = false;
-	bool ghost_left_r = false;
-	bool ghost_right_r = false;
+	bool ghost_up_r ;
+	bool ghost_down_r ;
+	bool ghost_left_r ;
+	bool ghost_right_r ;
 
-	bool can_right_r = false;
-	bool can_down_r = false;
-	bool can_left_r = false;
-	bool can_up_r = false;
+	bool can_right_r;
+	bool can_down_r ;
+	bool can_left_r ;
+	bool can_up_r ;
 
 	bool change_comp_r = false;
 	bool change_direction_r;
 	bool GhostBlue_ispow = false;
 
 	void OnCollision(Collider* c1, Collider* c2);
-	bool dead_blue = false;
+	bool dead_blue ;
 	bool finish;
 	bool m;
+	int s;
 	bool look_wherePacman;
 
 	int isleft;

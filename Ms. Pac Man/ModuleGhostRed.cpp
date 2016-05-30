@@ -8,6 +8,7 @@
 #include "ModuleCollision.h"
 #include "ModuleLevel_1.h"
 #include "ModuleScore.h"
+#include "ModuleSound.h"
 #include <cmath>
 
 ModuleGhostRed::ModuleGhostRed()
@@ -47,14 +48,30 @@ bool ModuleGhostRed::Start()
 	Time_change_direction = 0;
 	position.x = 105;
 	position.y = 99;
+	s = 0;
 	superfristmoviment = false;
 	dead = false;
 	finish = false;
 	super = false;
+	int new_direction_r=0;
+
+ghost_up_r = false;
+ghost_down_r = false;
+ ghost_left_r = false;
+ghost_right_r = false;
+
+ can_right_r = false;
+can_down_r = false;
+can_left_r = false;
+can_up_r = false;
 	//red
 	collision = App->collision->AddCollider({ 0, 0, 10, 10 }, COLLIDER_ENEMY, this);
 	new_direction_r = 1;
 	return ret;
+}
+bool ModuleGhostRed::CleanUp(){
+	App->textures->Unload(graphics);
+		return true;
 }
 
 // Update
@@ -72,6 +89,10 @@ update_status ModuleGhostRed::Update()
 			//checking possibilities
 
 			//right
+			if (s < 600){
+				new_direction_r = 0;
+				s++;
+			}
 			if (App->level1->map[right_y_r][right_x_r + 1] != 0)
 			{
 				if ((position.x + 7) == (center_x_r * 8) + 4 && (position.y - 7) == (center_y_r * 8) + 4) can_right_r = true;
@@ -619,6 +640,7 @@ void ModuleGhostRed::OnCollision(Collider* c1, Collider* c2)
 		ghost_left_r = false;
 		ghost_right_r = false;
 		App->score->puntuation += 200;
+		Mix_PlayChannel(-1, App->sound->sound_mov, 0);
 
 		collision->SetPos(position.x + 2, position.y + 12);
 		can_right_r = false;

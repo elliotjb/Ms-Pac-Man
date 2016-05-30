@@ -55,13 +55,27 @@ bool ModuleGhostBlue::Start()
 	speed = 0;
 	dead = false;
 	m = false;
+	ghost_up_r = false;
+	ghost_down_r = false;
+	ghost_left_r = false;
+	ghost_right_r = false;
+
+	can_right_r = false;
+	can_down_r = false;
+	 can_left_r = false;
+	 can_up_r = false;
+	 dead_blue = false;
+	 new_direction_r = 0;
 	finish = false;
 	new_direction_r = 0;
 	collision_blue = App->collision->AddCollider({ 50, 50, 10, 10 }, COLLIDER_ENEMY, this);
 	srand(time(NULL));
 	return ret;
 }
-
+bool ModuleGhostRed::CleanUp(){
+	App->textures->Unload(graphics);
+	return true;
+}
 // Update
 update_status ModuleGhostBlue::Update()
 {
