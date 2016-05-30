@@ -230,19 +230,20 @@ update_status ModuleLevel3::Update()
 
 	//win condition
 	if (App->player->playerlives == 0){
-		if (App->player->t < 160){
+		if (App->player->t < 160)
+		{
 
 			App->ghost_b->Disable();
 			App->ghost_r->Disable();
 			App->ghost_o->Disable();
 			App->ghost_p->Disable();
-
-
 		}
-		else if (App->player->t == 160){
+		else if (App->player->t == 160)
+		{
 			App->collision->Disable();
 			App->level3->Disable();
 			App->player->Disable();
+			App->score->puntuation = 0;
 			App->fade->FadeToBlack(this, (Module*)App->win, 2.0f);
 		}
 		App->player->t++;

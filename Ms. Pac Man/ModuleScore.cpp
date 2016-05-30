@@ -16,9 +16,15 @@
 
 ModuleScore::ModuleScore()
 {
+	test0 = { 3, 4, 7, 10 };
 	test = { 3, 4, 7, 10 };
 	test2 = { 3, 4, 7, 10 };
 	test3 = { 3, 4, 7, 10 };
+
+	MAX_test0 = { 3, 4, 7, 10 };
+	MAX_test = { 3, 4, 7, 10 };
+	MAX_test2 = { 3, 4, 7, 10 };
+	MAX_test3 = { 3, 4, 7, 10 };
 }
 
 ModuleScore::~ModuleScore()
@@ -35,13 +41,26 @@ bool ModuleScore::Start()
 	number_pos2 = 0;
 	number_pos3 = 0;
 	puntuation = 0;
+	MAX_puntuation = 0;
 	return ret;
 }
 
 // Update: draw background
 update_status ModuleScore::Update()
 {
+	if (puntuation >= MAX_puntuation)
+	{
+		MAX_puntuation = puntuation;
+	}
 	int j = 0;
+	if (puntuation == 0)
+	{
+		test0 = { 3, 4, 7, 10 };
+		test = { 3, 4, 7, 10 };
+		test2 = { 3, 4, 7, 10 };
+		test3 = { 3, 4, 7, 10 };
+	}
+
 	if (puntuation <= 90)
 	{
 		for (int i = 0; i <= puntuation; i += 10)
@@ -50,6 +69,10 @@ update_status ModuleScore::Update()
 			{
 				j = i + 3;
 				test = { j, 4, 7, 10 };
+				if (puntuation >= MAX_puntuation)
+				{
+					MAX_test = { j, 4, 7, 10 };
+				}
 			}
 		}
 	}
@@ -64,6 +87,10 @@ update_status ModuleScore::Update()
 			{
 				j = (i * 10) + 3;
 				test2 = { j, 4, 7, 10 };
+				if (puntuation >= MAX_puntuation)
+				{
+					MAX_test2 = { j, 4, 7, 10 };
+				}
 			}
 		}
 		number_pos1 = puntuation - (number_pos2 * 100);
@@ -73,6 +100,10 @@ update_status ModuleScore::Update()
 			{
 				j = i + 3;
 				test = { j, 4, 7, 10 };
+				if (puntuation >= MAX_puntuation)
+				{
+					MAX_test = { j, 4, 7, 10 };
+				}
 			}
 		}
 	}
@@ -89,6 +120,10 @@ update_status ModuleScore::Update()
 			{
 				j = (i * 10) + 3;
 				test3 = { j, 4, 7, 10 };
+				if (puntuation >= MAX_puntuation)
+				{
+					MAX_test3 = { j, 4, 7, 10 };
+				}
 			}
 		}
 		for (int i = 0; i <= (number_pos2 /100); i++)
@@ -97,6 +132,10 @@ update_status ModuleScore::Update()
 			{
 				j = (i * 10) + 3;
 				test2 = { j, 4, 7, 10 };
+				if (puntuation >= MAX_puntuation)
+				{
+					MAX_test2 = { j, 4, 7, 10 };
+				}
 			}
 		}
 		for (int i = 0; i <= number_pos1; i += 10)
@@ -105,6 +144,10 @@ update_status ModuleScore::Update()
 			{
 				j = i + 3;
 				test = { j, 4, 7, 10 };
+				if (puntuation >= MAX_puntuation)
+				{
+					MAX_test = { j, 4, 7, 10 };
+				}
 			}
 		}
 	}
@@ -112,6 +155,12 @@ update_status ModuleScore::Update()
 	App->render->Blit(graphics, 25, 9, &test3);
 	App->render->Blit(graphics, 33, 9, &test2);
 	App->render->Blit(graphics, 41, 9, &test);
+	App->render->Blit(graphics, 49, 9, &test0);
+
+	App->render->Blit(graphics, 105, 9, &MAX_test3);
+	App->render->Blit(graphics, 113, 9, &MAX_test2);
+	App->render->Blit(graphics, 121, 9, &MAX_test);
+	App->render->Blit(graphics, 129, 9, &MAX_test0);
 
 
 

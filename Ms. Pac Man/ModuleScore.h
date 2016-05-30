@@ -20,9 +20,16 @@ public:
 public:
 
 	SDL_Texture* graphics = nullptr;
+	SDL_Rect test0;
 	SDL_Rect test;
 	SDL_Rect test2;
 	SDL_Rect test3;
+
+	SDL_Rect MAX_test0;
+	SDL_Rect MAX_test;
+	SDL_Rect MAX_test2;
+	SDL_Rect MAX_test3;
+
 
 	int number_pos1;
 	int number_pos2;
@@ -30,6 +37,7 @@ public:
 	int number_pos4;
 
 	int puntuation;
+	int MAX_puntuation;
 
 
 

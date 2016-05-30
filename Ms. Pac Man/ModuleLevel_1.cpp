@@ -235,6 +235,7 @@ update_status ModuleLevel1::Update()
 			App->collision->Disable();
 			App->level1->Disable();
 			App->player->Disable();
+			App->score->puntuation = 0;
 			App->fade->FadeToBlack(this, (Module*)App->win, 2.0f);
 		}
 		App->player->t++;
@@ -256,6 +257,8 @@ update_status ModuleLevel1::Update()
 	case 4:
 		map[App->player->center.y][App->player->center.x] = 5;
 		App->player->superpower = true;
+		App->ghost_o->super = true;
+		App->ghost_r->super = true;
 		App->score->puntuation += 50;
 		if (Mix_PlayChannel(-1, App->sound->eat_big_pills, 0))
 		{
