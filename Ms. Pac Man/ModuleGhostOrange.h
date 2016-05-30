@@ -71,6 +71,8 @@ public:
 	int i = 0;
 	int distance;
 	int t = 0;
+
+	bool super;
 };
 
 #endif

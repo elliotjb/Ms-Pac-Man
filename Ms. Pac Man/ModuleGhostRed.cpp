@@ -49,6 +49,7 @@ bool ModuleGhostRed::Start()
 	superfristmoviment = false;
 	dead = false;
 	finish = false;
+	super = false;
 	//red
 	collision = App->collision->AddCollider({ 0, 0, 10, 10 }, COLLIDER_ENEMY, this);
 	new_direction_r = 1;
@@ -113,7 +114,7 @@ update_status ModuleGhostRed::Update()
 			else change_direction_r = false;
 
 
-			if (change_direction_r && App->player->superpower == false)
+			if (change_direction_r && super == false)
 			{
 				look_wherePacman = true;
 				if (look_wherePacman)
@@ -255,7 +256,7 @@ update_status ModuleGhostRed::Update()
 				}
 			}
 
-			if (App->player->superpower == true)
+			if (super == true)
 			{
 				if (superfristmoviment == false)
 				{
@@ -401,11 +402,15 @@ update_status ModuleGhostRed::Update()
 			center_x_r = (position.x + 6) / PIX_TILE;
 			center_y_r = (position.y - 7) / PIX_TILE;
 
-			if (dead == true){
-				if (position.y > 99){
+			if (dead == true)
+			{
+				super = false;
+				if (position.y > 99)
+				{
 					position.y--;
 				}
-				else if (position.y = 99){
+				else if (position.y = 99)
+				{
 					dead = false;
 				}
 			}
@@ -536,11 +541,11 @@ update_status ModuleGhostRed::Update()
 
 
 	//EDIT FOR NEXT UPDATE!!! (Elliot)
-	if (App->player->superpower == true && App->player->timer < 5)
+	if (super == true && App->player->timer < 5)
 	{
 		GhostBlue_ispow = true;
 	}
-	if (App->player->superpower == false)
+	if (super == false)
 	{
 		GhostBlue_ispow = false;
 	}
@@ -598,7 +603,7 @@ update_status ModuleGhostRed::Update()
 
 void ModuleGhostRed::OnCollision(Collider* c1, Collider* c2)
 {
-	if (c1 == collision && c2->type == COLLIDER_PLAYER && App->player->superpower == true ||
+	if (c1 == collision && c2->type == COLLIDER_PLAYER && App->player->superpower == true && super == true ||
 		c1 == collision && c2->type == COLLIDER_PLAYER && App->player->SUPER_GOD == true )
 	{
 		
@@ -608,7 +613,6 @@ void ModuleGhostRed::OnCollision(Collider* c1, Collider* c2)
 		new_direction_r = 1;
 		current_animation = &left_r;
 		GhostBlue_ispow = false;
-
 		ghost_up_r = false;
 		ghost_down_r = false;
 		ghost_left_r = false;

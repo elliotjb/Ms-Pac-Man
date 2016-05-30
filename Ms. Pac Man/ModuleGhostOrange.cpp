@@ -52,6 +52,7 @@ bool ModuleGhostOrange::Start()
 	dead = false;
 	finish = false;
 	new_direction_b = 0;
+	super = false;
 	collision_blue = App->collision->AddCollider({ 50, 50, 10, 10 }, COLLIDER_ENEMY, this);
 	srand(time(NULL));
 	return ret;
@@ -491,11 +492,11 @@ update_status ModuleGhostOrange::Update()
 
 			collision_blue->SetPos(position_blue.x + 2, position_blue.y + 12);
 
-			if (App->player->superpower == true && App->player->timer < 5)
+			if (super == true && App->player->timer < 5)
 			{
 				GhostBlue_ispow = true;
 			}
-			if (App->player->superpower == false)
+			if (super == false)
 			{
 				GhostBlue_ispow = false;
 			}

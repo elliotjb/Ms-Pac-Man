@@ -77,6 +77,8 @@ public:
 	bool finish;
 	bool dead;
 
+	bool super;
+
 	bool superfristmoviment;
 
 	int Time_change_direction;

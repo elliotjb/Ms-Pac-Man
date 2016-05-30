@@ -69,6 +69,7 @@ public:
 	bool superpower;
 	int timer;
 	int t;
+	int timetorespawn;
 
 
 	void OnCollision(Collider* c1, Collider* c2);
