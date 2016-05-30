@@ -72,7 +72,7 @@ update_status ModuleCongratulation::Update()
 		if (App->input->keyboard[SDL_SCANCODE_1] == KEY_STATE::KEY_UP ||
 			App->input->keyboard[SDL_SCANCODE_SPACE] == KEY_STATE::KEY_UP)
 		{
-			App->fade->FadeToBlack(this, (Module*)App->level1, 1.0f);
+			App->fade->FadeToBlack(this, (Module*)App->level3, 1.0f);
 		}
 	}
 	p++;

@@ -4,7 +4,7 @@
 #include "ModuleInput.h"
 #include "ModuleRender.h"
 #include "ModulePlayer.h"
-#include "ModuleLevel_1.h"
+#include "ModuleLevel_3.h"
 #include "ModuleCollision.h"
 #include "ModuleGhostBlue.h"
 #include "ModuleFadeToBlack.h"
@@ -113,19 +113,19 @@ update_status ModulePlayer::Update()
 		center.x = (position.x + 6) / PIX_TILE;
 		center.y = (position.y - 7) / PIX_TILE;
 
-		if (App->input->keyboard[SDL_SCANCODE_W] == KEY_STATE::KEY_REPEAT)
+		if (App->input->keyboard[SDL_SCANCODE_W] == KEY_STATE::KEY_REPEAT &&  position.x < 210 && position.x > 0)
 		{
 			key_W = true; key_A = false; key_S = false; key_D = false;
 		}
-		if (App->input->keyboard[SDL_SCANCODE_A] == KEY_STATE::KEY_REPEAT)
+		if (App->input->keyboard[SDL_SCANCODE_A] == KEY_STATE::KEY_REPEAT &&  position.x < 220 && position.x > 0)
 		{
 			key_A = true; key_S = false; key_D = false; key_W = false;
 		}
-		if (App->input->keyboard[SDL_SCANCODE_S] == KEY_STATE::KEY_REPEAT)
+		if (App->input->keyboard[SDL_SCANCODE_S] == KEY_STATE::KEY_REPEAT &&  position.x < 210 && position.x > 0)
 		{
 			key_S = true; key_D = false; key_W = false; key_A = false;
 		}
-		if (App->input->keyboard[SDL_SCANCODE_D] == KEY_STATE::KEY_REPEAT)
+		if (App->input->keyboard[SDL_SCANCODE_D] == KEY_STATE::KEY_REPEAT &&  position.x < 220 && position.x > 0)
 		{
 			key_D = true; key_W = false; key_A = false; key_S = false;
 		}
@@ -150,7 +150,7 @@ update_status ModulePlayer::Update()
 
 		if (time_to_start > 240)
 		{
-			if (App->level1->map[direction_up.y - 1][direction_up.x] != 0)
+			if (App->level3->map[direction_up.y - 1][direction_up.x] != 0 && position.x < 210 && position.x > 0)
 			{
 				if (key_W == true)
 				{
@@ -175,7 +175,7 @@ update_status ModulePlayer::Update()
 				up.speed = 0.0f;
 			}
 
-			if (App->level1->map[direction_left.y][direction_left.x - 1] != 0 || position.x <= 0 || position.x >= 220 && position.x <= 239)
+			if (App->level3->map[direction_left.y][direction_left.x - 1] != 0 || position.x <= 0 || position.x >= 220 && position.x <= 239)
 			{
 				if (key_A == true)
 				{
@@ -204,7 +204,7 @@ update_status ModulePlayer::Update()
 				left.speed = 0.0f;
 			}
 
-			if (App->level1->map[direction_down.y + 1][direction_down.x] != 0)
+			if (App->level3->map[direction_down.y + 1][direction_down.x] != 0 && position.x < 210 && position.x > 0)
 			{
 				if (key_S == true)
 				{
@@ -229,7 +229,7 @@ update_status ModulePlayer::Update()
 				down.speed = 0.0f;
 			}
 
-			if (App->level1->map[direction_right.y][direction_right.x + 1] != 0 || position.x > 210)
+			if (App->level3->map[direction_right.y][direction_right.x + 1] != 0 || position.x > 210)
 			{
 				if (key_D == true)
 				{
@@ -307,35 +307,33 @@ update_status ModulePlayer::Update()
 			Mix_PlayChannel(-1, App->sound->eat_big_pills, 0);
 			isdead = false;
 		}
-			
-		if (playerlives == 2 ){
-			App->render->Blit(graphics, 49, 273, &square);
-		}
-		else if (playerlives == 1){
-			App->render->Blit(graphics, 33, 273, &square);
-			App->render->Blit(graphics, 49, 273, &square);
-		}
-		else if (playerlives == 0){
-			App->render->Blit(graphics, 17, 273, &square);
-			App->render->Blit(graphics, 33, 273, &square);
-			App->render->Blit(graphics, 49, 273, &square);
-		}
-		if (playerlives == 0){
-			direction = 0;
-			if (t < 160){
-				App->render->Blit(graphics, 72, 160, &lose);
-				current_animation = &dead;
-			}
-	
-		}
-
-
-	
-
 	}
 	if (stop < 51)
 	{
 		stop++;
+	}
+	if (playerlives == 2)
+	{
+		App->render->Blit(graphics, 49, 273, &square);
+	}
+	else if (playerlives == 1)
+	{
+		App->render->Blit(graphics, 33, 273, &square);
+		App->render->Blit(graphics, 49, 273, &square);
+	}
+	else if (playerlives == 0)
+	{
+		App->render->Blit(graphics, 17, 273, &square);
+		App->render->Blit(graphics, 33, 273, &square);
+		App->render->Blit(graphics, 49, 273, &square);
+	}
+	if (playerlives == 0){
+		direction = 0;
+		if (t < 160){
+			App->render->Blit(graphics, 72, 160, &lose);
+			current_animation = &dead;
+		}
+
 	}
 	return UPDATE_CONTINUE;
 }

@@ -19,10 +19,12 @@ ModuleLevel1::ModuleLevel1()
 {
 	//Welcome
 	level1 = { 0, 0, 224, 288 };
-	next = { 0, 0, 224, 288 };
-	next2 = { 0, 0, 224, 288 };
 	level1_2 = { 0, 272, 224, 16 };
 	level1_center = { 228, 0, 224, 288 };
+
+	next = { 0, 0, 224, 288 };
+	next2 = { 0, 0, 224, 288 };
+
 	pills = { 8, 8, 8, 8 };
 	blacksquare = { 79, 273, 13, 14 };
 
@@ -217,33 +219,8 @@ update_status ModuleLevel1::Update()
 
 	else if (App->player->time_to_start < 250 && App->player->time_to_start > 59)
 	{
-
 		App->player->time_to_start++;
-		/*App->ghost_b->Enable();
-		App->ghost_r->Enable();
-		App->ghost_o->Enable();
-		App->ghost_p->Enable();
-		App->collision->Enable();*/
-
-	
 	}
-	//printing lives
-	/*
-	if (App->player->playerlives == 3)
-	{
-		App->render->Blit(graphics, 65, 273, &blacksquare);
-	}
-	else if (App->player->playerlives == 2)
-	{
-		App->render->Blit(graphics, 65, 273, &blacksquare);
-		App->render->Blit(graphics, 49, 273, &blacksquare);
-	}
-	else if (App->player->playerlives == 1)
-	{
-		App->render->Blit(graphics, 65, 273, &blacksquare);
-		App->render->Blit(graphics, 49, 273, &blacksquare);
-		App->render->Blit(graphics, 33, 273, &blacksquare);
-	}*/
 	if (App->player->playerlives == 0){
 		if (App->player->t < 160 ){
 
@@ -301,8 +278,6 @@ update_status ModuleLevel1::Update()
 	
 		victory = true;
 	}
-
-	//App->render->Blit(graphics, 305, 136, &(water.GetCurrentFrame())); // water animation
 
 	if (victory || App->input->keyboard[SDL_SCANCODE_SPACE] == KEY_STATE::KEY_UP)
 	{
