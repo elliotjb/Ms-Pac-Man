@@ -51,13 +51,33 @@ bool ModuleGhostOrange::Start()
 	graphics = App->textures->Load("MsPacMan_Sprites.png"); // Sprites
 	dead = false;
 	m = false;
+	time_blue = 0;
+	Isinmid = true;
 	finish = false;
 	new_direction_b = 0;
+	change_b = 1;
+	change_com_b = false;
+	ghost_up_blue = false;
+	ghost_down_blue = false;
+	ghost_left_blue = false;
+	ghost_right_blue = false;
+	can_right_b = false;
+	can_down_b = false;
+	can_left_b = false;
+	can_up_b = false;
+	dead_blue = false;
+	i = 0;
+	t = 0;
+	GhostBlue_ispow = false;
 	collision_blue = App->collision->AddCollider({ 50, 50, 10, 10 }, COLLIDER_ENEMY, this);
 	srand(time(NULL));
 	return ret;
 }
 
+bool ModuleGhostOrange::CleanUp()
+{
+	App->textures->Unload(graphics);
+}
 // Update
 update_status ModuleGhostOrange::Update()
 {

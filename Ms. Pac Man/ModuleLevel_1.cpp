@@ -166,12 +166,7 @@ bool ModuleLevel1::Start()
 bool ModuleLevel1::CleanUp()
 {
 	LOG("Unloading Level1 stage");
-	/*App->ghost_o->CleanUp();
-	App->ghost_p->CleanUp();
-	App->ghost_b->CleanUp();
-	App->ghost_r->CleanUp();
-	App->player->CleanUp();
-	App->collision->CleanUp();*/
+
 	return true;
 }
 

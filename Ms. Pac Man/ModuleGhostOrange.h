@@ -18,6 +18,7 @@ public:
 
 	bool Start();
 	update_status Update();
+	bool CleanUp();
 
 public:
 
@@ -45,33 +46,33 @@ public:
 	iPoint down_blue;
 	iPoint center_blue;
 
-	int change_b = 1;
-	int new_direction_b = 1; // 0-w 1-a 2-s 3-d
+	int change_b;
+	int new_direction_b; // 0-w 1-a 2-s 3-d
 
-	bool ghost_up_blue = false;
-	bool ghost_down_blue = false;
-	bool ghost_left_blue = false;
-	bool ghost_right_blue = false;
+	bool ghost_up_blue;
+	bool ghost_down_blue;
+	bool ghost_left_blue;
+	bool ghost_right_blue;
 
-	bool can_right_b = false;
-	bool can_down_b = false;
-	bool can_left_b = false;
-	bool can_up_b = false;
+	bool can_right_b;
+	bool can_down_b;
+	bool can_left_b;
+	bool can_up_b;
 	bool m;
-	bool change_com_b = false;
+	bool change_com_b;
 	bool change_direction_blue;
 	bool dead;
 	bool finish;
 
 	void OnCollision(Collider* c1, Collider* c2);
-	bool dead_blue = false;
-	bool GhostBlue_ispow = false;
+	bool dead_blue;
+	bool GhostBlue_ispow;
 
-	bool Isinmid = true;
-	int time_blue = 0;
-	int i = 0;
+	bool Isinmid;
+	int time_blue;
+	int i;
 	int distance;
-	int t = 0;
+	int t;
 
 	bool super;
 };
