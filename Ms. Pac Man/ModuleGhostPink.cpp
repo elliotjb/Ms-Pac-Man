@@ -52,13 +52,8 @@ bool ModuleGhostPink::Start()
 	bool ret = true;
 	graphics = App->textures->Load("MsPacMan_Sprites.png"); // Sprites
 	test_num_UP.x = 0;
-	//test_num_DOWN.x = 0;
-	//test_num_LEFT.x = 0;
-	//test_num_RIGHT.x = 0;
 	test_num_UP.y = 0;
-	//test_num_DOWN.y = 0;
-	//test_num_LEFT.y = 0;
-	//test_num_RIGHT.y = 0;
+	super = false;
 	ghost_up_r = false;
 	ghost_down_r = false;
 	ghost_left_r = false;
@@ -240,7 +235,7 @@ update_status ModuleGhostPink::Update()
 			}
 
 			//
-			if (change_direction_r && App->player->superpower == false)
+			if (change_direction_r && super == false)
 			{
 				look_wherePacman = true;
 				if (look_wherePacman)
@@ -381,7 +376,7 @@ update_status ModuleGhostPink::Update()
 					look_wherePacman = false;
 				}
 			}
-			if (App->player->superpower == true)
+			if (super == true)
 			{
 				if (superfristmoviment == false)
 				{
@@ -402,7 +397,7 @@ update_status ModuleGhostPink::Update()
 						new_direction_b = 1; ghost_left_r = true; ghost_right_r = false; ghost_up_r = false; ghost_down_r = false;
 					}
 				}
-				if (change_direction_r && App->player->superpower == true && superfristmoviment == true)
+				if (change_direction_r && superfristmoviment == true)
 				{
 					isup = 0;
 					isdown = 0;
@@ -553,9 +548,6 @@ update_status ModuleGhostPink::Update()
 			{
 				up_b.speed = 0.0f;
 			}
-
-
-
 			if (App->level3->map[left_blue.y][left_blue.x - 1] != 0 || position_blue.x <= 0 || position_blue.x >= 220 && position_blue.x <= 239)
 			{
 				if (ghost_left_r)
@@ -651,11 +643,11 @@ update_status ModuleGhostPink::Update()
 
 			collision_blue->SetPos(position_blue.x + 2, position_blue.y + 12);
 
-			if (App->player->superpower == true && App->player->timer < 5)
+			if (super == true && App->player->timer < 5)
 			{
 				GhostBlue_ispow = true;
 			}
-			if (App->player->superpower == false)
+			if (super == false)
 			{
 				GhostBlue_ispow = false;
 			}
@@ -696,7 +688,7 @@ update_status ModuleGhostPink::Update()
 		animation_blue = &up_b;
 		GhostBlue_ispow = false;
 		dead_blue = false;
-
+		super = false;
 		collision_blue->SetPos(position_blue.x + 2, position_blue.y + 12);
 		ghost_up_r = false;
 		ghost_down_r = false;

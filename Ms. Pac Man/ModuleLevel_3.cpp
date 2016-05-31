@@ -218,6 +218,7 @@ update_status ModuleLevel3::Update()
 		App->player->superpower = true;
 		App->ghost_o->super = true;
 		App->ghost_r->super = true;
+		App->ghost_p->super = true;
 		App->score->puntuation += 50;
 		if (Mix_PlayChannel(-1, App->sound->eat_big_pills, 0))
 		{
@@ -257,7 +258,7 @@ update_status ModuleLevel3::Update()
 	//TODO, S'ha de ficar el so de moviment sense menjar!
 
 	//win condition
-	if (eatenpills == 12)
+	if (eatenpills == 224)
 	{
 
 		victory = true;

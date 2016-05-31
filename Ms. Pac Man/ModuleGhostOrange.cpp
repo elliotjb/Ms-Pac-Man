@@ -6,7 +6,8 @@
 #include "ModulePlayer.h"
 #include "ModuleGhostOrange.h"
 #include "ModuleCollision.h"
-#include "ModuleLevel_1.h"
+#include "ModuleLevel_3.h"
+#include "ModuleLevel_4.h"
 
 ModuleGhostOrange::ModuleGhostOrange()
 {
@@ -548,7 +549,7 @@ update_status ModuleGhostOrange::Update()
 			{
 				right_b.speed = 0.0f;
 			}
-			if (App->level1->map[right_blue.y][right_blue.x + 1] == 0)
+			if (map_ghost[right_blue.y][right_blue.x + 1] == 0)
 			{
 				can_right_b = false;
 			}

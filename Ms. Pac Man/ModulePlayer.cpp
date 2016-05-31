@@ -197,6 +197,7 @@ update_status ModulePlayer::Update()
 					}
 					if (direction == 0)
 					{
+
 						up.speed = 0.3f;
 						current_animation = &up;
 						position.y -= speed;

@@ -61,10 +61,10 @@ update_status ModuleCongratulation::Update()
 	if (p > 70 ){
 		App->render->Blit(graphics_2, 81, 280, &credit);
 	}
+	App->fade->FadeToBlack(this, (Module*)App->level3, 1.0f);
 	if (p > 70){
 		if (App->input->keyboard[SDL_SCANCODE_1] == KEY_STATE::KEY_UP ||
 			App->input->keyboard[SDL_SCANCODE_SPACE] == KEY_STATE::KEY_UP)
-			
 		{
 			App->fade->FadeToBlack(this, (Module*)App->level3, 1.0f);
 		}

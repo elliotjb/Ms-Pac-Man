@@ -70,7 +70,10 @@ public:
 	bool dead_blue;
 	bool GhostBlue_ispow;
 	bool look_wherePacman;
+
 	bool finish;
+
+	bool super;
 
 	bool Isinmid = true;
 	int time_blue;
