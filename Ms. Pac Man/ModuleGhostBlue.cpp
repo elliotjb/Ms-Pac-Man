@@ -34,6 +34,7 @@ ModuleGhostBlue::ModuleGhostBlue()
 	superpow_blue = { 585, 65, 14, 14 };
 	a = 0;
 	t = 1;
+	puntuation = { 456, 133, 15, 7 };
 
 
 	position.x = 89;
@@ -738,6 +739,7 @@ void ModuleGhostBlue::OnCollision(Collider* c1, Collider* c2)
 	if (c1 == collision_blue && c2->type == COLLIDER_PLAYER && App->player->superpower == true && super == true ||
 		c1 == collision_blue && c2->type == COLLIDER_PLAYER && App->player->SUPER_GOD == true)
 	{
+		App->render->Blit(graphics, position.x, position.y, &puntuation);
 		position.x = 89;
 		position.y = 121;
 		dead = true;

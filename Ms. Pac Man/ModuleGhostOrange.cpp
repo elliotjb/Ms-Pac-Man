@@ -24,6 +24,7 @@ ModuleGhostOrange::ModuleGhostOrange()
 	down_b.PushBack({ 553, 113, 14, 14 });
 	down_b.PushBack({ 569, 113, 14, 14 });
 	down_b.speed = 0.1f;
+	puntuation = { 456, 133, 15, 7 };
 
 	superpow_combination.PushBack({ 585, 65, 14, 14 });
 	superpow_combination.PushBack({ 617, 65, 14, 14 });
@@ -595,10 +596,11 @@ update_status ModuleGhostOrange::Update()
 			position_blue.y = 121;
 			m = false;
 			new_direction_b = 0;
+
 			animation_blue = &up_b;
 			GhostBlue_ispow = false;
 			dead_blue = false;
-			dead = false;
+			dead = true;
 			Isinmid = true;
 
 			collision_blue->SetPos(position_blue.x + 2, position_blue.y + 12);
@@ -625,7 +627,7 @@ void ModuleGhostOrange::OnCollision(Collider* c1, Collider* c2){
 	if (c1 == collision_blue && c2->type == COLLIDER_PLAYER && App->player->superpower == true && super == true ||
 		c1 == collision_blue && c2->type == COLLIDER_PLAYER && App->player->SUPER_GOD == true )
 	{
-		
+		App->render->Blit(graphics, position_blue.x, position_blue.y, &puntuation);
 		position_blue.x = 121;
 		position_blue.y = 121;
 		
