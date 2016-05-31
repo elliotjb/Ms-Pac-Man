@@ -55,7 +55,7 @@ Ms Pacman lives have been set to 3. If player loses all of them he will be sent 
 
 ##Group
 
-- (Leader) -> Elliot Jimenez https://github.com/elliotjb   
+- (Management) -> Elliot Jimenez https://github.com/elliotjb   
 - (Q&A) -> Arnau Morgado https://github.com/morgadoCV   
 - (Programmer) -> Albert Llopart https://github.com/albertllopart   
 - (Artist) -> Alfonso Sanchez https://github.com/AlfonsoSanchez   
