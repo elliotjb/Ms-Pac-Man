@@ -76,7 +76,6 @@ update_status ModuleScore::Update()
 		test2 = { 3, 4, 7, 10 };
 		test3 = { 3, 4, 7, 10 };
 		App->render->Blit(graphics, 49, 9, &test0);
-		App->render->Blit(graphics, 129, 9, &MAX_test0);
 	}
 
 	if (puntuation <= 90)
@@ -95,9 +94,6 @@ update_status ModuleScore::Update()
 		}
 		App->render->Blit(graphics, 41, 9, &test);
 		App->render->Blit(graphics, 49, 9, &test0);
-
-		App->render->Blit(graphics, 121, 9, &MAX_test);
-		App->render->Blit(graphics, 129, 9, &MAX_test0);
 	}
 
 	if (puntuation > 90 && puntuation <= 990)
@@ -132,10 +128,6 @@ update_status ModuleScore::Update()
 		App->render->Blit(graphics, 33, 9, &test2);
 		App->render->Blit(graphics, 41, 9, &test);
 		App->render->Blit(graphics, 49, 9, &test0);
-
-		App->render->Blit(graphics, 113, 9, &MAX_test2);
-		App->render->Blit(graphics, 121, 9, &MAX_test);
-		App->render->Blit(graphics, 129, 9, &MAX_test0);
 	}
 
 	if (puntuation > 990 && puntuation <= 9990)
@@ -184,12 +176,12 @@ update_status ModuleScore::Update()
 		App->render->Blit(graphics, 33, 9, &test2);
 		App->render->Blit(graphics, 41, 9, &test);
 		App->render->Blit(graphics, 49, 9, &test0);
-
-		App->render->Blit(graphics, 105, 9, &MAX_test3);
-		App->render->Blit(graphics, 113, 9, &MAX_test2);
-		App->render->Blit(graphics, 121, 9, &MAX_test);
-		App->render->Blit(graphics, 129, 9, &MAX_test0);
 	}
+
+	App->render->Blit(graphics, 105, 9, &MAX_test3);
+	App->render->Blit(graphics, 113, 9, &MAX_test2);
+	App->render->Blit(graphics, 121, 9, &MAX_test);
+	App->render->Blit(graphics, 129, 9, &MAX_test0);
 
 	if (App->win->issceen == true)
 	{
@@ -216,19 +208,19 @@ update_status ModuleScore::Update()
 		{
 			coins_test1 = { 3, 4, 7, 10 };
 			j = 0;
-			int number_pos2 = (NUM_coins / 10);
-			for (int i = 0; i <= number_pos2; i++)
+			int coin_number_pos2 = (NUM_coins / 10);
+			for (int i = 0; i <= coin_number_pos2; i++)
 			{
-				if (i == number_pos2)
+				if (i == coin_number_pos2)
 				{
 					j = (i * 10) + 3;
 					coins_test1 = { j, 4, 7, 10 };
 				}
 			}
-			number_pos1 = NUM_coins - (number_pos2 * 10);
-			for (int i = 0; i <= number_pos1; i += 1)
+			coin_number_pos1 = NUM_coins - (coin_number_pos2 * 10);
+			for (int i = 0; i <= coin_number_pos1; i += 1)
 			{
-				if (i == number_pos1)
+				if (i == coin_number_pos1)
 				{
 					j = 3 + 10 * i;
 					coins_test = { j, 4, 7, 10 };
@@ -237,8 +229,6 @@ update_status ModuleScore::Update()
 			App->render->Blit(graphics, 81, 280, &coins_test);
 			App->render->Blit(graphics, 73, 280, &coins_test1);
 		}
-
-
 	}
 
 

@@ -44,7 +44,6 @@ bool ModuleCongratulation::Start()
 	App->welcome->Disable();
 	App->level3->Disable();
 	App->level4->Disable();
-	App->score->Enable();
 	App->sound->Enable();
 	return ret;
 }
