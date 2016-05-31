@@ -73,6 +73,7 @@ public:
 	int i;
 	int distance;
 	int t;
+	int map_ghost[31][28];
 
 	bool super;
 };

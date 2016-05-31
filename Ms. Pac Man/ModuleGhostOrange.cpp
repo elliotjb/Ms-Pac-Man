@@ -71,6 +71,27 @@ bool ModuleGhostOrange::Start()
 	GhostBlue_ispow = false;
 	collision_blue = App->collision->AddCollider({ 50, 50, 10, 10 }, COLLIDER_ENEMY, this);
 	srand(time(NULL));
+	if (App->level3->islevel3)
+	{
+		for (int i = 0; i < 31; i++)
+		{
+			for (int j = 0; j < 28; j++)
+			{
+				map_ghost[i][j] = App->level3->map[i][j];
+			}
+		}
+	}
+
+	if (App->level4->islevel4)
+	{
+		for (int i = 0; i < 31; i++)
+		{
+			for (int j = 0; j < 28; j++)
+			{
+				map_ghost[i][j] = App->level4->map[i][j];
+			}
+		}
+	}
 	return ret;
 }
 
@@ -215,7 +236,7 @@ update_status ModuleGhostOrange::Update()
 			}*/
 
 			//lefy
-			if (App->level1->map[left_blue.y][left_blue.x - 1] != 0)
+			if (map_ghost[left_blue.y][left_blue.x - 1] != 0)
 			{
 				if ((position_blue.x + 7) == (center_blue.x * 8) + 4 &&
 					(position_blue.y - 7) == (center_blue.y * 8) + 4)
@@ -229,7 +250,7 @@ update_status ModuleGhostOrange::Update()
 			}
 
 			//up
-			if (App->level1->map[up_blue.y - 1][up_blue.x] != 0)
+			if (map_ghost[up_blue.y - 1][up_blue.x] != 0)
 			{
 				if ((position_blue.x + 7) == (center_blue.x * 8) + 4 &&
 					(position_blue.y - 7) == (center_blue.y * 8) + 4)
@@ -243,7 +264,7 @@ update_status ModuleGhostOrange::Update()
 			}
 
 			// down
-			if (App->level1->map[down_blue.y + 1][down_blue.x] != 0)
+			if (map_ghost[down_blue.y + 1][down_blue.x] != 0)
 			{
 				if ((position_blue.x + 7) == (center_blue.x * 8) + 4 &&
 					(position_blue.y - 7) == (center_blue.y * 8) + 4)
@@ -412,7 +433,7 @@ update_status ModuleGhostOrange::Update()
 
 
 			//decided direction
-			if (App->level1->map[up_blue.y - 1][up_blue.x] != 0)
+			if (map_ghost[up_blue.y - 1][up_blue.x] != 0)
 			{
 				if (ghost_up_blue)
 				{
@@ -439,7 +460,7 @@ update_status ModuleGhostOrange::Update()
 
 
 
-			if (App->level1->map[left_blue.y][left_blue.x - 1] != 0 || position_blue.x <= 0 || position_blue.x >= 220 && position_blue.x <= 239)
+			if (map_ghost[left_blue.y][left_blue.x - 1] != 0 || position_blue.x <= 0 || position_blue.x >= 220 && position_blue.x <= 239)
 			{
 				if (ghost_left_blue)
 				{
@@ -468,7 +489,7 @@ update_status ModuleGhostOrange::Update()
 				left_b.speed = 0.0f;
 			}
 
-			if (App->level1->map[down_blue.y + 1][down_blue.x] != 0)
+			if (map_ghost[down_blue.y + 1][down_blue.x] != 0)
 			{
 				if (ghost_down_blue)
 				{
@@ -493,7 +514,7 @@ update_status ModuleGhostOrange::Update()
 				down_b.speed = 0.0f;
 			}
 
-			if (App->level1->map[right_blue.y][right_blue.x + 1] != 0 || position_blue.x > 210)
+			if (map_ghost[right_blue.y][right_blue.x + 1] != 0 || position_blue.x > 210)
 			{
 				if ((position_blue.x + 7) == (center_blue.x * 8) + 4 &&
 					(position_blue.y - 7) == (center_blue.y * 8) + 4)

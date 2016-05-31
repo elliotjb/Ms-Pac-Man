@@ -6,7 +6,8 @@
 #include "ModulePlayer.h"
 #include "ModuleGhostBlue.h"
 #include "ModuleCollision.h"
-#include "ModuleLevel_1.h"
+#include "ModuleLevel_3.h"
+#include "ModuleLevel_4.h"
 #include <cmath>
 
 ModuleGhostBlue::ModuleGhostBlue()
@@ -74,6 +75,27 @@ bool ModuleGhostBlue::Start()
 	collision_blue = App->collision->AddCollider({ 50, 50, 10, 10 }, COLLIDER_ENEMY, this);
 	srand(time(NULL));
 	super = false;
+	if (App->level3->islevel3)
+	{
+		for (int i = 0; i < 31; i++)
+		{
+			for (int j = 0; j < 28; j++)
+			{
+				map_ghost[i][j] = App->level3->map[i][j];
+			}
+		}
+	}
+
+	if (App->level4->islevel4)
+	{
+		for (int i = 0; i < 31; i++)
+		{
+			for (int j = 0; j < 28; j++)
+			{
+				map_ghost[i][j] = App->level4->map[i][j];
+			}
+		}
+	}
 	return ret;
 }
 
@@ -221,28 +243,28 @@ update_status ModuleGhostBlue::Update()
 			//checking possibilities
 
 			//right
-			if (App->level1->map[right_y_r][right_x_r + 1] != 0)
+			if (map_ghost[right_y_r][right_x_r + 1] != 0)
 			{
 				if ((position.x + 7) == (center_x_r * 8) + 4 && (position.y - 7) == (center_y_r * 8) + 4) can_right_r = true;
 			}
 			else can_right_r = false;
 
 			//left
-			if (App->level1->map[left_y_r][left_x_r - 1] != 0)
+			if (map_ghost[left_y_r][left_x_r - 1] != 0)
 			{
 				if ((position.x + 7) == (center_x_r * 8) + 4 && (position.y - 7) == (center_y_r * 8) + 4) can_left_r = true;
 			}
 			else can_left_r = false;
 
 			//up
-			if (App->level1->map[up_y_r - 1][up_x_r] != 0)
+			if (map_ghost[up_y_r - 1][up_x_r] != 0)
 			{
 				if ((position.x + 7) == (center_x_r * 8) + 4 && (position.y - 7) == (center_y_r * 8) + 4) can_up_r = true;
 			}
 			else can_up_r = false;
 
 			// down
-			if (App->level1->map[down_y_r + 1][down_x_r] != 0)
+			if (map_ghost[down_y_r + 1][down_x_r] != 0)
 			{
 				if ((position.x + 7) == (center_x_r * 8) + 4 && (position.y - 7) == (center_y_r * 8) + 4) can_down_r = true;
 			}
@@ -533,7 +555,7 @@ update_status ModuleGhostBlue::Update()
 
 
 			//decided direction
-			if (App->level1->map[up_y_r - 1][up_x_r] == 3 || App->level1->map[up_y_r - 1][up_x_r] == 4 || App->level1->map[up_y_r - 1][up_x_r] == 5)
+			if (map_ghost[up_y_r - 1][up_x_r] == 3 || map_ghost[up_y_r - 1][up_x_r] == 4 || map_ghost[up_y_r - 1][up_x_r] == 5)
 			{
 				if (ghost_up_r)
 				{
@@ -558,7 +580,7 @@ update_status ModuleGhostBlue::Update()
 
 			}
 
-			if (App->level1->map[left_y_r][left_x_r - 1] == 3 || App->level1->map[left_y_r][left_x_r - 1] == 4 || App->level1->map[left_y_r][left_x_r - 1] == 5 || App->level1->map[left_y_r][left_x_r - 1] == 8 || position.x == 0)
+			if (map_ghost[left_y_r][left_x_r - 1] == 3 || map_ghost[left_y_r][left_x_r - 1] == 4 || map_ghost[left_y_r][left_x_r - 1] == 5 || map_ghost[left_y_r][left_x_r - 1] == 8 || position.x == 0)
 			{
 				if (ghost_left_r)
 				{
@@ -591,7 +613,7 @@ update_status ModuleGhostBlue::Update()
 				}
 			}
 
-			if (App->level1->map[down_y_r + 1][down_x_r] == 3 || App->level1->map[down_y_r + 1][down_x_r] == 4 || App->level1->map[down_y_r + 1][down_x_r] == 5)
+			if (map_ghost[down_y_r + 1][down_x_r] == 3 || map_ghost[down_y_r + 1][down_x_r] == 4 || map_ghost[down_y_r + 1][down_x_r] == 5)
 			{
 				if (ghost_down_r)
 				{
@@ -617,7 +639,7 @@ update_status ModuleGhostBlue::Update()
 
 			}
 
-			if (App->level1->map[right_y_r][right_x_r + 1] == 3 || App->level1->map[right_y_r][right_x_r + 1] == 5 || App->level1->map[right_y_r][right_x_r + 1] == 4 || App->level1->map[right_y_r][right_x_r + 1] == 9)
+			if (map_ghost[right_y_r][right_x_r + 1] == 3 || map_ghost[right_y_r][right_x_r + 1] == 5 || map_ghost[right_y_r][right_x_r + 1] == 4 || map_ghost[right_y_r][right_x_r + 1] == 9)
 			{
 				if (ghost_right_r)
 				{
@@ -640,7 +662,7 @@ update_status ModuleGhostBlue::Update()
 					right_r.speed = 0.0f;
 				}
 
-				if (App->level1->map[right_y_r][right_x_r + 1] == 9)
+				if (map_ghost[right_y_r][right_x_r + 1] == 9)
 				{
 
 					position.x -= 204;

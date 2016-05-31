@@ -60,7 +60,7 @@ public:
 	int center_y_r;
 
 	int speed;
-
+	int map_ghost[31][28];
 	int new_direction_r; // 0-w 1-a 2-s 3-d
 
 	bool ghost_up_r ;
