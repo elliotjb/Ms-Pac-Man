@@ -60,6 +60,7 @@ bool Application::Init()
 	level3->Disable();
 	level4->Disable();
 	win->Disable();
+	sound->Disable();
 
 	for (int i = 0; i < NUM_MODULES && ret == true; ++i)
 		ret = modules[i]->Init();

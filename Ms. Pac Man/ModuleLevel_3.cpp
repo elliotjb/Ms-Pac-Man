@@ -223,10 +223,6 @@ update_status ModuleLevel3::Update()
 		App->score->puntuation += 50;
 		if (Mix_PlayChannel(-1, App->sound->eat_big_pills, 0))
 		{
-			sound_big_pill = true;
-		}
-		else
-		{
 			sound_big_pill = false;
 		}
 		eatenpills++;

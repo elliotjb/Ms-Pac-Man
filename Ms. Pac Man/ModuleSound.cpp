@@ -22,6 +22,7 @@ bool ModuleSound::Init()
 	eat_ms = Mix_LoadWAV("Sounds/Sound_Moviment_with_Eatting_Coins.wav");
 	sound_mov = Mix_LoadWAV("Sounds/Sound_eat_ghost.wav");
 	sound_dead = Mix_LoadWAV("Sounds/Sound_Death.wav");
+	Insert_coin = Mix_LoadWAV("Sounds/Insert_coin.wav");
 
 	if ((init & flags) != flags)
 	{
@@ -43,6 +44,7 @@ bool ModuleSound::CleanUp()
 	Mix_FreeChunk(sound_mov);
 	Mix_FreeChunk(sound_dead);
 	Mix_FreeChunk(eat_big_pills);
+	Mix_FreeChunk(Insert_coin);
 	Mix_Quit();
 
 	return true;

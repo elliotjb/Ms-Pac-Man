@@ -37,6 +37,7 @@ public:
 	Mix_Chunk* eat_ms;
 	Mix_Chunk* sound_mov;
 	Mix_Chunk* sound_dead;
+	Mix_Chunk* Insert_coin;
 };
 
 #endif // __MODULESOUND_H__

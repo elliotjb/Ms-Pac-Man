@@ -11,6 +11,7 @@
 #include "ModuleLevel_3.h"
 #include "ModuleCollision.h"
 #include "ModuleScore.h"
+#include "ModuleSound.h"
 
 ModuleCongratulation::ModuleCongratulation()
 {
@@ -44,6 +45,7 @@ bool ModuleCongratulation::Start()
 	App->level3->Disable();
 	App->level4->Disable();
 	App->score->Enable();
+	App->sound->Enable();
 	return ret;
 }
 
@@ -65,6 +67,7 @@ update_status ModuleCongratulation::Update()
 
 	if (App->input->keyboard[SDL_SCANCODE_1] == KEY_STATE::KEY_UP)
 	{
+		Mix_PlayChannel(-1, App->sound->Insert_coin, 0);
 		App->score->NUM_coins++;
 	}
 
