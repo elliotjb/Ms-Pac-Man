@@ -198,9 +198,6 @@ update_status ModuleLevel4::Update()
 		App->player->time_to_start++;
 	}
 
-
-
-
 	else if (App->player->time_to_start < 250 && App->player->time_to_start > 59)
 	{
 
@@ -221,6 +218,10 @@ update_status ModuleLevel4::Update()
 	case 4:
 		map[App->player->center.y][App->player->center.x] = 5;
 		App->player->superpower = true;
+		App->ghost_o->super = true;
+		App->ghost_r->super = true;
+		App->ghost_p->super = true;
+		App->ghost_b->super = true;
 		App->score->puntuation += 50;
 		if (Mix_PlayChannel(-1, App->sound->eat_big_pills, 0))
 		{
