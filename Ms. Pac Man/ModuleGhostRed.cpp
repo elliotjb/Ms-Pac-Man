@@ -519,12 +519,9 @@ update_status ModuleGhostRed::Update()
 						left_r.speed = 0.0f;
 					}
 
-					if (position.x == 0)//tile[left_y][left_x-1] == 8)
+					if (position.x == -15 && new_direction_r == 1)
 					{
-						for (int i = 0; i >= 25; i++){
-							position.x--;
-						}
-						position.x += 204;
+						position.x = 239;
 					}
 				}
 
@@ -575,6 +572,11 @@ update_status ModuleGhostRed::Update()
 					else
 					{
 						right_r.speed = 0.0f;
+					}
+
+					if (position.x >= 239 && new_direction_r == 3)
+					{
+						position.x = -15;
 					}
 				}
 			}

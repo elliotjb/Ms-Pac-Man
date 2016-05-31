@@ -567,9 +567,9 @@ update_status ModuleGhostPink::Update()
 					animation_blue = &left_b;
 					position_blue.x -= speed;
 				}
-				if (position_blue.x == -10 && new_direction_b == 1)
+				if (position_blue.x == -15 && new_direction_b == 1)
 				{
-					position_blue.x = 220;
+					position_blue.x = 239;
 				}
 			}
 			else
@@ -627,9 +627,9 @@ update_status ModuleGhostPink::Update()
 					position_blue.x += speed;
 				}
 
-				if (position_blue.x >= 220 && new_direction_b == 3)
+				if (position_blue.x >= 239 && new_direction_b == 3)
 				{
-					position_blue.x = -10;
+					position_blue.x = -15;
 				}
 			}
 			else

@@ -314,6 +314,8 @@ update_status ModulePlayer::Update()
 			{
 				App->ghost_o->super = false;
 				App->ghost_r->super = false;
+				App->ghost_b->super = false;
+				App->ghost_p->super = false;
 			}
 			if (timer > 420)
 			{
