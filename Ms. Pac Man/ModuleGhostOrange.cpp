@@ -143,6 +143,7 @@ update_status ModuleGhostOrange::Update()
 			}
 			if (Isinmid == false)
 			{
+				time_blue = 240;
 			}
 
 			if (Isinmid == true && time_blue > 439 && dead == false)
