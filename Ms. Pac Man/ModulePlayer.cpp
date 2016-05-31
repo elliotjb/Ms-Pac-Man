@@ -198,7 +198,6 @@ update_status ModulePlayer::Update()
 					}
 					if (direction == 0)
 					{
-
 						up.speed = 0.3f;
 						current_animation = &up;
 						position.y -= speed;
@@ -326,12 +325,6 @@ update_status ModulePlayer::Update()
 			//Collision follow the Ms Pac Man
 			collision_player->SetPos(position.x + 3, position.y + 13);
 
-			// Draw everything --------------------------------------
-			SDL_Rect r = current_animation->GetCurrentFrame();
-
-			App->render->Blit(graphics, position.x, position.y + 24 - r.h, &r);
-
-
 			//Draw MODE GOD
 			if (GOD == true)
 			{
@@ -342,6 +335,7 @@ update_status ModulePlayer::Update()
 				App->render->Blit(graphics, 150, 13, &SUPER_Mode_GOD);
 			}
 		}
+
 		if (stop < 51)
 		{
 			stop++;
@@ -351,7 +345,7 @@ update_status ModulePlayer::Update()
 	if (isdead == true)
 	{
 		timetorespawn++;
-		if (timetorespawn < 160)
+		if (timetorespawn < 150)
 		{
 			current_animation = &dead;
 			SDL_Rect po = current_animation->GetCurrentFrame();
@@ -360,6 +354,11 @@ update_status ModulePlayer::Update()
 		}
 		else
 		{
+			// Draw everything --------------------------------------
+			current_animation = &left;
+			SDL_Rect r = current_animation->GetCurrentFrame();
+			App->render->Blit(graphics, position.x, position.y + 24 - r.h, &r);
+
 			position.x = 105;
 			position.y = 195;
 			stop = 0;
@@ -367,6 +366,15 @@ update_status ModulePlayer::Update()
 			isdead = false;
 		}
 	}
+	else
+	{
+		// Draw everything --------------------------------------
+		SDL_Rect r = current_animation->GetCurrentFrame();
+
+		App->render->Blit(graphics, position.x, position.y + 24 - r.h, &r);
+	}
+
+
 	if (playerlives == 2)
 	{
 		App->render->Blit(graphics, 49, 273, &square);
@@ -399,6 +407,36 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2)
 	if (c1 == collision_player && c2->type == COLLIDER_ENEMY && GOD == false && SUPER_GOD == false)
 	{
 		if (App->ghost_r->super == false)
+		{
+			current_animation = &left;
+			direction = 1;
+			Mix_PlayChannel(-1, App->sound->sound_dead, 0);
+			isdead = true;
+			key_A = false; key_S = false; key_D = false; key_W = false;
+			--playerlives;
+			collision_player->SetPos(105, 195 + 10);
+		}
+		if (App->ghost_b->super == false)
+		{
+			current_animation = &left;
+			direction = 1;
+			Mix_PlayChannel(-1, App->sound->sound_dead, 0);
+			isdead = true;
+			key_A = false; key_S = false; key_D = false; key_W = false;
+			--playerlives;
+			collision_player->SetPos(105, 195 + 10);
+		}
+		if (App->ghost_p->super == false)
+		{
+			current_animation = &left;
+			direction = 1;
+			Mix_PlayChannel(-1, App->sound->sound_dead, 0);
+			isdead = true;
+			key_A = false; key_S = false; key_D = false; key_W = false;
+			--playerlives;
+			collision_player->SetPos(105, 195 + 10);
+		}
+		if (App->ghost_o->super == false)
 		{
 			current_animation = &left;
 			direction = 1;

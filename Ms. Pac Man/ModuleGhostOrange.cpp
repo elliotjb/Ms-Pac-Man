@@ -628,9 +628,9 @@ void ModuleGhostOrange::OnCollision(Collider* c1, Collider* c2){
 		c1 == collision_blue && c2->type == COLLIDER_PLAYER && App->player->SUPER_GOD == true )
 	{
 		App->render->Blit(graphics, position_blue.x, position_blue.y, &puntuation);
+		super = false;
 		position_blue.x = 121;
 		position_blue.y = 121;
-		
 		new_direction_b = 0;
 		animation_blue = &up_b;
 		GhostBlue_ispow = false;
@@ -638,7 +638,6 @@ void ModuleGhostOrange::OnCollision(Collider* c1, Collider* c2){
 		dead = true;
 		Isinmid = true;
 		m = true;
-		super = false;
 		collision_blue->SetPos(position_blue.x + 2, position_blue.y + 12);
 		ghost_up_blue = false;
 		ghost_down_blue = false;
