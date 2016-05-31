@@ -30,13 +30,13 @@ public:
 	SDL_Rect next2;
 	SDL_Rect level3_center;
 	SDL_Rect pills;
-	Animation water;
 
 	int map[31][28];
 	int eatenpills;
 	int p;
 	bool victory;
 	bool sound_big_pill;
+	bool islevel3;
 
 };
 

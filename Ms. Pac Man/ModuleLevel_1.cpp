@@ -118,7 +118,6 @@ bool ModuleLevel1::Start()
 	App->ghost_o->Isinmid = true;
 	App->ghost_p->Isinmid = true;
 	App->collision->Enable();
-	App->score->Enable();
 
 	//orange
 
@@ -220,6 +219,7 @@ update_status ModuleLevel1::Update()
 	{
 		App->player->time_to_start++;
 	}
+
 	if (App->player->playerlives == 0){
 		if (App->player->t < 160 ){
 
@@ -227,12 +227,10 @@ update_status ModuleLevel1::Update()
 			App->ghost_r->Disable();
 			App->ghost_o->Disable();
 			App->ghost_p->Disable();
-			
-
 		}
 		else if (App->player->t == 160){
 			App->collision->Disable();
-			App->level1->Disable();
+			//App->level1->Disable();
 			App->player->Disable();
 			App->score->puntuation = 0;
 			App->fade->FadeToBlack(this, (Module*)App->win, 2.0f);
@@ -281,6 +279,7 @@ update_status ModuleLevel1::Update()
 
 	if (victory)
 	{
+
 		App->ghost_b->Disable();
 		App->ghost_r->Disable();
 		App->ghost_o->Disable();

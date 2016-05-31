@@ -40,6 +40,7 @@ bool ModuleCongratulation::Start()
 	graphics_2 = App->textures->Load("MsPacMan_Sprites.png");
 	App->welcome->Disable();
 	App->level1->Disable();
+	App->level3->Disable();
 	return ret;
 }
 

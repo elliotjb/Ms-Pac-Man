@@ -13,6 +13,7 @@
 #include "ModuleSound.h"
 #include "ModuleCollision.h"
 #include "ModuleScore.h"
+#include "ModuleLevel_4.h"
 
 ModuleLevel3::ModuleLevel3()
 {
@@ -79,7 +80,7 @@ bool ModuleLevel3::Start()
 			map[i][j] = tile[i][j];
 		}
 	}
-
+	islevel3 = true;
 
 	LOG("Loading background assets");
 
@@ -150,7 +151,6 @@ bool ModuleLevel3::Start()
 
 
 	sound_big_pill = false;
-
 	return ret;
 }
 
@@ -161,6 +161,7 @@ bool ModuleLevel3::CleanUp()
 	App->textures->Unload(graphics_2);
 	App->textures->Unload(graphics_3);
 	App->textures->Unload(graphics_4);
+	islevel3 = false;
 	return true;
 }
 
@@ -219,6 +220,8 @@ update_status ModuleLevel3::Update()
 	case 4:
 		map[App->player->center.y][App->player->center.x] = 5;
 		App->player->superpower = true;
+		App->ghost_o->super = true;
+		App->ghost_r->super = true;
 		App->score->puntuation += 50;
 		if (Mix_PlayChannel(-1, App->sound->eat_big_pills, 0))
 		{
@@ -232,7 +235,7 @@ update_status ModuleLevel3::Update()
 		break;
 	}
 
-	//win condition
+	//lose condition
 	if (App->player->playerlives == 0){
 		if (App->player->t < 160)
 		{
@@ -245,7 +248,6 @@ update_status ModuleLevel3::Update()
 		else if (App->player->t == 160)
 		{
 			App->collision->Disable();
-			App->level3->Disable();
 			App->player->Disable();
 			App->score->puntuation = 0;
 			App->fade->FadeToBlack(this, (Module*)App->win, 2.0f);
@@ -259,7 +261,6 @@ update_status ModuleLevel3::Update()
 	//TODO, S'ha de ficar el so de moviment sense menjar!
 
 	//win condition
-
 	if (eatenpills == 224)
 	{
 
@@ -273,7 +274,9 @@ update_status ModuleLevel3::Update()
 		App->ghost_r->Disable();
 		App->ghost_o->Disable();
 		App->ghost_p->Disable();
-
+		App->collision->Disable();
+		App->player->Disable();
+		App->score->puntuation = 0;
 		if (p <= 10 || p >= 21 && p <= 31 || p >= 43 && p <= 53)
 		{
 			App->render->Blit(graphics_3, 0, 0, &next);
@@ -284,12 +287,11 @@ update_status ModuleLevel3::Update()
 
 		}
 		else if (p > 64) {
-			App->fade->FadeToBlack(this, (Module*)App->win, 2.0f);
+			App->fade->FadeToBlack(this, (Module*)App->level4, 2.0f);
 			App->player->Disable();
 		}
 		p++;
 	}
-
 	return UPDATE_CONTINUE;
 }
 

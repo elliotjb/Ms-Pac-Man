@@ -7,6 +7,7 @@
 #include "ModuleInput.h"
 #include "ModuleFadeToBlack.h"
 #include "ModuleSound.h"
+#include "ModuleScore.h"
 #include "SDL/include/SDL.h"
 
 
@@ -127,6 +128,7 @@ bool ModuleWelcome::Start()
 	graphics_2 = App->textures->Load("MsPacMan_Sprites.png"); //Sprites
 	graphics_Balls = App->textures->Load("MsPacman_Welcome_S.png");
 	time_welcome = 0;
+	App->score->Enable();
 	return ret;
 }
 

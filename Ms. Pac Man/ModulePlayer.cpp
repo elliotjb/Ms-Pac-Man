@@ -6,6 +6,7 @@
 #include "ModulePlayer.h"
 #include "ModuleLevel_1.h"
 #include "ModuleLevel_3.h"
+#include "ModuleLevel_4.h"
 #include "ModuleCollision.h"
 #include "ModuleGhostBlue.h"
 #include "ModuleFadeToBlack.h"
@@ -87,6 +88,29 @@ bool ModulePlayer::Start()
 	stop = 50;
 	Mix_PlayMusic(App->sound->start_mspacman, 1);
 
+	if (App->level3->islevel3)
+	{
+		for (int i = 0; i < 31; i++)
+		{
+			for (int j = 0; j < 28; j++)
+			{
+				map_player[i][j] = App->level3->map[i][j];
+			}
+		}
+	}
+
+	if (App->level4->islevel4)
+	{
+		for (int i = 0; i < 31; i++)
+		{
+			for (int j = 0; j < 28; j++)
+			{
+				map_player[i][j] = App->level4->map[i][j];
+			}
+		}
+	}
+
+
 	collision_player = App->collision->AddCollider({ position.x+6, position.y + 6, 9, 8 }, COLLIDER_PLAYER, this);
 	return ret;
 }
@@ -101,6 +125,8 @@ bool ModulePlayer::CleanUp()
 // Update: draw background
 update_status ModulePlayer::Update()
 {
+
+
 	if (isdead == false)
 	{
 		if (stop >= 50)
@@ -153,7 +179,7 @@ update_status ModulePlayer::Update()
 
 			if (time_to_start > 240)
 			{
-				if (App->level3->map[direction_up.y - 1][direction_up.x] != 0 && position.x < 210 && position.x > 0)
+				if (map_player[direction_up.y - 1][direction_up.x] != 0 && position.x < 210 && position.x > 0)
 				{
 					if (key_W == true)
 					{
@@ -178,7 +204,7 @@ update_status ModulePlayer::Update()
 					up.speed = 0.0f;
 				}
 
-				if (App->level3->map[direction_left.y][direction_left.x - 1] != 0 || position.x <= 0 || position.x >= 220 && position.x <= 239)
+				if (map_player[direction_left.y][direction_left.x - 1] != 0 || position.x <= 0 || position.x >= 220 && position.x <= 239)
 				{
 					if (key_A == true)
 					{
@@ -207,7 +233,7 @@ update_status ModulePlayer::Update()
 					left.speed = 0.0f;
 				}
 
-				if (App->level3->map[direction_down.y + 1][direction_down.x] != 0 && position.x < 210 && position.x > 0)
+				if (map_player[direction_down.y + 1][direction_down.x] != 0 && position.x < 210 && position.x > 0)
 				{
 					if (key_S == true)
 					{
@@ -232,7 +258,7 @@ update_status ModulePlayer::Update()
 					down.speed = 0.0f;
 				}
 
-				if (App->level3->map[direction_right.y][direction_right.x + 1] != 0 || position.x > 210)
+				if (map_player[direction_right.y][direction_right.x + 1] != 0 || position.x > 210)
 				{
 					if (key_D == true)
 					{

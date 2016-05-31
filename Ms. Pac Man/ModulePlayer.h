@@ -55,7 +55,7 @@ public:
 
 	//STOP
 	int stop;
-
+	int map_player[31][28];
 	//Bool to comprovated if u change direction
 	bool key_W = false;
 	bool key_A = true;
