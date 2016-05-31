@@ -68,6 +68,7 @@ public:
 
 	int time_to_start;
 	int time_to_player;
+	int time_change_direction;
 	bool superpower;
 	int timer;
 	int t;

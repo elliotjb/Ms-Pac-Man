@@ -83,6 +83,7 @@ bool ModulePlayer::Start()
 	time_to_player = 0;
 	t = 0;
 	timetorespawn = 0;
+	time_change_direction = 0;
 	playerlives = 3;
 	GOD = false;
 	SUPER_GOD = false;
@@ -399,7 +400,7 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2)
 		{
 			current_animation = &left;
 			direction = 1;
-			Mix_PlayChannel(-1, App->sound->eat_big_pills, 0);
+			Mix_PlayChannel(-1, App->sound->sound_dead, 0);
 			isdead = true;
 			key_A = false; key_S = false; key_D = false; key_W = false;
 			--playerlives;

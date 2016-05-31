@@ -21,7 +21,7 @@ bool ModuleSound::Init()
 	eat_big_pills = Mix_LoadWAV("Sound_Eat_Bonus.wav");
 	eat_ms = Mix_LoadWAV("Sound_Moviment_with_Eatting_Coins.wav");
 	sound_mov = Mix_LoadWAV("Sound_eat_ghost.wav");
-	sound_dead = Mix_LoadWAV("Sound_Ms_Pacman_Death.wav");
+	sound_dead = Mix_LoadWAV("Sound_Death.wav");
 
 	if ((init & flags) != flags)
 	{
