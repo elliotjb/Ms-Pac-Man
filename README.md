@@ -34,7 +34,7 @@ Relevant fixed bugs:
 - Pink ghost wouldn't continue to move after meeting an intersection -> there was a problem with the pixel calculations.   
 - Player could eat the same ghost twice or more with the same super power pill -> ghosts didn't have any variable that allowed the game to know if they had already been eaten.    
 - Player would sometimes die when walking across certain spots of the map -> some ghost colliders didn't get unabled and they remained in their last position.   
-- Score malfunction -> the client was using the reminder of the '%' operation instead of using the result.   
+- Sometimes ghosts would get stuck in tunnels -> there was a problem with pixel calculation.    
 - The game didn't reset properly when playing for a second time -> some variables weren't being resetted properly.   
 - The game would crash sometimes -> all modules were missing the Cleanup().
 
