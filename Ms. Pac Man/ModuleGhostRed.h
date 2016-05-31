@@ -70,12 +70,12 @@ public:
 	bool change_comp_r = false;
 	bool change_direction_r;
 	bool GhostBlue_ispow = false;
-
+	int time_blue;
 	int isleft;
 	int isright;
 	int isup;
 	int isdown;
-	int time_blue;
+	
 	int s;
 	bool finish;
 	bool dead;

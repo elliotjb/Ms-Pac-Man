@@ -89,38 +89,38 @@ update_status ModuleGhostBlue::Update()
 	{
 		if (App->player->stop >= 50)
 		{
-			if (time_blue < 130 && Isinmid == true && dead == false)
+			if (time_blue < 370 && Isinmid == true && dead == false)
 			{
 				time_blue++;
 				
-				if (i == 0 ) {
+				if (i == 0 && time_blue > 240 ) {
 					
 					position.y = 118;
 	
 
 				}
 				
-				else if (i == 4) {
+				else if (i == 4 && time_blue > 240) {
 
 					position.y = 120;
 				
 
 				}
 			
-				else if (i == 8 ) {
+				else if (i == 8 && time_blue > 240) {
 					position.y = 122;
 
 
 				}
 			
-				else if (i == 12) {
+				else if (i == 12 && time_blue > 240) {
 
 					position.y = 124;
 
 				
 
 				}
-				else if (i == 16) {
+				else if (i == 16 && time_blue > 240) {
 
 					position.y = 126;
 
@@ -142,17 +142,17 @@ update_status ModuleGhostBlue::Update()
 				 position_blue.y++;
 				 }*/
 				
-				if (i == 16){
+				if (i == 16 && time_blue > 240){
 					t = -1;
 				}
-				else if (i == 0){
+				else if (i == 0 && time_blue > 240){
 					t = 1;
 				}
-				if (t == -1){
+				if (t == -1 && time_blue > 240){
 					i--;
 					current_animation = &up_r;
 				}
-				else if (t == 1){
+				else if (t == 1 && time_blue > 240){
 					i++;
 					current_animation = &down_r;
 				}
@@ -164,10 +164,10 @@ update_status ModuleGhostBlue::Update()
 		
 			if (Isinmid == false)
 			{
-				time_blue = 0;
+				time_blue = 240;
 			}
 
-			if (Isinmid == true && time_blue > 129 && dead == false )
+			if (Isinmid == true && time_blue > 369 && dead == false )
 			{
 				if (position.x <= 105 && Isinmid == true){
 					position.x++;

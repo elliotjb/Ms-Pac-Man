@@ -90,63 +90,62 @@ update_status ModuleGhostOrange::Update()
 
 			int speed = 1;
 			//BLUE
-			if (time_blue < 200 && Isinmid == true && dead== false)
+			if (time_blue < 440 && Isinmid == true && dead== false)
 			{
 				time_blue++;
-				if (i == 0) {
+				if (i == 0 && time_blue > 240) {
 
 					position_blue.y = 118;
 
 
 				}
 
-				else if (i == 4) {
+				else if (i == 4 && time_blue > 240) {
 
 					position_blue.y = 120;
 
 
 				}
 
-				else if (i == 8) {
+				else if (i == 8 && time_blue > 240) {
 					position_blue.y = 122;
 
 
 				}
 
-				else if (i == 12) {
+				else if (i == 12 && time_blue > 240) {
 
 					position_blue.y = 124;
 
 
 
 				}
-				else if (i == 16) {
+				else if (i == 16 && time_blue > 240) {
 
 					position_blue.y = 126;
 
 
 				}
-				if (i == 16){
+				if (i == 16 && time_blue > 240){
 					t = -1;
 				}
-				else if (i == 0){
+				else if (i == 0 && time_blue > 240){
 					t = 1;
 				}
-				if (t == -1){
+				if (t == -1 && time_blue > 240){
 					i--;
 
 				}
-				else if (t == 1){
+				else if (t == 1 && time_blue > 240){
 					i++;
 
 				}
 			}
 			if (Isinmid == false)
 			{
-				time_blue = 0;
 			}
 
-			if (Isinmid == true && time_blue > 199 && dead == false)
+			if (Isinmid == true && time_blue > 439 && dead == false)
 			{
 				if (position_blue.x >= 105 && Isinmid == true)
 				{
