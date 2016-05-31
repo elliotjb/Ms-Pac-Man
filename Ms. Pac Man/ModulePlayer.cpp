@@ -4,7 +4,6 @@
 #include "ModuleInput.h"
 #include "ModuleRender.h"
 #include "ModulePlayer.h"
-#include "ModuleLevel_1.h"
 #include "ModuleLevel_3.h"
 #include "ModuleLevel_4.h"
 #include "ModuleCollision.h"
@@ -406,7 +405,7 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2)
 
 	if (c1 == collision_player && c2->type == COLLIDER_ENEMY && GOD == false && SUPER_GOD == false)
 	{
-		if (App->ghost_r->super == false)
+		if (App->ghost_r->super == false && c1 == collision_player && c2 == App->ghost_r->collision)
 		{
 			current_animation = &left;
 			direction = 1;
@@ -416,7 +415,7 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2)
 			--playerlives;
 			collision_player->SetPos(105, 195 + 10);
 		}
-		if (App->ghost_b->super == false)
+		if (App->ghost_b->super == false && c1 == collision_player && c2 == App->ghost_b->collision_blue)
 		{
 			current_animation = &left;
 			direction = 1;
@@ -426,7 +425,7 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2)
 			--playerlives;
 			collision_player->SetPos(105, 195 + 10);
 		}
-		if (App->ghost_p->super == false)
+		if (App->ghost_p->super == false && c1 == collision_player && c2 == App->ghost_p->collision_blue)
 		{
 			current_animation = &left;
 			direction = 1;
@@ -436,7 +435,7 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2)
 			--playerlives;
 			collision_player->SetPos(105, 195 + 10);
 		}
-		if (App->ghost_o->super == false)
+		if (App->ghost_o->super == false && c1 == collision_player && c2 == App->ghost_o->collision_blue)
 		{
 			current_animation = &left;
 			direction = 1;

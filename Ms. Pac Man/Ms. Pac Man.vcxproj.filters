@@ -56,12 +56,6 @@
     <ClInclude Include="ModuleWelcome.h">
       <Filter>Levels - Modules</Filter>
     </ClInclude>
-    <ClInclude Include="ModuleLevel_1.h">
-      <Filter>Levels - Modules</Filter>
-    </ClInclude>
-    <ClInclude Include="ModuleLevel_2.h">
-      <Filter>Levels - Modules</Filter>
-    </ClInclude>
     <ClInclude Include="ModuleCongratulation.h">
       <Filter>Levels - Modules</Filter>
     </ClInclude>
@@ -122,12 +116,6 @@
       <Filter>Modules</Filter>
     </ClCompile>
     <ClCompile Include="ModuleWelcome.cpp">
-      <Filter>Levels - Modules</Filter>
-    </ClCompile>
-    <ClCompile Include="ModuleLevel_1.cpp">
-      <Filter>Levels - Modules</Filter>
-    </ClCompile>
-    <ClCompile Include="ModuleLevel_2.cpp">
       <Filter>Levels - Modules</Filter>
     </ClCompile>
     <ClCompile Include="ModuleCongratulations.cpp">

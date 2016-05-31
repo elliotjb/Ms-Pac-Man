@@ -7,8 +7,8 @@
 #include "SDL/include/SDL_timer.h"
 #include "ModulePlayer.h"
 #include "ModuleWelcome.h"
-#include "ModuleLevel_1.h"
-#include "ModuleLevel_2.h"
+#include "ModuleLevel_3.h"
+#include "ModuleLevel_4.h"
 #include "ModuleCongratulation.h"
 
 ModuleFadeToBlack::ModuleFadeToBlack()
