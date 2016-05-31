@@ -44,7 +44,7 @@ bool ModuleGhostRed::Start()
 {
 	LOG("Loading Ghost textures");
 	bool ret = true;
-	graphics = App->textures->Load("MsPacMan_Sprites.png"); // Sprites
+	graphics = App->textures->Load("Sprites/MsPacMan_Sprites.png"); // Sprites
 	srand(time(NULL));
 	Time_change_direction = 0;
 	position.x = 105;
@@ -670,7 +670,7 @@ void ModuleGhostRed::OnCollision(Collider* c1, Collider* c2)
 		ghost_right_r = false;
 		App->score->puntuation += 200;
 		Mix_PlayChannel(-1, App->sound->sound_mov, 0);
-
+		//super = false;
 		collision->SetPos(position.x + 2, position.y + 12);
 		can_right_r = false;
 		can_down_r = false;

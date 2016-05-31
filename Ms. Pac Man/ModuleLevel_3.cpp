@@ -84,10 +84,10 @@ bool ModuleLevel3::Start()
 
 	LOG("Loading background assets");
 
-	graphics = App->textures->Load("Mspacman.png");
-	graphics_2 = App->textures->Load("MsPacMan_Sprites.png");
-	graphics_3 = App->textures->Load("MsPacMan_next.png");
-	graphics_4 = App->textures->Load("MsPacMan_next2.png");
+	graphics = App->textures->Load("Sprites/Mspacman.png");
+	graphics_2 = App->textures->Load("Sprites/MsPacMan_Sprites.png");
+	graphics_3 = App->textures->Load("Sprites/MsPacMan_next.png");
+	graphics_4 = App->textures->Load("Sprites/MsPacMan_next2.png");
 
 	App->ghost_r->Enable();
 	App->ghost_b->Enable();
@@ -110,8 +110,8 @@ bool ModuleLevel3::Start()
 	App->collision->Enable();
 	App->score->Enable();
 
+	p = 0;
 	//orange
-
 	App->ghost_o->new_direction_b = 0;
 	App->ghost_o->GhostBlue_ispow = false;
 	App->ghost_o->dead_blue = false;
@@ -252,11 +252,6 @@ update_status ModuleLevel3::Update()
 		}
 		App->player->t++;
 	}
-
-
-
-
-	//TODO, S'ha de ficar el so de moviment sense menjar!
 
 	//win condition
 	if (eatenpills == 244)

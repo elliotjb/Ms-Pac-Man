@@ -124,9 +124,9 @@ bool ModuleWelcome::Start()
 {
 	LOG("Loading background assets");
 	bool ret = true;
-	graphics = App->textures->Load("MsPacman_Welcome.png");
-	graphics_2 = App->textures->Load("MsPacMan_Sprites.png"); //Sprites
-	graphics_Balls = App->textures->Load("MsPacman_Welcome_S.png");
+	graphics = App->textures->Load("Sprites/MsPacman_Welcome.png");
+	graphics_2 = App->textures->Load("Sprites/MsPacMan_Sprites.png"); //Sprites
+	graphics_Balls = App->textures->Load("Sprites/MsPacman_Welcome_S.png");
 	time_welcome = 0;
 	App->score->Enable();
 	return ret;

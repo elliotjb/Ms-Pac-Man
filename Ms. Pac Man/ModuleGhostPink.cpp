@@ -8,6 +8,7 @@
 #include "ModuleCollision.h"
 #include "ModuleLevel_3.h"
 #include "ModuleScore.h"
+#include "ModuleSound.h"
 #include <cmath>
 
 
@@ -50,7 +51,7 @@ bool ModuleGhostPink::Start()
 {
 	LOG("Loading Ghost textures");
 	bool ret = true;
-	graphics = App->textures->Load("MsPacMan_Sprites.png"); // Sprites
+	graphics = App->textures->Load("Sprites/MsPacMan_Sprites.png"); // Sprites
 	test_num_UP.x = 0;
 	test_num_UP.y = 0;
 	super = false;
@@ -106,6 +107,7 @@ update_status ModuleGhostPink::Update()
 				position_blue.y -= 1;
 				if (position_blue.y == 99)
 				{
+					super = false;
 					new_direction_b = 3;
 					Isinmid = false;
 					finish = true;
@@ -688,7 +690,6 @@ update_status ModuleGhostPink::Update()
 		animation_blue = &up_b;
 		GhostBlue_ispow = false;
 		dead_blue = false;
-		super = false;
 		collision_blue->SetPos(position_blue.x + 2, position_blue.y + 12);
 		ghost_up_r = false;
 		ghost_down_r = false;
@@ -719,9 +720,8 @@ void ModuleGhostPink::OnCollision(Collider* c1, Collider* c2)
 		animation_blue = &up_b;
 		GhostBlue_ispow = false;
 		dead_blue = false;
-		super = false;
 		App->score->puntuation += 200;
-
+		Mix_PlayChannel(-1, App->sound->sound_mov, 0);
 		collision_blue->SetPos(position_blue.x + 2, position_blue.y + 12);
 		ghost_up_r = false;
 		ghost_down_r = false;

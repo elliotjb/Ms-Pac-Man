@@ -9,6 +9,7 @@
 #include "ModuleLevel_3.h"
 #include "ModuleLevel_4.h"
 #include "ModuleScore.h"
+#include "ModuleSound.h"
 #include <cmath>
 
 ModuleGhostBlue::ModuleGhostBlue()
@@ -54,7 +55,7 @@ bool ModuleGhostBlue::Start()
 {
 	LOG("Loading Ghost textures");
 	bool ret = true;
-	graphics = App->textures->Load("MsPacMan_Sprites.png"); // Sprites
+	graphics = App->textures->Load("Sprites/MsPacMan_Sprites.png"); // Sprites
 	speed = 0;
 	dead = false;
 	m = false;
@@ -120,51 +121,26 @@ update_status ModuleGhostBlue::Update()
 				if (i == 0 && time_blue > 240 ) {
 					
 					position.y = 118;
-	
-
 				}
 				
 				else if (i == 4 && time_blue > 240) {
 
 					position.y = 120;
-				
-
 				}
 			
 				else if (i == 8 && time_blue > 240) {
 					position.y = 122;
-
 
 				}
 			
 				else if (i == 12 && time_blue > 240) {
 
 					position.y = 124;
-
-				
-
 				}
 				else if (i == 16 && time_blue > 240) {
 
 					position.y = 126;
-
-
 				}
-				/*
-				 if (position_blue.y > 118 && a == 0){
-				 position_blue.y--;
-				 }
-				 else if (position_blue.y == 117){
-				 a = 1;
-				 position_blue.y++;
-				 }
-				 else if (position_blue.y == 124){
-				 a = 0;
-				 position_blue.y++;
-				 }
-				 else if (position_blue.y<125 && a == 1){
-				 position_blue.y++;
-				 }*/
 				
 				if (i == 16 && time_blue > 240){
 					t = -1;
@@ -180,10 +156,6 @@ update_status ModuleGhostBlue::Update()
 					i++;
 					current_animation = &down_r;
 				}
-			
-
-
-
 			}
 		
 			if (Isinmid == false)
@@ -745,15 +717,13 @@ void ModuleGhostBlue::OnCollision(Collider* c1, Collider* c2)
 		dead_blue = false;
 		Isinmid = true;
 		m = true;
-
-		super = false;
 		App->score->puntuation += 200;
 		collision_blue->SetPos(position.x + 2, position.y + 12);
 		ghost_up_r = false;
 		ghost_down_r = false;
 		ghost_left_r = false;
 		ghost_right_r = false;
-
+		Mix_PlayChannel(-1, App->sound->sound_mov, 0);
 		can_right_r = false;
 		can_down_r = false;
 		can_left_r = false;

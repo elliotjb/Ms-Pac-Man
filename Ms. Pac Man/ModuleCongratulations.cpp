@@ -36,8 +36,8 @@ bool ModuleCongratulation::Start()
 {
 	LOG("Loading background assets");
 	bool ret = true;
-	graphics = App->textures->Load("Mspacman_congratu.png");
-	graphics_2 = App->textures->Load("MsPacMan_Sprites.png");
+	graphics = App->textures->Load("Sprites/Mspacman_congratu.png");
+	graphics_2 = App->textures->Load("Sprites/MsPacMan_Sprites.png");
 	App->welcome->Disable();
 	App->level3->Disable();
 	App->level4->Disable();

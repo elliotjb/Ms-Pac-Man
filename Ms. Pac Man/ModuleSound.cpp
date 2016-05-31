@@ -15,13 +15,13 @@ bool ModuleSound::Init()
 
 	Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 1024);
 
-	LOG("Loading background assets");
+	LOG("Loading Sounds");
 
-	start_mspacman = Mix_LoadMUS("Start_MsPacman.ogg");
-	eat_big_pills = Mix_LoadWAV("Sound_Eat_Bonus.wav");
-	eat_ms = Mix_LoadWAV("Sound_Moviment_with_Eatting_Coins.wav");
-	sound_mov = Mix_LoadWAV("Sound_eat_ghost.wav");
-	sound_dead = Mix_LoadWAV("Sound_Death.wav");
+	start_mspacman = Mix_LoadMUS("Sounds/Start_MsPacman.ogg");
+	eat_big_pills = Mix_LoadWAV("Sounds/Sound_Eat_Bonus.wav");
+	eat_ms = Mix_LoadWAV("Sounds/Sound_Moviment_with_Eatting_Coins.wav");
+	sound_mov = Mix_LoadWAV("Sounds/Sound_eat_ghost.wav");
+	sound_dead = Mix_LoadWAV("Sounds/Sound_Death.wav");
 
 	if ((init & flags) != flags)
 	{

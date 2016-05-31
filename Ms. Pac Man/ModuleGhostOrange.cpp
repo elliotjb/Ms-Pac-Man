@@ -9,6 +9,7 @@
 #include "ModuleLevel_3.h"
 #include "ModuleLevel_4.h"
 #include "ModuleScore.h"
+#include "ModuleSound.h"
 
 ModuleGhostOrange::ModuleGhostOrange()
 {
@@ -51,13 +52,14 @@ bool ModuleGhostOrange::Start()
 {
 	LOG("Loading Ghost textures");
 	bool ret = true;
-	graphics = App->textures->Load("MsPacMan_Sprites.png"); // Sprites
+	graphics = App->textures->Load("Sprites/MsPacMan_Sprites.png"); // Sprites
 	dead = false;
 	m = false;
 	time_blue = 0;
 	Isinmid = true;
 	finish = false;
 	new_direction_b = 0;
+	super = false;
 	change_b = 1;
 	change_com_b = false;
 	ghost_up_blue = false;
@@ -110,8 +112,6 @@ update_status ModuleGhostOrange::Update()
 	if (App->player->time_to_start > 240){
 		if (App->player->stop >= 50)
 		{
-			//new_direction = rand() % 4;
-
 			int speed = 1;
 			//BLUE
 			if (time_blue < 440 && Isinmid == true && dead== false)
@@ -120,29 +120,20 @@ update_status ModuleGhostOrange::Update()
 				if (i == 0 && time_blue > 240) {
 
 					position_blue.y = 118;
-
-
 				}
 
 				else if (i == 4 && time_blue > 240) {
 
 					position_blue.y = 120;
-
-
 				}
 
 				else if (i == 8 && time_blue > 240) {
 					position_blue.y = 122;
-
-
 				}
 
 				else if (i == 12 && time_blue > 240) {
 
 					position_blue.y = 124;
-
-
-
 				}
 				else if (i == 16 && time_blue > 240) {
 
@@ -180,6 +171,7 @@ update_status ModuleGhostOrange::Update()
 					position_blue.y -= 1;
 					if (position_blue.y == 99)
 					{
+						super = false;
 						new_direction_b = 1;
 						Isinmid = false;
 						finish = true;
@@ -195,8 +187,9 @@ update_status ModuleGhostOrange::Update()
 				else if (position_blue.x <= 104){
 					position_blue.y--;
 					
-					if (position_blue.y == 99){
-					
+					if (position_blue.y == 99)
+					{
+						super = false;
 						dead = false;
 						new_direction_b = 1;
 						Isinmid = false;
@@ -213,8 +206,9 @@ update_status ModuleGhostOrange::Update()
 				else if (position_blue.x <= 104){
 					position_blue.y--;
 
-					if (position_blue.y == 99){
-
+					if (position_blue.y == 99)
+					{
+						super = false;
 						dead = false;
 						new_direction_b = 1;
 						Isinmid = false;
@@ -225,19 +219,6 @@ update_status ModuleGhostOrange::Update()
 			}
 
 			//check possibilities
-			/*if (App->level1->map[right_blue.y][right_blue.x + 1] != 0)
-			{
-			if ((position_blue.x + 7) == (center_blue.x * 8) + 4 &&
-			(position_blue.y - 7) == (center_blue.y * 8) + 4)
-			{
-			can_right_b = true;
-			}
-			}
-			else
-			{
-			can_right_b = false;
-			}*/
-
 			//lefy
 			if (map_ghost[left_blue.y][left_blue.x - 1] != 0)
 			{
@@ -558,11 +539,11 @@ update_status ModuleGhostOrange::Update()
 
 			collision_blue->SetPos(position_blue.x + 2, position_blue.y + 12);
 
-			if (App->player->superpower == true && App->player->timer < 5)
+			if (super == true && App->player->timer < 5)
 			{
 				GhostBlue_ispow = true;
 			}
-			if (App->player->superpower == false)
+			if (super == false)
 			{
 				GhostBlue_ispow = false;
 			}
@@ -628,7 +609,6 @@ void ModuleGhostOrange::OnCollision(Collider* c1, Collider* c2){
 		c1 == collision_blue && c2->type == COLLIDER_PLAYER && App->player->SUPER_GOD == true )
 	{
 		App->render->Blit(graphics, position_blue.x, position_blue.y, &puntuation);
-		super = false;
 		position_blue.x = 121;
 		position_blue.y = 121;
 		new_direction_b = 0;
@@ -643,7 +623,7 @@ void ModuleGhostOrange::OnCollision(Collider* c1, Collider* c2){
 		ghost_down_blue = false;
 		ghost_left_blue = false;
 		ghost_right_blue = false;
-
+		Mix_PlayChannel(-1, App->sound->sound_mov, 0);
 		can_right_b = false;
 		can_down_b = false;
 		can_left_b = false;

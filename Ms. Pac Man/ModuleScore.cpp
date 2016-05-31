@@ -36,7 +36,7 @@ bool ModuleScore::Start()
 {
 	bool ret = true;
 	LOG("Loading Numbers textures");
-	graphics = App->textures->Load("Sprite_Numbers.png"); // Sprites
+	graphics = App->textures->Load("Sprites/Sprite_Numbers.png"); // Sprites
 	number_pos1 = 0;
 	number_pos2 = 0;
 	number_pos3 = 0;

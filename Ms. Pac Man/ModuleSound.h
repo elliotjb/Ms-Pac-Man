@@ -37,8 +37,6 @@ public:
 	Mix_Chunk* eat_ms;
 	Mix_Chunk* sound_mov;
 	Mix_Chunk* sound_dead;
-
-
 };
 
 #endif // __MODULESOUND_H__

@@ -75,7 +75,7 @@ bool ModulePlayer::Start()
 	bool ret = true;
 	superpower = false;
 	timer = 0;
-	graphics = App->textures->Load("MsPacMan_Sprites.png"); // Sprites
+	graphics = App->textures->Load("Sprites/MsPacMan_Sprites.png"); // Sprites
 	isdead = false;
 	direction = 1;
 	current_animation = &left;
