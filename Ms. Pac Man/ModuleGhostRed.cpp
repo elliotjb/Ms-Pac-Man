@@ -470,7 +470,7 @@ update_status ModuleGhostRed::Update()
 			{
 				//decided direction
 				//TODO ELLIOT BUG ATRAVESAR PORTAL
-				if (map_ghost[up_y_r - 1][up_x_r] == 3 || map_ghost[up_y_r - 1][up_x_r] == 4 || map_ghost[up_y_r - 1][up_x_r] == 5)
+				if (map_ghost[up_y_r - 1][up_x_r] != 0 && position.x < 210 && position.x > 0)
 				{
 					if (ghost_up_r)
 					{
@@ -495,7 +495,7 @@ update_status ModuleGhostRed::Update()
 
 				}
 
-				if (map_ghost[left_y_r][left_x_r - 1] == 3 || map_ghost[left_y_r][left_x_r - 1] == 4 || map_ghost[left_y_r][left_x_r - 1] == 5 || map_ghost[left_y_r][left_x_r - 1] == 8 || position.x == 0)
+				if (map_ghost[left_y_r][left_x_r - 1] != 0 || position.x <= 0 || position.x >= 220 && position.x <= 239)
 				{
 					if (ghost_left_r)
 					{
@@ -528,7 +528,7 @@ update_status ModuleGhostRed::Update()
 					}
 				}
 
-				if (map_ghost[down_y_r + 1][down_x_r] == 3 || map_ghost[down_y_r + 1][down_x_r] == 4 || map_ghost[down_y_r + 1][down_x_r] == 5)
+				if (map_ghost[down_y_r + 1][down_x_r] != 0 && position.x < 210 && position.x > 0)
 				{
 					if (ghost_down_r)
 					{
@@ -554,7 +554,7 @@ update_status ModuleGhostRed::Update()
 
 				}
 
-				if (map_ghost[right_y_r][right_x_r + 1] == 3 || map_ghost[right_y_r][right_x_r + 1] == 5 || map_ghost[right_y_r][right_x_r + 1] == 4 || map_ghost[right_y_r][right_x_r + 1] == 9)
+				if (map_ghost[right_y_r][right_x_r + 1] != 0 || position.x > 210)
 				{
 					if (ghost_right_r)
 					{

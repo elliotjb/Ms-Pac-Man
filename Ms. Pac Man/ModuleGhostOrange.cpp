@@ -8,6 +8,7 @@
 #include "ModuleCollision.h"
 #include "ModuleLevel_3.h"
 #include "ModuleLevel_4.h"
+#include "ModuleScore.h"
 
 ModuleGhostOrange::ModuleGhostOrange()
 {
@@ -434,7 +435,7 @@ update_status ModuleGhostOrange::Update()
 
 
 			//decided direction
-			if (map_ghost[up_blue.y - 1][up_blue.x] != 0)
+			if (map_ghost[up_blue.y - 1][up_blue.x] != 0 && position_blue.x < 210 && position_blue.x > 0)
 			{
 				if (ghost_up_blue)
 				{
@@ -490,7 +491,7 @@ update_status ModuleGhostOrange::Update()
 				left_b.speed = 0.0f;
 			}
 
-			if (map_ghost[down_blue.y + 1][down_blue.x] != 0)
+			if (map_ghost[down_blue.y + 1][down_blue.x] != 0 && position_blue.x < 210 && position_blue.x > 0)
 			{
 				if (ghost_down_blue)
 				{
@@ -621,7 +622,7 @@ update_status ModuleGhostOrange::Update()
 
 void ModuleGhostOrange::OnCollision(Collider* c1, Collider* c2){
 
-	if (c1 == collision_blue && c2->type == COLLIDER_PLAYER && App->player->superpower == true ||
+	if (c1 == collision_blue && c2->type == COLLIDER_PLAYER && App->player->superpower == true && super == true ||
 		c1 == collision_blue && c2->type == COLLIDER_PLAYER && App->player->SUPER_GOD == true )
 	{
 		
@@ -635,7 +636,7 @@ void ModuleGhostOrange::OnCollision(Collider* c1, Collider* c2){
 		dead = true;
 		Isinmid = true;
 		m = true;
-
+		super = false;
 		collision_blue->SetPos(position_blue.x + 2, position_blue.y + 12);
 		ghost_up_blue = false;
 		ghost_down_blue = false;
@@ -646,7 +647,7 @@ void ModuleGhostOrange::OnCollision(Collider* c1, Collider* c2){
 		can_down_b = false;
 		can_left_b = false;
 		can_up_b = false;
-
+		App->score->puntuation += 200;
 		change_com_b = false;
 		App->player->stop = 0;
 

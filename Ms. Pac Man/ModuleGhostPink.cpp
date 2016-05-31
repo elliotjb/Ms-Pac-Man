@@ -524,7 +524,7 @@ update_status ModuleGhostPink::Update()
 
 
 			//decided direction
-			if (App->level3->map[up_blue.y - 1][up_blue.x] != 0)
+			if (App->level3->map[up_blue.y - 1][up_blue.x] != 0 && position_blue.x < 210 && position_blue.x > 0)
 			{
 				if (ghost_up_r)
 				{
@@ -577,7 +577,7 @@ update_status ModuleGhostPink::Update()
 				left_b.speed = 0.0f;
 			}
 
-			if (App->level3->map[down_blue.y + 1][down_blue.x] != 0)
+			if (App->level3->map[down_blue.y + 1][down_blue.x] != 0 && position_blue.x < 210 && position_blue.x > 0)
 			{
 				if (ghost_down_r)
 				{
@@ -708,7 +708,7 @@ update_status ModuleGhostPink::Update()
 
 void ModuleGhostPink::OnCollision(Collider* c1, Collider* c2)
 {
-	if (c1 == collision_blue && c2->type == COLLIDER_PLAYER && App->player->superpower == true ||
+	if (c1 == collision_blue && c2->type == COLLIDER_PLAYER && App->player->superpower == true && super == true ||
 		c1 == collision_blue && c2->type == COLLIDER_PLAYER && App->player->SUPER_GOD == true)
 	{
 		App->render->Blit(graphics, position_blue.x, position_blue.y, &puntuation);
@@ -719,6 +719,7 @@ void ModuleGhostPink::OnCollision(Collider* c1, Collider* c2)
 		animation_blue = &up_b;
 		GhostBlue_ispow = false;
 		dead_blue = false;
+		super = false;
 		App->score->puntuation += 200;
 
 		collision_blue->SetPos(position_blue.x + 2, position_blue.y + 12);
