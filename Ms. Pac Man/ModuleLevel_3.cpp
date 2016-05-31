@@ -174,7 +174,6 @@ update_status ModuleLevel3::Update()
 
 	SDL_Rect r = actual_animation->GetCurrentFrame();
 
-
 	//printing elements
 
 	for (int i = 0; i < 31; i++)
@@ -260,7 +259,7 @@ update_status ModuleLevel3::Update()
 	//TODO, S'ha de ficar el so de moviment sense menjar!
 
 	//win condition
-	if (eatenpills == 224)
+	if (eatenpills == 244)
 	{
 
 		victory = true;

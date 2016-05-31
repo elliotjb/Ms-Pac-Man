@@ -7,7 +7,7 @@
 #include "ModulePlayer.h"
 #include "ModuleInput.h"
 #include "ModuleFadeToBlack.h"
-#include "ModuleLevel_1.h"
+#include "ModuleLevel_4.h"
 #include "ModuleLevel_3.h"
 #include "ModuleCollision.h"
 
@@ -39,8 +39,8 @@ bool ModuleCongratulation::Start()
 	graphics = App->textures->Load("Mspacman_congratu.png");
 	graphics_2 = App->textures->Load("MsPacMan_Sprites.png");
 	App->welcome->Disable();
-	App->level1->Disable();
 	App->level3->Disable();
+	App->level4->Disable();
 	return ret;
 }
 
@@ -61,12 +61,12 @@ update_status ModuleCongratulation::Update()
 	if (p > 70 ){
 		App->render->Blit(graphics_2, 81, 280, &credit);
 	}
-	App->fade->FadeToBlack(this, (Module*)App->level3, 1.0f);
+	App->fade->FadeToBlack(this, (Module*)App->level3, 2.0f);
 	if (p > 70){
 		if (App->input->keyboard[SDL_SCANCODE_1] == KEY_STATE::KEY_UP ||
 			App->input->keyboard[SDL_SCANCODE_SPACE] == KEY_STATE::KEY_UP)
 		{
-			App->fade->FadeToBlack(this, (Module*)App->level3, 1.0f);
+			App->fade->FadeToBlack(this, (Module*)App->level3, 2.0f);
 		}
 	}
 	p++;
