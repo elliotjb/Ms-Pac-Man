@@ -66,7 +66,8 @@ public:
 	int cont = 0;
 	//int tile[31][28];
 
-	int time_to_start = 0;
+	int time_to_start;
+	int time_to_player;
 	bool superpower;
 	int timer;
 	int t;

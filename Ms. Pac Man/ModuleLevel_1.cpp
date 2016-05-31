@@ -204,7 +204,7 @@ update_status ModuleLevel1::Update()
 	}
 	if (App->player->time_to_start < 60){
 
-		App->player->time_to_start++;
+		//App->player->time_to_start++;
 		/*App->ghost_b->Disable();
 		App->ghost_r->Disable();
 		App->ghost_o->Disable();
@@ -217,7 +217,7 @@ update_status ModuleLevel1::Update()
 
 	else if (App->player->time_to_start < 250 && App->player->time_to_start > 59)
 	{
-		App->player->time_to_start++;
+		//App->player->time_to_start++;
 	}
 
 	if (App->player->playerlives == 0){

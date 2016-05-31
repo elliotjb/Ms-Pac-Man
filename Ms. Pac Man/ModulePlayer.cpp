@@ -80,6 +80,7 @@ bool ModulePlayer::Start()
 	direction = 1;
 	current_animation = &left;
 	time_to_start = 0;
+	time_to_player = 0;
 	t = 0;
 	timetorespawn = 0;
 	playerlives = 3;
@@ -125,12 +126,14 @@ bool ModulePlayer::CleanUp()
 // Update: draw background
 update_status ModulePlayer::Update()
 {
-
-
 	if (isdead == false)
 	{
 		if (stop >= 50)
 		{
+			if (time_to_player < 250)
+			{
+				time_to_player++;
+			}
 			direction_right.x = (position.x + 3) / PIX_TILE;
 			direction_right.y = (position.y - 10) / PIX_TILE;
 			direction_left.x = (position.x + 10) / PIX_TILE;
@@ -177,7 +180,7 @@ update_status ModulePlayer::Update()
 
 			speed = 1;
 
-			if (time_to_start > 240)
+			if (time_to_player > 240)
 			{
 				if (map_player[direction_up.y - 1][direction_up.x] != 0 && position.x < 210 && position.x > 0)
 				{

@@ -20,7 +20,9 @@ ModuleLevel4::ModuleLevel4()
 	//Welcome
 	level4 = { 0, 0, 224, 288 };
 	level4_2 = { 0, 272, 224, 16 };
-	level4_center = { 228, 0, 224, 288 };
+	level4_center = { 228, 248, 224, 288 };
+	next = { 0, 0, 224, 288 };
+	next2 = { 0, 0, 224, 288 };
 	pills = { 8, 8, 8, 8 };
 
 	big_pill.PushBack({ 208, 16, 8, 8 });
@@ -260,7 +262,7 @@ update_status ModuleLevel4::Update()
 
 	//win condition
 
-	if (eatenpills == 224)
+	if (eatenpills == 12)
 	{
 
 		victory = true;
@@ -273,7 +275,9 @@ update_status ModuleLevel4::Update()
 		App->ghost_r->Disable();
 		App->ghost_o->Disable();
 		App->ghost_p->Disable();
-
+		App->collision->Disable();
+		App->player->Disable();
+		App->score->puntuation = 0;
 		if (p <= 10 || p >= 21 && p <= 31 || p >= 43 && p <= 53)
 		{
 			App->render->Blit(graphics_3, 0, 0, &next);
@@ -284,7 +288,7 @@ update_status ModuleLevel4::Update()
 
 		}
 		else if (p > 64) {
-			App->fade->FadeToBlack(this, (Module*)App->level4, 2.0f);
+			App->fade->FadeToBlack(this, (Module*)App->win, 2.0f);
 			App->player->Disable();
 		}
 		p++;

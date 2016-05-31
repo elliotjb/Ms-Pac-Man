@@ -192,17 +192,13 @@ update_status ModuleLevel3::Update()
 			}
 		}
 	}
-	if (App->player->time_to_start < 60){
 
+	if (App->player->time_to_start < 60)
+	{
 		App->player->time_to_start++;
 	}
-
-
-
-
-	else if (App->player->time_to_start < 250 && App->player->time_to_start > 59)
+	if (App->player->time_to_start < 245 && App->player->time_to_start > 59)
 	{
-
 		App->player->time_to_start++;
 	}
 
@@ -261,7 +257,7 @@ update_status ModuleLevel3::Update()
 	//TODO, S'ha de ficar el so de moviment sense menjar!
 
 	//win condition
-	if (eatenpills == 224)
+	if (eatenpills == 12)
 	{
 
 		victory = true;
@@ -276,7 +272,6 @@ update_status ModuleLevel3::Update()
 		App->ghost_p->Disable();
 		App->collision->Disable();
 		App->player->Disable();
-		App->score->puntuation = 0;
 		if (p <= 10 || p >= 21 && p <= 31 || p >= 43 && p <= 53)
 		{
 			App->render->Blit(graphics_3, 0, 0, &next);
