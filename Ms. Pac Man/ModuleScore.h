@@ -26,11 +26,16 @@ public:
 	SDL_Rect test2;
 	SDL_Rect test3;
 
+	SDL_Rect coins_test;
+	SDL_Rect coins_test1;
+
 	SDL_Rect MAX_test0;
 	SDL_Rect MAX_test;
 	SDL_Rect MAX_test2;
 	SDL_Rect MAX_test3;
 
+	int coin_number_pos1;
+	int coin_number_pos2;
 
 	int number_pos1;
 	int number_pos2;
@@ -38,6 +43,7 @@ public:
 	int number_pos4;
 
 	int puntuation;
+	int NUM_coins;
 	int MAX_puntuation;
 
 

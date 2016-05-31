@@ -10,6 +10,7 @@
 #include "ModuleLevel_4.h"
 #include "ModuleLevel_3.h"
 #include "ModuleCollision.h"
+#include "ModuleScore.h"
 
 ModuleCongratulation::ModuleCongratulation()
 {
@@ -34,6 +35,7 @@ ModuleCongratulation::~ModuleCongratulation()
 // Load assets
 bool ModuleCongratulation::Start()
 {
+	issceen = true;
 	LOG("Loading background assets");
 	bool ret = true;
 	graphics = App->textures->Load("Sprites/Mspacman_congratu.png");
@@ -41,12 +43,14 @@ bool ModuleCongratulation::Start()
 	App->welcome->Disable();
 	App->level3->Disable();
 	App->level4->Disable();
+	App->score->Enable();
 	return ret;
 }
 
 // Load assets
 bool ModuleCongratulation::CleanUp()
 {
+	issceen = false;
 	LOG("Unloading honda stage");
 	App->textures->Unload(graphics);
 	App->textures->Unload(graphics_2);
@@ -58,18 +62,17 @@ update_status ModuleCongratulation::Update()
 {
 	// Draw everything --------------------------------------	
 	App->render->Blit(graphics, 0, 0, &congratulations);
-	if (p > 70 ){
-		App->render->Blit(graphics_2, 81, 280, &credit);
+
+	if (App->input->keyboard[SDL_SCANCODE_1] == KEY_STATE::KEY_UP)
+	{
+		App->score->NUM_coins++;
 	}
-	App->fade->FadeToBlack(this, (Module*)App->level3, 2.0f);
-	if (p > 70){
-		if (App->input->keyboard[SDL_SCANCODE_1] == KEY_STATE::KEY_UP ||
-			App->input->keyboard[SDL_SCANCODE_SPACE] == KEY_STATE::KEY_UP)
-		{
-			App->fade->FadeToBlack(this, (Module*)App->level3, 2.0f);
-		}
+
+	if (App->input->keyboard[SDL_SCANCODE_SPACE] == KEY_STATE::KEY_UP && App->score->NUM_coins >= 1)
+	{
+		App->score->NUM_coins--;
+		App->fade->FadeToBlack(this, (Module*)App->level3, 2.0f);
 	}
-	p++;
 
 
 	return UPDATE_CONTINUE;

@@ -26,6 +26,7 @@ public:
 	SDL_Rect congratulations;
 	SDL_Rect credit;
 	Animation water;
+	bool issceen;
 	int p;
 };
 

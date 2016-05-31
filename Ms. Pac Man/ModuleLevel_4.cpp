@@ -108,7 +108,6 @@ bool ModuleLevel4::Start()
 	App->ghost_o->Isinmid = true;
 	App->ghost_p->Isinmid = true;
 	App->collision->Enable();
-	App->score->Enable();
 
 	p = 0;
 	//orange
